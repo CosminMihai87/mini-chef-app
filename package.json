@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
+    "@types/node-sass": "^4.11.2",
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
     "babel-plugin-named-asset-import": "^0.3.8",
@@ -17,6 +18,7 @@
     "browserslist": "^4.18.1",
     "camelcase": "^6.2.1",
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.2.0",
     "dotenv": "^10.0.0",
@@ -32,6 +34,7 @@
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
     "mini-css-extract-plugin": "^2.4.5",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^6.2.1",
@@ -49,18 +52,35 @@
     "semver": "^7.3.5",
     "source-map-loader": "^3.0.0",
     "style-loader": "^3.3.1",
+    "stylelint": "^14.8.1",
+    "stylelint-config-standard-scss": "^3.0.0",
     "tailwindcss": "^3.0.2",
     "terser-webpack-plugin": "^5.2.5",
+    "typescript": "^4.6.4",
+    "typescript-plugin-css-modules": "^3.4.0",
     "web-vitals": "^2.1.4",
     "webpack": "^5.64.4",
     "webpack-dev-server": "^4.6.0",
-    "webpack-manifest-plugin": "^4.0.2",
-    "workbox-webpack-plugin": "^6.4.1"
+    "webpack-manifest-plugin": "^4.0.2"
+  },
+  "devDependencies": {
+    "stylelint-webpack-plugin": "^3.2.0",
+    "webpack-cli": "^4.9.2"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "start": "cross-env NODE_ENV=development BABEL_ENV=development npm-run-all webpack-development",
+    "build": "cross-env NODE_ENV=production BABEL_ENV=production npm-run-all lint-check webpack-production",
+    "webpack-development": "webpack-dev-server --config ./config/webpack.config.js --mode development",
+    "webpack-production": "node --max_old_space_size=8192 ./node_modules/webpack/bin/webpack.js --config ./config/webpack.config.js --mode production",
+    "lint-check": "npm-run-all eslint-check stylelint-check",
+    "lint-fix": "npm-run-all eslint-fix stylelint-fix",
+    "eslint-check": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "eslint-fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
+    "stylelint-check": "stylelint \"src/**/*.{css,scss}\"",
+    "stylelint-fix": "stylelint --fix \"src/**/*..{css,scss}\"",
+    "test": "jest --verbose --updateSnapshot --coverage=false",
+    "test-coverage": "jest --coverage",
+    "test-single-file": "npx jest -u -- \"App.test.tsx\""
   },
   "eslintConfig": {
     "extends": [
