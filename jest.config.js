@@ -53,10 +53,20 @@ module.exports = {
     '!src/__tests__/__transformers__/*',
     '!src/__tests__/__mocks__/*'
   ],
+  coverageReporters: ['lcov'],
+  coverageDirectory: 'test-coverage',
+  coverageThreshold: {
+    global: {
+      branches: 0,
+      functions: 0,
+      lines: 0,
+      statements: 0
+    }
+  },
   setupFiles: [
-    "react-app-polyfill/jsdom"
+    'react-app-polyfill/jsdom'
   ],
   setupFilesAfterEnv: [
-    "<rootDir>/src/__tests__/setupTests.js"
+    '<rootDir>/src/__tests__/setupTests.js'
   ],
 };

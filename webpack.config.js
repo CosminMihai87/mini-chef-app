@@ -94,7 +94,7 @@ module.exports = {
   infrastructureLogging: {
     level: 'none',
   },
-  optimization: optimisation,
+  // optimization: optimisation,
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
   },
@@ -301,8 +301,8 @@ module.exports = {
     ),
     !isEnvDevelopment && 
       new MiniCssExtractPlugin({
-        filename: '[name].[contenthash:8].js',
-        chunkFilename: '[name].[contenthash:8].chunk.js'
+        filename: '[name].[contenthash:8].css',
+        chunkFilename: '[name].[contenthash:8].chunk.css'
       }),
     new WebpackManifestPlugin({
       fileName: 'asset-manifest.json',
