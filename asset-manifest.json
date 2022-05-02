@@ -1,13 +1,12 @@
 {
   "files": {
-    "main.css": "/mini-chef-app/main.2732a874.css",
-    "main.js": "/mini-chef-app/main.a91cea5f.js",
-    "favicon.ico": "/mini-chef-app/favicon.ico",
-    "index.html": "/mini-chef-app/index.html",
-    "App.module.scss": "/mini-chef-app/e1ea90354449589b3034.scss"
+    "main.css": "auto/main.14735ca4.css",
+    "main.js": "auto/main.343fd240.js",
+    "favicon.ico": "auto/favicon.ico",
+    "index.html": "auto/index.html"
   },
   "entrypoints": [
-    "main.2732a874.css",
-    "main.a91cea5f.js"
+    "main.14735ca4.css",
+    "main.343fd240.js"
   ]
 }
