@@ -31,18 +31,18 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "noImplicitReturns": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
   "exclude": [
-    "src/server",
     "node_modules"
   ],
   "include": [
     "./src/**/*.tsx",
-    "./src/**/*.ts"
-, "src/declarations.d.ts"  ]
+    "./src/**/*.ts",
+    "src/declarations.d.ts"
+  ]
 }

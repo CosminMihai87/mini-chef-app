@@ -1,2 +1,2 @@
 # mini-chef-app
-React Web-app to manage cooking recipes
+React web-app to manage cooking recipes
