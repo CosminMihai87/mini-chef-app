@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/mini-chef-app/main.77663bd3.css",
-    "main.js": "/mini-chef-app/main.802cce77.js",
+    "main.js": "/mini-chef-app/main.cab59af4.js",
     "assets/fonts/insight_web_light.ttf": "/mini-chef-app/assets/fonts/insight_web_light.80ddf2f1.ttf",
     "assets/fonts/insight_web_regular.ttf": "/mini-chef-app/assets/fonts/insight_web_regular.91166ed3.ttf",
     "assets/fonts/insight_web_bold.ttf": "/mini-chef-app/assets/fonts/insight_web_bold.ceca421a.ttf",
-    "assets/images/background-patern-50-percent.jpg": "/mini-chef-app/assets/images/background-patern-50-percent.d8171aa9.jpg",
+    "background-patern-50-percent.jpg": "/mini-chef-app/background-patern-50-percent.d8171aa9.jpg",
     "assets/fonts/insight_web_light.eot": "/mini-chef-app/assets/fonts/insight_web_light.35e1abc3.eot",
     "assets/fonts/insight_web_regular.eot": "/mini-chef-app/assets/fonts/insight_web_regular.b302f5e4.eot",
     "assets/fonts/insight_web_bold.eot": "/mini-chef-app/assets/fonts/insight_web_bold.7d73dffe.eot",
     "favicon.ico": "/mini-chef-app/favicon.ico",
-    "assets/images/logged-in-user-logo.png": "/mini-chef-app/assets/images/logged-in-user-logo.95d99c5f.png",
+    "logged-in-user-logo.png": "/mini-chef-app/logged-in-user-logo.95d99c5f.png",
     "index.html": "/mini-chef-app/index.html"
   },
   "entrypoints": [
     "main.77663bd3.css",
-    "main.802cce77.js"
+    "main.cab59af4.js"
   ]
 }
