@@ -10,6 +10,7 @@ const StylelintPlugin = require('stylelint-webpack-plugin');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ignoredFiles = require('react-dev-utils/ignoredFiles');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
+const getPublicUrlOrPath = require('react-dev-utils/getPublicUrlOrPath');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
@@ -19,11 +20,19 @@ const isEnvDevelopment = process.env.NODE_ENV === 'development';
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 const appPath =  resolveApp('.');
-const appBuildPath = resolveApp('build');
-const appHtmlPath = resolveApp('src/index.html');
-const appFaviconPath = resolveApp('src/assets/favicon.ico');
-const appNodeModulesPath = resolveApp('node_modules');
 const appSrcPath = resolveApp('src');
+const appHtmlPath = resolveApp('src/index.html');
+const appNodeModulesPath = resolveApp('node_modules');
+const appBuildPath = resolveApp('build');
+const appAssetsPath = resolveApp('src/assets');
+const appFaviconPath = resolveApp('src/assets/favicon.ico');
+
+//calcualtes the publicPath relative to 
+const publicUrlOrPath = getPublicUrlOrPath(
+  isEnvDevelopment,
+  require(resolveApp('package.json')).homepage,
+  process.env.PUBLIC_URL
+);
 
 // Optimisation
 const optimisation = isEnvDevelopment? {} : {
@@ -78,6 +87,8 @@ const getHttpsConfig = () => {
   return isHttps;
 }
 
+console.log(path.resolve(publicUrlOrPath,'/assets'));
+
 module.exports = {
   target: 'web',
   stats: 'errors-warnings',
@@ -89,12 +100,14 @@ module.exports = {
     filename: isEnvDevelopment? 'bundle.js' : '[name].[contenthash:8].js',
     chunkFilename: isEnvDevelopment? 'bundle.chunk.js' : '[name].[contenthash:8].chunk.js',
     path: appBuildPath,
+    publicPath: publicUrlOrPath,
+    assetModuleFilename: '[name].[hash:8][ext]',
     clean: true
   },
   infrastructureLogging: {
     level: 'none',
   },
-  // optimization: optimisation,
+  optimization: optimisation,
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
   },
@@ -103,15 +116,19 @@ module.exports = {
       {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
         type: 'asset',
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: 'assets/[name].[hash][ext]'
+        parser: {
+          dataUrlCondition: {
+            maxSize: 4 * 1024,
           }
-        }]
+        },
+        generator: {
+          publicPath: '',
+          outputPath: 'assets/images/'
+        }
       },
       {
         test: /\.svg$/,
+        type: 'asset',
         use: [
           {
             loader: require.resolve('@svgr/webpack'),
@@ -128,13 +145,25 @@ module.exports = {
           {
             loader: require.resolve('file-loader'),
             options: {
-              name: 'assets/[name].[hash][ext]',
+              name: 'assets/images/[name].[contenthash:8][ext]',
             },
           },
         ],
         issuer: {
           and: [/\.(ts|tsx|js|jsx|md|mdx)$/],
         },
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        type: 'asset',
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'assets/fonts/[name].[contenthash:8].[ext]'
+            }
+          }
+        ]
       },
       {
         test: /\.(ts|tsx)?$/,
@@ -306,6 +335,7 @@ module.exports = {
       }),
     new WebpackManifestPlugin({
       fileName: 'asset-manifest.json',
+      publicPath: publicUrlOrPath,
       generate: (seed, files, entrypoints) => {
         const manifestFiles = files.reduce((manifest, file) => {
           manifest[file.name] = file.path;
@@ -385,9 +415,11 @@ module.exports = {
     compress: true,
     historyApiFallback: true,
     hot: true,
+    open: ['/mini-chef-app'],
     liveReload: false,
     static: {
-      directory: appBuildPath,
+      directory: path.join(__dirname, 'assets'),
+      publicPath: [publicUrlOrPath],
       watch: {
         ignored: ignoredFiles(appSrcPath),
       }
