@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/mini-chef-app/main.77663bd3.css",
-    "main.js": "/mini-chef-app/main.cab59af4.js",
+    "main.css": "/mini-chef-app/main.475a9493.css",
+    "main.js": "/mini-chef-app/main.ff4d22e7.js",
     "assets/fonts/insight_web_light.ttf": "/mini-chef-app/assets/fonts/insight_web_light.80ddf2f1.ttf",
     "assets/fonts/insight_web_regular.ttf": "/mini-chef-app/assets/fonts/insight_web_regular.91166ed3.ttf",
     "assets/fonts/insight_web_bold.ttf": "/mini-chef-app/assets/fonts/insight_web_bold.ceca421a.ttf",
@@ -14,7 +14,7 @@
     "index.html": "/mini-chef-app/index.html"
   },
   "entrypoints": [
-    "main.77663bd3.css",
-    "main.cab59af4.js"
+    "main.475a9493.css",
+    "main.ff4d22e7.js"
   ]
 }
