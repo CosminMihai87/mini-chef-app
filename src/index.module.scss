@@ -1,0 +1,42 @@
+@font-face {
+  font-family: InsightWebBold;
+  src: url("./assets/font-styles/insight_web_bold.eot");
+  src: url("./assets/font-styles/insight_web_bold.eot?#iefix") format("embedded-opentype"), url("./assets/font-styles/insight_web_bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: InsightWebRegular;
+  src: url("./assets/font-styles/insight_web_regular.eot");
+  src: url("./assets/font-styles/insight_web_regular.eot?#iefix") format("embedded-opentype"), url("./assets/font-styles/insight_web_regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: InsightDisplayWebLight;
+  src: url("./assets/font-styles/insight_web_light.eot");
+  src: url("./assets/font-styles/insight_web_light.eot?#iefix") format("embedded-opentype"), url("./assets/font-styles/insight_web_light.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin: 1em;
+  font-family: InsightWebRegular, Verdana, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+body::after {
+  content: "";
+  background: url("./assets/images/background-patern-50-percent.jpg");
+  background-repeat: repeat;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}

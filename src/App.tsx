@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './App.module.scss';
+import Layout from './components/Layout';
 
 const App: React.FC = () => {
   return (
     <div className={styles.app}>
-      mini-chef-app merge CSSModules cu typescript ?
+      <Layout /> 
     </div>
   );
 };
