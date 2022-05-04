@@ -87,8 +87,6 @@ const getHttpsConfig = () => {
   return isHttps;
 }
 
-console.log(path.resolve(publicUrlOrPath,'/assets'));
-
 module.exports = {
   target: 'web',
   stats: 'errors-warnings',
@@ -101,7 +99,6 @@ module.exports = {
     chunkFilename: isEnvDevelopment? 'bundle.chunk.js' : '[name].[contenthash:8].chunk.js',
     path: appBuildPath,
     publicPath: publicUrlOrPath,
-    assetModuleFilename: '[name].[hash:8][ext]',
     clean: true
   },
   infrastructureLogging: {
@@ -122,8 +119,7 @@ module.exports = {
           }
         },
         generator: {
-          publicPath: '',
-          outputPath: 'assets/images/'
+          filename: 'assets/images/[name].[hash:8][ext]'
         }
       },
       {
@@ -156,14 +152,9 @@ module.exports = {
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         type: 'asset',
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'assets/fonts/[name].[contenthash:8].[ext]'
-            }
-          }
-        ]
+        generator: {
+          filename: 'assets/fonts/[name].[hash:8][ext]'
+        }
       },
       {
         test: /\.(ts|tsx)?$/,
@@ -418,7 +409,7 @@ module.exports = {
     open: ['/mini-chef-app'],
     liveReload: false,
     static: {
-      directory: path.join(__dirname, 'assets'),
+      directory: appAssetsPath,
       publicPath: [publicUrlOrPath],
       watch: {
         ignored: ignoredFiles(appSrcPath),
