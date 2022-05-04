@@ -1,5 +1,6 @@
 /*
-  Custom Hook that levereges other Custom React Hooks to give us animation status in real-type and apply the desired transition css style based on these statuses 
+    Custom Hook that levereges other Custom React Hooks to give us animation status in real-type 
+  and apply the desired transition css style based on these statuses 
 */
 
 import React, {
