@@ -1,5 +1,37 @@
-// .page-footer {
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: flex-end;
-// }
+.page-footer {
+  padding: 2em;
+  display: flex;
+  justify-content: center;
+  background-color: #c0d6ae;
+  border-top: 2px solid black;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .links {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      width: 400px;
+
+      .link {
+        background-color: white;
+        border-radius: 50%;
+        border: 2px solid black;
+
+        >img {
+          width: 50px;
+          padding: 5px;
+        }
+      }
+    }
+
+    .signature {
+      padding-top: 1em;
+      font-family: InsightWebBold, Verdana, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+    }
+  }
+}

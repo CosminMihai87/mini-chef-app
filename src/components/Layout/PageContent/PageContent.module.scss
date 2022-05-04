@@ -1,3 +1,17 @@
-// .page-content {
-//   display: flex;
-// }
+.page-content {
+  margin: 1em;
+  flex: 1;
+}
+
+.page-content::after {
+  content: "";
+  background: url("../../../assets/images/background-patern-50-percent.jpg");
+  background-repeat: repeat;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
