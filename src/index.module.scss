@@ -26,4 +26,10 @@ body {
   margin: 0;
   font-family: InsightWebRegular, Verdana, Helvetica, Arial, sans-serif;
   font-size: 14px;
+  overflow: -moz-scrollbars-none;
+}
+
+// Google Chrome, Safari or newer versions of Opera
+body::-webkit-scrollbar {
+  width: 0 !important;
 }
