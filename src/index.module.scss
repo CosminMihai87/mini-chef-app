@@ -27,6 +27,13 @@ body {
   font-family: InsightWebRegular, Verdana, Helvetica, Arial, sans-serif;
   font-size: 14px;
   overflow: -moz-scrollbars-none;
+  height: 100vh;
+  background-image: url("./assets/images/background-patern-50-percent.jpg");
+  z-index: -1;
+
+  > div {
+    height: 100%;
+  }
 }
 
 // Google Chrome, Safari or newer versions of Opera

@@ -5,26 +5,29 @@
 
 import React, {
   useState,
-  useEffect
+  useEffect,
+  CSSProperties
 } from 'react';
 
 type AnimationStatus = 'ENTERING' | 'ENTERED' | 'EXITING' | 'EXITED';
 
 interface PropsFromState {
-  duration: number;
-  defaultStyle: React.CSSProperties;
+  delay: number;
+  defaultStyle: CSSProperties;
   transitionStyle: any;
   show: boolean;
   children: React.ReactNode
+  className: string
 }
 
 const UseTransitionAnimation: React.FC<PropsFromState> = props => {
   const { 
-    duration, 
+    delay, 
     defaultStyle, 
     transitionStyle, 
     show,
-    children 
+    children,
+    className
   } = { ...props};
 
   const status: {
@@ -36,16 +39,16 @@ const UseTransitionAnimation: React.FC<PropsFromState> = props => {
     EXITED: 'exited'
   };
 
-  //another custom Hook that based on duration, returns both state of type key of AnimationStatus( for example entering, entered, etc.) and it's setState
-  const useTransitionState = (duration: number) => {
+  //another custom Hook that based on delay, returns both state of type key of AnimationStatus( for example entering, entered, etc.) and it's setState
+  const useTransitionState = (delay: number) => {
     const [state, setState] = useState(status.EXITED);
 
     useEffect(() => {
       let timerId: ReturnType<typeof setTimeout>;
       if (state === status.ENTERING) {
-        timerId = setTimeout(()=> setState(status.ENTERED), duration);
+        timerId = setTimeout(()=> setState(status.ENTERED), delay);
       } else if ( state === status.EXITING) {
-        timerId = setTimeout(()=> setState(status.EXITED), duration);
+        timerId = setTimeout(()=> setState(status.EXITED), delay);
       }
 
       return () => {
@@ -56,9 +59,9 @@ const UseTransitionAnimation: React.FC<PropsFromState> = props => {
     return [state,  setState] as const;
   };
 
-  // and another custom Hook that uses the duration and the previous useTransitionState custom hook to output a state of type key of AnimationStatus
-  const useTransitionControl = (duration: number) => {
-    const [state, setState] = useTransitionState(duration);
+  // and another custom Hook that uses the delay and the previous useTransitionState custom hook to output a state of type key of AnimationStatus
+  const useTransitionControl = (delay: number) => {
+    const [state, setState] = useTransitionState(delay);
     const enter = () => {
       if (state !==  status.EXITING) {
         setState(status.ENTERING);
@@ -72,7 +75,7 @@ const UseTransitionAnimation: React.FC<PropsFromState> = props => {
     return [ state, enter, exit] as const;
   };
 
-  const [ state, enter, exit ] = useTransitionControl(duration);
+  const [ state, enter, exit ] = useTransitionControl(delay);
 
   const style = {
     ...defaultStyle,
@@ -85,6 +88,7 @@ const UseTransitionAnimation: React.FC<PropsFromState> = props => {
 
   return (
     <div
+      className={className}
       style={style}
     >
       { children }
