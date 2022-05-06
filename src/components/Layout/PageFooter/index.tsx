@@ -15,46 +15,49 @@ interface PageFooterInterface {
 // eslint-disable-next-line react/destructuring-assignment
 const PageFooter: React.FC<PageFooterInterface> = ({hitBottomOfPage, percentageScrolled}) => {
   const currentYear = new Date().getFullYear();
+  const displayFooter = percentageScrolled>=80 || hitBottomOfPage;
 
-  console.log(percentageScrolled);
-
-  return (
-    <UseTransitionAnimation
-      defaultStyle={{ 
-        display: 'none',
-        transform: 'translateX(100%)',
-        transition: 'transform 500ms ease-in-out'
-      }}
-      duration={300}
-      show={percentageScrolled>85}
-      transitionStyle={{
-        entering: {
-          display: 'block',
-          transform: 'translateX(100%)',
-          transition: 'transform 500ms ease-in-out'
-        },
-        entered: {
-          display: 'block',
-          transform: 'translateX(0)',
-          transition: 'transform 500ms ease-in-out'
-        },
-        exiting: {
-          display: 'block',
-          transform: 'translateX(100%)',
-          transition: 'transform 500ms ease-in-out'
-        },
-        exited: {
-          display: 'none',
-          transform: 'translateX(100%)',
-          transition: 'transform 500ms ease-in-out'
-        }
-      }}
-    >
-      <div className={styles['page-footer']}>
+  return ( 
+    <div className={`${styles['page-footer']} ${displayFooter && styles['animation']}`}>
+      <UseTransitionAnimation
+        className={styles['transition-wrapper']}
+        defaultStyle={{ 
+          opacity: 0,
+          visibility: 'hidden'
+        }}
+        delay={0}
+        show={displayFooter}
+        transitionStyle={{
+          entering: {
+            opacity: 1,
+            visibility: 'visible',
+            transform: `translateY(${percentageScrolled ===0 ? 100 : 50}%)`,
+            transition: 'all 1000ms ease-in-out',
+          },
+          entered: {
+            opacity: 1,
+            visibility: 'visible',
+            transform: 'translateY(0)',
+            transition: 'all 1000ms ease-in-out',
+          },
+          exiting: {
+            opacity: 0,
+            visibility: 'visible',
+            transform: `translateY(${percentageScrolled ===0 ? 100 : 50}%)`,
+            transition: 'all 1000ms ease-in-out',
+          },
+          exited: {
+            opacity: 0,
+            visibility: 'hidden',
+            transform:`translateY(${percentageScrolled ===0 ? 100 : 50}%)`,
+            transition: 'all 1000ms ease-in-out',
+          }
+        }}
+      >
         <div className={styles.content}>
           <div className={styles.links}>
-            <a 
-              className={styles.link}
+            <a
+              className={`${styles.link} ${displayFooter && styles.animation}`}
               href='https://linkedin.com/in/cosmin-mihai-62073448'
               target='new'
             > 
@@ -64,7 +67,7 @@ const PageFooter: React.FC<PageFooterInterface> = ({hitBottomOfPage, percentageS
               />
             </a>
             <a 
-              className={styles.link} 
+              className={`${styles.link} ${displayFooter && styles.animation}`}
               href='https://github.com/CosminMihai87'
               target='new'
             > 
@@ -74,7 +77,7 @@ const PageFooter: React.FC<PageFooterInterface> = ({hitBottomOfPage, percentageS
               />
             </a>
             <a 
-              className={styles.link}
+              className={`${styles.link} ${displayFooter && styles.animation}`}
               href=''
             > 
               <img 
@@ -83,7 +86,7 @@ const PageFooter: React.FC<PageFooterInterface> = ({hitBottomOfPage, percentageS
               />
             </a>
             <a 
-              className={styles.link}
+              className={`${styles.link} ${displayFooter && styles.animation}`}
               href='https://www.instagram.com/cos.min2612' 
               target='new'
             > 
@@ -93,7 +96,7 @@ const PageFooter: React.FC<PageFooterInterface> = ({hitBottomOfPage, percentageS
               />
             </a>
             <a 
-              className={styles.link}
+              className={`${styles.link} ${displayFooter && styles.animation}`}
               href='https://www.facebook.com/mihai.cosmin.37' 
               target='new'
             > 
@@ -108,8 +111,8 @@ const PageFooter: React.FC<PageFooterInterface> = ({hitBottomOfPage, percentageS
             © {currentYear} Cosmin Mihai - <a href='mailto:cosmin.mihai2612@gmail.com'>Contact</a>
           </span>
         </div>
-      </div>
-    </UseTransitionAnimation>
+      </UseTransitionAnimation>
+    </div>
   );
 };
 

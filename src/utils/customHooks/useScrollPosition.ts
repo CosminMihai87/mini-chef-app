@@ -61,9 +61,10 @@ function useScrollPosition<T extends HTMLElement = HTMLElement>(
   }
 
   const handler = (event: Event) => {
+    const percentage = elementRef.current ? Math.round((window.scrollY * 100) / (elementRef.current.scrollHeight - window.innerHeight)) : 0;
     setState({
-      hitBottomOfPage: elementRef.current ? (elementRef.current.scrollHeight - window.scrollY !== window.innerHeight? false : true ) : false,
-      percentageScrolled: elementRef.current ? Math.round((window.scrollY * 100) / (elementRef.current.scrollHeight - window.innerHeight)) : 0,
+      hitBottomOfPage: (percentage >= 100 ? 100 : percentage) === 100,
+      percentageScrolled: percentage >= 100 ? 100 : percentage
     });
   };
 

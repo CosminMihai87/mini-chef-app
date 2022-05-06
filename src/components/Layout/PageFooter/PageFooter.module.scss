@@ -1,38 +1,116 @@
+/* stylelint-disable */
 .page-footer {
   margin: 0;
-  padding: 2em;
+  padding: 1em 0;
   display: flex;
   justify-content: center;
-  background-color: #c0d6ae;
-  border-top: 2px solid black;
+  border-top: 2px solid #353434;
+  background-size: 200% 100%;
+  background-image: linear-gradient(to left, #353434 50%, #c0d6ae 50%); 
 
-  .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  &.animation {
+    animation: progressbar 1s ease-in-out;
+  }
 
-    .links {
+  .transition-wrapper {
+    width: 100%;
+
+    .content {
       display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      width: 400px;
+      flex-direction: column;
+      align-items: center;
 
-      .link {
-        background-color: white;
-        border-radius: 50%;
-        border: 2px solid black;
+      .links {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 400px;
 
-        >img {
-          width: 50px;
-          padding: 5px;
+        .link {
+          background-color: white;
+          border-radius: 50%;
+          border: 2px solid #353434;
+
+          &.animation {
+            animation: jello 0.9s both;
+          }
+
+          &:nth-child(1) {
+            animation-delay: 1s;
+          }
+
+          &:nth-child(2) {
+            animation-delay: 1050ms;
+          }
+
+          &:nth-child(3) {
+            animation-delay: 1100ms;
+          }
+
+          &:nth-child(4) {
+            animation-delay: 1150ms;
+          }
+
+          &:nth-child(5) {
+            animation-delay: 1200ms;
+          }
+
+          :hover {
+            animation: jello 0.9s both;
+          }
+
+          >img {
+            width: 50px;
+            padding: 5px;
+          }
         }
       }
-    }
 
-    .signature {
-      padding-top: 1em;
-      font-family: InsightWebBold, Verdana, Helvetica, Arial, sans-serif;
-      font-size: 16px;
+      .signature {
+        padding-top: 1em;
+        font-family: InsightWebBold, Verdana, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        align-self: center;
+      }
     }
+  }
+}
+
+@keyframes jello {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+
+  75% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes progressbar {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 0 0;
   }
 }

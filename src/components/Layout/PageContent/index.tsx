@@ -14,6 +14,7 @@ const PageContent: React.FC = () => {
       and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
  
 
+        {/* <h1>a</h1> 
         <h1>a</h1> 
         <h1>a</h1> 
         <h1>a</h1> 
@@ -28,8 +29,7 @@ const PageContent: React.FC = () => {
         <h1>a</h1> 
         <h1>a</h1> 
         <h1>a</h1> 
-        <h1>a</h1> 
-        <h1>a</h1> 
+        <h1>a</h1>  */}
 
 
       </span>
