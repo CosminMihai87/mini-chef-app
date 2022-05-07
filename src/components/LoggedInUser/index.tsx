@@ -1,14 +1,24 @@
 import React from 'react';
 import styles from './LoggedInUser.module.scss';
-import loggedInUserLogo from '../../assets/images/logged-in-user-logo.png';
+import FwButton from '../../utils/templates/Button';
+// import loggedInUserLogo from '../../assets/images/logged-in-user-logo.png';
 
 const LoggedInUser: React.FC = () => {
   return (
     <div className={styles['logged-in-user']}>
-      <img 
-        alt='Logged in user Icon placeholder'
-        src={loggedInUserLogo}
-      />
+      <FwButton
+        id='btnLoggedInUser'
+        onClick={()=>{
+          console.log('clicked');
+        }}
+        tooltipText={'User Settings'}
+      >
+        User Settings
+        {/* <img 
+          alt='Logged in user Icon placeholder'
+          src={loggedInUserLogo}
+        /> */}
+      </FwButton>
     </div>
   );
 };

@@ -1,0 +1,19 @@
+// Generic colors
+$fw-white: white;
+$fw-black: black;
+$fw-default-text: #464646;
+
+// Generic Theme colors
+$fw-primary: #c0d6ae; // #0066b4;
+$fw-secondary: darken($fw-primary, 6.5%);// #00518f;
+$fw-border: #464646;
+$fw-primary-disabled: #9a9a9a;
+$fw-secondary-disabled: #dedede;
+
+// Generic Button colors
+$fw-btn-primary: $fw-primary;
+$fw-btn-secondary: $fw-secondary;
+$fw-btn-hover: darken($fw-secondary, 6.5%);
+$fw-btn-border: $fw-border;
+$fw-btn-primary-disabled: $fw-primary-disabled;
+$fw-btn-secondary-disabled: $fw-secondary-disabled;

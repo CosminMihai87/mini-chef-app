@@ -383,7 +383,7 @@ module.exports = {
         extends: [require.resolve('eslint-config-react-app/base')]
       },
     }),
-    new StylelintPlugin()
+    new StylelintPlugin() //{fix: true}
   ].filter(Boolean),
   devServer: {
     allowedHosts: 'all',
