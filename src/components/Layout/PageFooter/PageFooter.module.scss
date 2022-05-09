@@ -1,12 +1,14 @@
-/* stylelint-disable */
+@import "../../../assets/stylesheets/_variables.scss";
+
 .page-footer {
   margin: 0;
-  padding: 1em 0;
+  padding: 0.5em 0;
   display: flex;
   justify-content: center;
-  border-top: 2px solid #353434;
+  border-top: 2px solid $fw-default-text;
   background-size: 200% 100%;
-  background-image: linear-gradient(to left, #353434 50%, #c0d6ae 50%); 
+  background-image: linear-gradient(to left, $fw-default-text 50%, $fw-primary 50%);
+  z-index: 0;
 
   &.animation {
     animation: progressbar 1s ease-in-out;
@@ -24,11 +26,11 @@
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
-        width: 450px;
+        width: 400px;
       }
 
       .signature {
-        padding-top: 1em;
+        padding-top: 0.5em;
         font-family: InsightWebBold, Verdana, Helvetica, Arial, sans-serif;
         font-size: 14px;
         align-self: center;
@@ -71,6 +73,7 @@
   0% {
     background-position: -100% 0;
   }
+
   100% {
     background-position: 0 0;
   }

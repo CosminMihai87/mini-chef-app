@@ -3,11 +3,11 @@ import React, {
   RefObject
 } from 'react';
 import styles from './PageFooter.module.scss';
-import linkedInLogo from '../../../assets/images/linked-in-logo.png';
-import gitLogo from '../../../assets/images/git-logo.png';
-import twitterLogo from '../../../assets/images/twitter-logo.png';
-import instagramLogo from '../../../assets/images/instagram-logo.png';
-import facebookLogo from '../../../assets/images/facebook-logo.png';
+import linkedInLogo from '../../../assets/images/social-media/linked-in-logo.png';
+import gitLogo from '../../../assets/images/social-media/git-logo.png';
+import twitterLogo from '../../../assets/images/social-media/twitter-logo.png';
+import instagramLogo from '../../../assets/images/social-media/instagram-logo.png';
+import facebookLogo from '../../../assets/images/social-media/facebook-logo.png';
 import UseTransitionAnimation from '../../../utils/customHooks/useTransitionAnimation';
 import FwButton from '../../../utils/templates/Button';
 import {
@@ -46,26 +46,30 @@ const PageFooter: React.FC<PageFooterInterface> = ({hitBottomOfPage, percentageS
           entering: {
             opacity: 1,
             visibility: 'visible',
-            transform: `translateY(${percentageScrolled ===0 ? 100 : 50}%)`,
-            transition: 'all 1000ms ease-in-out',
+            // transform: `translateY(${percentageScrolled ===0 ? 100 : 50}%)`,
+            transform: 'translateX(100%)',
+            transition: 'all 1000ms ease-in-out'
           },
           entered: {
             opacity: 1,
             visibility: 'visible',
-            transform: 'translateY(0)',
-            transition: 'all 1000ms ease-in-out',
+            // transform: 'translateY(0)',
+            transform: 'translateX(0)',
+            transition: 'all 1000ms ease-in-out'
           },
           exiting: {
             opacity: 0,
             visibility: 'visible',
-            transform: `translateY(${percentageScrolled ===0 ? 100 : 50}%)`,
-            transition: 'all 1000ms ease-in-out',
+            // transform: `translateY(${percentageScrolled ===0 ? 100 : 50}%)`,
+            transform: 'translateX(100%)',
+            transition: 'all 1000ms ease-in-out'
           },
           exited: {
             opacity: 0,
             visibility: 'hidden',
-            transform:`translateY(${percentageScrolled ===0 ? 100 : 50}%)`,
-            transition: 'all 1000ms ease-in-out',
+            // transform:`translateY(${percentageScrolled ===0 ? 100 : 50}%)`,
+            transform: 'translateX(100%)',
+            transition: 'all 1000ms ease-in-out'
           }
         }}
       >
@@ -147,9 +151,11 @@ const PageFooter: React.FC<PageFooterInterface> = ({hitBottomOfPage, percentageS
               />
             </FwButton>
           </div>
-          <span className={styles.signature}>
-            © {currentYear} Cosmin Mihai - <a href='mailto:cosmin.mihai2612@gmail.com'>Contact</a>
-          </span>
+          <div className={styles.signature}>
+            <span>
+              © {currentYear} Cosmin Mihai - <a href='mailto:cosmin.mihai2612@gmail.com'>Contact</a>
+            </span>
+          </div>
         </div>
       </UseTransitionAnimation>
     </div>

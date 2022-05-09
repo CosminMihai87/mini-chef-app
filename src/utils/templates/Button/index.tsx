@@ -10,7 +10,7 @@ import ReactTooltip from 'react-tooltip';
 import styles from './FwButton.module.scss';
  
 type buttonType = 'button' | 'submit' | 'reset' | undefined;
-type animationType = 'progress' | 'jello' | undefined;
+type animationType = 'progress' | 'jello' | 'pulse' | undefined;
 
 interface FwButtonProps {
   isDisabled?: boolean,
@@ -41,11 +41,13 @@ const FwButton:FC<FwButtonProps> = (props) => {
     children = undefined,
   } = {...props};
   const ref = useRef<HTMLButtonElement>(innerRef as HTMLButtonElement | null);
+  const isChildAnImage = children?.type === 'img';
 
   const handleBtnClick = (e: MouseEvent) => {
     onClick(e);
     ReactTooltip.hide(ref.current as Element | undefined);
   };
+
 
   return (
     <>
@@ -66,6 +68,10 @@ const FwButton:FC<FwButtonProps> = (props) => {
         id={id}
         onClick={(e: MouseEvent) => handleBtnClick(e)}
         ref={ref}
+        style={isChildAnImage? {
+          borderRadius: '50%',
+          padding: '0.5em'
+        }:{}}
         type={type}
       >
         {children}

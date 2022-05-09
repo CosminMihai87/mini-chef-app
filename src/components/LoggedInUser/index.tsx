@@ -19,6 +19,7 @@ const LoggedInUser: React.FC = () => {
           return; 
         }}
         tooltipText='User Settings'
+        variant='secondary'
       >
         <img 
           alt='Logged in user Icon placeholder'

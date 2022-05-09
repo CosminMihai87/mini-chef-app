@@ -1,6 +1,44 @@
+@import "../../../assets/stylesheets/_variables.scss";
+
 .page-header {
-  margin: 1em;
+  margin: 0;
+  padding: 0.5em;
+  border-bottom: 2px solid $fw-default-text;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  background-color: $fw-primary;
+
+  .app-details {
+    flex: 1;
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 1em;
+    animation: tracking-in-expand 1s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+
+    .app-name {
+      font-size: 40px;
+    }
+
+    .app-details {
+      font-size: 20px;
+      animation-delay: 2s;
+    }
+  }
+}
+
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
