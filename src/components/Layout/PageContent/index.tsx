@@ -12,7 +12,17 @@ const PageContent: React.FC = () => {
         }} 
         variant='primary'
       >
-        <span>Test Button</span>
+        <span>Primary Button</span>
+      </FwButton>
+      <br/> 
+      <FwButton
+        animation='progress'
+        onClick={()=>{
+          return ; 
+        }} 
+        variant='secondary'
+      >
+        <span>Secondary Button</span>
       </FwButton>
 
       {/* <h1>a</h1>

@@ -2,12 +2,13 @@
 
 .fw-button {
   height: auto;
+  min-height: 40px;
   width: auto;
   font-family: InsightWebBold, Arial, sans-serif !important;
   font-size: 14px;
   display: flex;
   align-items: center;
-  border-radius: 2rem;
+  border-radius: 2px;
   padding: 0.5em 1em;
 
   &:hover,
@@ -43,7 +44,7 @@
 
   &.primary {
     color: $fw-default-text;
-    border: 2px solid $fw-btn-border;
+    border: 1px solid $fw-btn-border;
     background-size: 200% 100%;
     background-image: linear-gradient(to left, $fw-btn-hover 50%, $fw-btn-primary 50%);
     box-shadow:
@@ -59,7 +60,7 @@
 
     &:focus {
       background-color: $fw-btn-primary;
-      border: 2px solid $fw-btn-secondary;
+      border: 1px solid $fw-btn-secondary;
       color: $fw-white;
       box-shadow: inset 0 0 0 2px $fw-white;
     }
@@ -67,30 +68,31 @@
     &.is-disabled {
       color: $fw-btn-secondary-disabled;
       background-color: $fw-btn-primary-disabled;
-      border: 2px solid $fw-btn-secondary-disabled;
+      border: 1px solid $fw-btn-secondary-disabled;
     }
   }
 
   &.secondary {
-    color: $fw-btn-secondary;
+    color: $fw-btn-primary;
+    border: 1px solid $fw-btn-border;
     background-size: 200% 100%;
-    background-image: linear-gradient(to left, $fw-btn-primary 50%, $fw-white 50%);
+    background-image: linear-gradient(to right, $fw-white 50%, $fw-btn-primary 50%);
     box-shadow:
-      inset 0 -0.3em 0.5em -0.15em $fw-btn-secondary,
+      inset 0 -0.3em 0.5em -0.15em $fw-btn-primary,
       inset 0 0.3em 1em -0.15em rgb(255 255 255 / 53%),
       inset 0 0 0 0.05em rgb(255 255 255 / 50%);
 
     &:hover,
     &:active {
-      color: $fw-btn-hover;
+      color: $fw-primary;
       border-color: $fw-btn-hover;
     }
 
     &:focus {
       background-color: $fw-btn-primary;
-      border: 2px solid $fw-btn-secondary;
+      border: 1px solid $fw-btn-secondary;
       color: $fw-btn-secondary;
-      box-shadow: inset 0 0 10px $fw-btn-secondary;
+      box-shadow: inset 0 0 10px $fw-btn-primary;
     }
 
     &.is-disabled {
