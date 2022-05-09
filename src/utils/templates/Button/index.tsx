@@ -2,65 +2,70 @@ import {
   FC,
   RefObject,
   useRef,
-  MouseEvent
+  MouseEvent,
+  MutableRefObject
 } from 'react';
 import { Button } from 'react-bootstrap';
 import ReactTooltip from 'react-tooltip';
 import styles from './FwButton.module.scss';
  
 type buttonType = 'button' | 'submit' | 'reset' | undefined;
-
-type T = HTMLElement;
+type animationType = 'progress' | 'jello' | undefined;
 
 interface FwButtonProps {
   isDisabled?: boolean,
   id?: string,
-  innerRef?: RefObject<T>,
-  onClick: (e: MouseEvent<HTMLButtonElement, MouseEvent>) => void,
+  innerRef?: MutableRefObject<RefObject<HTMLButtonElement> | null>,
+  onClick: (e: MouseEvent) => void,
   tooltipText?: string,
   tooltipTextPlacement?: string,
+  tooltipType?: string,
   type?: buttonType,
   variant?: string,
-  children: any
+  children: React.ReactElement<HTMLParagraphElement | HTMLHeadElement>
+  animation?: animationType
 }
 
 const FwButton:FC<FwButtonProps> = (props) => {
   const {
     isDisabled = false,
     id = undefined,
-    innerRef = undefined,
+    innerRef = null,
     onClick,
     tooltipText = '',
-    tooltipTextPlacement = '',
+    tooltipTextPlacement = 'bottom',
+    tooltipType = 'dark',
     type = 'button',
     variant = 'primary',
-    children = undefined
+    animation = 'progress',
+    children = undefined,
   } = {...props};
-  const ref = useRef<RefObject<T> | undefined>(innerRef? innerRef : undefined);
+  const ref = useRef<HTMLButtonElement>(innerRef as HTMLButtonElement | null);
 
-  const handleBtnClick = (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleBtnClick = (e: MouseEvent) => {
     onClick(e);
-    ReactTooltip.hide(ref.current as HTMLElement | undefined);
+    ReactTooltip.hide(ref.current as Element | undefined);
   };
 
   return (
     <>
       <Button
         className={`
-          ${styles['fw-button']} 
-          ${styles[`${variant}`]} 
-          ${isDisabled? styles['is-disabled']: '' }
+          ${styles['fw-button']}
+          ${styles[`${variant}`]}
+          ${isDisabled? styles['is-disabled']: ''}
+          ${styles[`animation-${animation}`]} 
         `}
         data-delay-hide='50'
         data-delay-show='300'
         data-for={`${id}_tooltip`}
         data-place={tooltipTextPlacement}
         data-tip={tooltipText}
-        data-type='dark'
+        data-type={tooltipType}
         disabled={isDisabled}
         id={id}
-        onClick={(e: any) => handleBtnClick(e)}
-        // ref={ref}
+        onClick={(e: MouseEvent) => handleBtnClick(e)}
+        ref={ref}
         type={type}
       >
         {children}

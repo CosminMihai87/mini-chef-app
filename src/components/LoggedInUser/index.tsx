@@ -1,23 +1,29 @@
-import React from 'react';
+import React, { 
+  useRef,
+  RefObject
+} from 'react';
 import styles from './LoggedInUser.module.scss';
 import FwButton from '../../utils/templates/Button';
-// import loggedInUserLogo from '../../assets/images/logged-in-user-logo.png';
+import loggedInUserLogo from '../../assets/images/logged-in-user-logo.png';
 
 const LoggedInUser: React.FC = () => {
+  const btnLoggedInUserRef = useRef<RefObject<HTMLButtonElement> | null>(null);
+
   return (
     <div className={styles['logged-in-user']}>
       <FwButton
+        animation='progress'
         id='btnLoggedInUser'
+        innerRef={btnLoggedInUserRef}
         onClick={()=>{
-          console.log('clicked');
+          return; 
         }}
-        tooltipText={'User Settings'}
+        tooltipText='User Settings'
       >
-        User Settings
-        {/* <img 
+        <img 
           alt='Logged in user Icon placeholder'
           src={loggedInUserLogo}
-        /> */}
+        />
       </FwButton>
     </div>
   );
