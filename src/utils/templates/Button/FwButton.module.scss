@@ -19,7 +19,6 @@
   &:focus-visible {
     outline: none;
     box-sizing: border-box;
-    border-radius: 2rem;
   }
 
   &.animation-progress {
@@ -31,6 +30,14 @@
   &.animation-jello {
     &:hover {
       animation: jello 0.5s both;
+    }
+  }
+
+  &.animation-pulse {
+    animation: pulse 2s infinite;
+
+    &:hover {
+      animation: none;
     }
   }
 
@@ -135,5 +142,19 @@
 
   100% {
     transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 $fw-default-text;
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px $fw-primary;
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 $fw-secondary;
   }
 }
