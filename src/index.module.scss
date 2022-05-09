@@ -6,7 +6,9 @@ body {
   font-size: 14px;
   overflow: -moz-scrollbars-none;
   height: 100vh;
-  background-image: url("./assets/images/background-patern-50-percent.jpg");
+  background-image: url("./assets/images/backgrounds/dark.jpg");
+  background-size: cover;
+  background-position: center;
   z-index: -1;
 
   > div {
