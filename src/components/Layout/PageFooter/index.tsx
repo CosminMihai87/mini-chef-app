@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {
+  useRef,
+  RefObject
+} from 'react';
 import styles from './PageFooter.module.scss';
 import linkedInLogo from '../../../assets/images/linked-in-logo.png';
 import gitLogo from '../../../assets/images/git-logo.png';
@@ -6,6 +9,13 @@ import twitterLogo from '../../../assets/images/twitter-logo.png';
 import instagramLogo from '../../../assets/images/instagram-logo.png';
 import facebookLogo from '../../../assets/images/facebook-logo.png';
 import UseTransitionAnimation from '../../../utils/customHooks/useTransitionAnimation';
+import FwButton from '../../../utils/templates/Button';
+import {
+  LINKED_IN_URL,
+  GIT_URL,
+  INSTAGRAM_URL,
+  FACEBOOK_URL
+} from '../../../utils/constants';
 
 interface PageFooterInterface {
   hitBottomOfPage: boolean,
@@ -16,6 +26,11 @@ interface PageFooterInterface {
 const PageFooter: React.FC<PageFooterInterface> = ({hitBottomOfPage, percentageScrolled}) => {
   const currentYear = new Date().getFullYear();
   const displayFooter = percentageScrolled>=80 || hitBottomOfPage;
+  const btnLinkedIn = useRef<RefObject<HTMLButtonElement> | null>(null);
+  const btnGit = useRef<RefObject<HTMLButtonElement> | null>(null);
+  const btnTwitter = useRef<RefObject<HTMLButtonElement> | null>(null);
+  const btnInstagram = useRef<RefObject<HTMLButtonElement> | null>(null);
+  const btnFacebook = useRef<RefObject<HTMLButtonElement> | null>(null);
 
   return ( 
     <div className={`${styles['page-footer']} ${displayFooter && styles['animation']}`}>
@@ -56,56 +71,81 @@ const PageFooter: React.FC<PageFooterInterface> = ({hitBottomOfPage, percentageS
       >
         <div className={styles.content}>
           <div className={styles.links}>
-            <a
-              className={`${styles.link} ${displayFooter && styles.animation}`}
-              href='https://linkedin.com/in/cosmin-mihai-62073448'
-              target='new'
-            > 
+            <FwButton
+              animation='jello'
+              id='btnLinkedInID'
+              innerRef={btnLinkedIn}
+              onClick={()=>{
+                window.open(LINKED_IN_URL,'_blank');
+              }}
+              tooltipText='LinkedIn'
+              variant='secondary'
+            >
               <img 
                 alt='LinkedIn Icon placeholder'
                 src={linkedInLogo}
               />
-            </a>
-            <a 
-              className={`${styles.link} ${displayFooter && styles.animation}`}
-              href='https://github.com/CosminMihai87'
-              target='new'
-            > 
+            </FwButton>
+            <FwButton
+              animation='jello'
+              id='btnGitID'
+              innerRef={btnGit}
+              onClick={()=>{
+                window.open(GIT_URL,'_blank');
+              }}
+              tooltipText='Git'
+              variant='secondary'
+            >
               <img 
                 alt='Git Icon placeholder'
                 src={gitLogo}
               />
-            </a>
-            <a 
-              className={`${styles.link} ${displayFooter && styles.animation}`}
-              href=''
-            > 
+            </FwButton>
+            <FwButton
+              animation='jello'
+              id='btTwitterID'
+              innerRef={btnTwitter}
+              onClick={()=>{
+                return;
+              }}
+              tooltipText='Twitter'
+              variant='secondary'
+            >
               <img 
                 alt='Twitter Icon placeholder'
                 src={twitterLogo}
               />
-            </a>
-            <a 
-              className={`${styles.link} ${displayFooter && styles.animation}`}
-              href='https://www.instagram.com/cos.min2612' 
-              target='new'
-            > 
+            </FwButton>
+            <FwButton
+              animation='jello'
+              id='btInstagramID'
+              innerRef={btnInstagram}
+              onClick={()=>{
+                window.open(INSTAGRAM_URL,'_blank');
+              }}
+              tooltipText='Instagram'
+              variant='secondary'
+            >
               <img 
                 alt='Instagram Icon placeholder'
                 src={instagramLogo}
               />
-            </a>
-            <a 
-              className={`${styles.link} ${displayFooter && styles.animation}`}
-              href='https://www.facebook.com/mihai.cosmin.37' 
-              target='new'
-            > 
+            </FwButton>
+            <FwButton
+              animation='jello'
+              id='btFacebookID'
+              innerRef={btnFacebook}
+              onClick={()=>{
+                window.open(FACEBOOK_URL,'_blank');
+              }}
+              tooltipText='Facebook'
+              variant='secondary'
+            >
               <img 
                 alt='Facebook Icon placeholder'
                 src={facebookLogo}
               />
-            </a>
-            
+            </FwButton>
           </div>
           <span className={styles.signature}>
             © {currentYear} Cosmin Mihai - <a href='mailto:cosmin.mihai2612@gmail.com'>Contact</a>

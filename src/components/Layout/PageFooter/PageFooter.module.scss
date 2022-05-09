@@ -24,46 +24,7 @@
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
-        width: 400px;
-
-        .link {
-          background-color: white;
-          border-radius: 50%;
-          border: 2px solid #353434;
-
-          &.animation {
-            animation: jello 0.9s both;
-          }
-
-          &:nth-child(1) {
-            animation-delay: 1s;
-          }
-
-          &:nth-child(2) {
-            animation-delay: 1050ms;
-          }
-
-          &:nth-child(3) {
-            animation-delay: 1100ms;
-          }
-
-          &:nth-child(4) {
-            animation-delay: 1150ms;
-          }
-
-          &:nth-child(5) {
-            animation-delay: 1200ms;
-          }
-
-          :hover {
-            animation: jello 0.9s both;
-          }
-
-          >img {
-            width: 50px;
-            padding: 5px;
-          }
-        }
+        width: 450px;
       }
 
       .signature {
