@@ -2,26 +2,26 @@
 $fw-white: white;
 $fw-black: black;
 
-// Generic Theme colors1(evergren)
-$fw-default-text: #464646;
-$fw-primary: #c0d6ae;
-$fw-secondary: darken($fw-primary, 6.5%);
-$fw-border: #464646;
-$fw-primary-disabled: #dedede;
-$fw-secondary-disabled: #9a9a9a;
-
-// Generic Theme colors2(neon)
+// Generic Light Theme(red)
 // $fw-default-text: #464646;
-// $fw-primary: #08fdd8;
-// $fw-secondary: darken($fw-primary, 6.5%);
-// $fw-border: $fw-black;
-// $fw-primary-disabled: #9a9a9a;
-// $fw-secondary-disabled: #dedede;
+// $fw-primary: #ff6e6e;
+// $fw-secondary: #fff0d9;
+// $fw-border: #464646;
+// $fw-primary-disabled: #dedede;
+// $fw-secondary-disabled: #9a9a9a;
+
+// Generic Dark Theme(neon)
+$fw-default-text: #464646;
+$fw-primary: #59bfaa;
+$fw-secondary: #0e2a47;
+$fw-border: $fw-secondary;
+$fw-primary-disabled: #9a9a9a;
+$fw-secondary-disabled: #dedede;
 
 // Generic Button colors
 $fw-btn-primary: $fw-primary;
 $fw-btn-secondary: $fw-secondary;
-$fw-btn-hover: darken($fw-secondary, 6.5%);
+$fw-btn-hover: $fw-secondary;
 $fw-btn-border: $fw-border;
 $fw-btn-primary-disabled: $fw-primary-disabled;
 $fw-btn-secondary-disabled: $fw-secondary-disabled;

@@ -5,9 +5,9 @@
   padding: 0.5em 0;
   display: flex;
   justify-content: center;
-  border-top: 2px solid $fw-default-text;
+  border-top: 2px solid transparent;
   background-size: 200% 100%;
-  background-image: linear-gradient(to left, $fw-default-text 50%, $fw-primary 50%);
+  background-image: linear-gradient(to left, $fw-default-text 50%, transparent 50%);
   z-index: 0;
 
   &.animation {
@@ -30,6 +30,7 @@
       }
 
       .signature {
+        color: $fw-primary;
         padding-top: 0.5em;
         font-family: InsightWebBold, Verdana, Helvetica, Arial, sans-serif;
         font-size: 14px;
