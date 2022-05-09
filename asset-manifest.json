@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/mini-chef-app/main.ad03d537.css",
-    "main.js": "/mini-chef-app/main.d36e1487.js",
+    "main.css": "/mini-chef-app/main.2a033df1.css",
+    "main.js": "/mini-chef-app/main.f1c8429c.js",
     "assets/fonts/insight_web_light.ttf": "/mini-chef-app/assets/fonts/insight_web_light.80ddf2f1.ttf",
     "assets/fonts/insight_web_regular.ttf": "/mini-chef-app/assets/fonts/insight_web_regular.91166ed3.ttf",
     "assets/fonts/insight_web_bold.ttf": "/mini-chef-app/assets/fonts/insight_web_bold.ceca421a.ttf",
@@ -12,13 +12,14 @@
     "favicon.ico": "/mini-chef-app/favicon.ico",
     "assets/images/git-logo.png": "/mini-chef-app/assets/images/git-logo.dde2d722.png",
     "assets/images/linked-in-logo.png": "/mini-chef-app/assets/images/linked-in-logo.e660ac34.png",
+    "assets/images/logged-in-user-logo.png": "/mini-chef-app/assets/images/logged-in-user-logo.95d99c5f.png",
     "assets/images/instagram-logo.png": "/mini-chef-app/assets/images/instagram-logo.f0697616.png",
     "assets/images/twitter-logo.png": "/mini-chef-app/assets/images/twitter-logo.ddcb28ba.png",
     "assets/images/facebook-logo.png": "/mini-chef-app/assets/images/facebook-logo.dfd5f8c5.png",
     "index.html": "/mini-chef-app/index.html"
   },
   "entrypoints": [
-    "main.ad03d537.css",
-    "main.d36e1487.js"
+    "main.2a033df1.css",
+    "main.f1c8429c.js"
   ]
 }
