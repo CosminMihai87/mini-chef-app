@@ -6,7 +6,7 @@ import styles from './LoggedInUser.module.scss';
 import FwButton from '../../utils/templates/Button';
 import loggedInUserLogo from '../../assets/images/logged-in-user-logo.png';
 
-const LoggedInUser: React.FC = () => {
+const Loading: React.FC = () => {
   const btnLoggedInUserRef = useRef<RefObject<HTMLButtonElement> | null>(null);
 
   return (
@@ -30,4 +30,4 @@ const LoggedInUser: React.FC = () => {
   );
 };
 
-export default LoggedInUser;
+export default Loading;

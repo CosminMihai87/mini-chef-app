@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './PageContent.module.scss';
 import FwButton from '../../../utils/templates/Button';
+import Loading from '../../Loading';
 
 const PageContent: React.FC = () => {
   return (
@@ -24,6 +25,7 @@ const PageContent: React.FC = () => {
       >
         <span>Secondary Button</span>
       </FwButton>
+      <Loading />
 
       {/* <h1>a</h1>
       <h1>a</h1>     
