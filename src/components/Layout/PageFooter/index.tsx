@@ -153,7 +153,7 @@ const PageFooter: React.FC<PageFooterInterface> = ({hitBottomOfPage, percentageS
           </div>
           <div className={styles.signature}>
             <span>
-              © {currentYear} Cosmin Mihai - <a href='mailto:cosmin.mihai2612@gmail.com'>Contact</a>
+              © {currentYear} Cosmin Mihai
             </span>
           </div>
         </div>

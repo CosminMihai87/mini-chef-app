@@ -1,5 +1,18 @@
 .page-content {
   margin: 1em;
   flex: 1;
-  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+  }
+
+  .suspense {
+    display: flex;
+    justify-content: center;
+    height: 300px;
+  }
 }
