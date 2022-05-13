@@ -11,8 +11,8 @@ import weeklyPlanLogo from '../../assets/images/side-navigation/weekly-plan-logo
 import shoppingCartLogo from '../../assets/images/side-navigation/shopping-cart-logo.png';
 import calendarLogo from '../../assets/images/side-navigation/calendar-logo.png';
 import fridgeLogo from '../../assets/images/side-navigation/fridge-logo.png';
-import FwButton from '../../utils/templates/Button';
-import UseTransitionAnimation from '../../utils/customHooks/useTransitionAnimation';
+import FwButton from '../../shared/templates/Button';
+import UseTransitionAnimation from '../../shared/customHooks/useTransitionAnimation';
 
 const SideNavigation: React.FC = () => {
   const btnSideNavigationRef = useRef<RefObject<HTMLButtonElement> | null>(null);
