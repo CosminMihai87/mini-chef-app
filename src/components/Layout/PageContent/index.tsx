@@ -1,5 +1,6 @@
 import React, {
   useCallback,
+  useEffect,
   useState
 } from 'react';
 import styles from './PageContent.module.scss';
@@ -28,6 +29,10 @@ const PageContent: React.FC = () => {
   const [categoryToAdd, setCategoryToAdd] = useState<string>('');
   const [keyToDelete, setKeyToDelete] = useState<string>('');
   const [logs, setLogs] = useState<Log[]>([]);
+
+  useEffect(()=> {
+    getIngredientsList(logs, false);
+  },[])
 
   const getIngredientsList = useCallback((logs: Log[], writeLog = true) => {
     const requestHeader = {
