@@ -5,7 +5,7 @@ import styles from './Layout.module.scss';
 import PageContent from './PageContent';
 import PageFooter from './PageFooter';
 import PageHeader from './PageHeader';
-import UseScrollPosition from '../../utils/customHooks/useScrollPosition';
+import UseScrollPosition from '../../shared/customHooks/useScrollPosition';
 
 const Layout: React.FC = () => {
   const pageLayoutRef = useRef<HTMLHeadingElement>(null);

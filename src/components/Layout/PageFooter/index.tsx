@@ -8,14 +8,14 @@ import gitLogo from '../../../assets/images/social-media/git-logo.png';
 import twitterLogo from '../../../assets/images/social-media/twitter-logo.png';
 import instagramLogo from '../../../assets/images/social-media/instagram-logo.png';
 import facebookLogo from '../../../assets/images/social-media/facebook-logo.png';
-import UseTransitionAnimation from '../../../utils/customHooks/useTransitionAnimation';
-import FwButton from '../../../utils/templates/Button';
+import UseTransitionAnimation from '../../../shared/customHooks/useTransitionAnimation';
+import FwButton from '../../../shared/templates/Button';
 import {
   LINKED_IN_URL,
   GIT_URL,
   INSTAGRAM_URL,
   FACEBOOK_URL
-} from '../../../utils/constants';
+} from '../../../shared/constants';
 
 interface PageFooterInterface {
   hitBottomOfPage: boolean,

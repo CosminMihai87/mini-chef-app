@@ -3,7 +3,7 @@ import React, {
   RefObject
 } from 'react';
 import styles from './LoggedInUser.module.scss';
-import FwButton from '../../utils/templates/Button';
+import FwButton from '../../shared/templates/Button';
 import loggedInUserLogo from '../../assets/images/logged-in-user-logo.png';
 
 const Loading: React.FC = () => {
