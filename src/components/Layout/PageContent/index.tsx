@@ -32,7 +32,7 @@ const PageContent: React.FC = () => {
 
   useEffect(()=> {
     getIngredientsList(logs, false);
-  },[])
+  },[]);
 
   const getIngredientsList = useCallback((logs: Log[], writeLog = true) => {
     const requestHeader = {
