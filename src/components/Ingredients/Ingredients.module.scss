@@ -1,0 +1,71 @@
+.ingredients {
+  margin: 1em;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .crud-test {
+    width: 60%;
+    display: flex;
+    justify-content: space-evenly;
+
+    .add,
+    .delete {
+      color: #59bfaa;
+      display: flex;
+      flex-direction: column;
+
+      .form {
+        .name,
+        .category {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+  }
+
+  .logs {
+    max-height: 100px;
+    width: 60%;
+    color: #59bfaa;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: scroll;
+
+    .info {
+      color: #59bfaa;
+    }
+
+    .warning {
+      color: yellow;
+    }
+
+    .error {
+      color: red;
+    }
+  }
+
+  .table {
+    width: 60%;
+    background-color: black;
+    border: 2px solid #59bfaa;
+    color: #59bfaa;
+    font-size: 18px;
+
+    .thead {
+      border-bottom: 2px solid #59bfaa;
+    }
+
+    .tbody {
+      .tr {
+        .td {
+          text-align: center;
+        }
+      }
+    }
+  }
+}

@@ -1,11 +1,13 @@
-import React from 'react';
+import { 
+  FC
+} from 'react';
 import styles from './App.module.scss';
 import Layout from './components/Layout';
 
-const App: React.FC = () => {
+const App: FC = () => {
   return (
     <div className={styles.app}>
-      <Layout /> 
+      <Layout />
     </div>
   );
 };
