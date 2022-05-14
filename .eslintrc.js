@@ -95,6 +95,7 @@ module.exports = {
       "@typescript-eslint/no-unused-vars": "off",
       "@typescript-eslint/ban-ts-comment": "warn",
       "@typescript-eslint/semi": "error",
+      "@typescript-eslint/no-empty-interface": "warn",
       "jest/no-disabled-tests": "warn",
       "jest/no-focused-tests": "error",
       "jest/no-identical-title": "error",
