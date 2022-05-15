@@ -23,7 +23,6 @@ root.render(
     <Routes>
       <Route element={<App />} path='/'>
         <Route element={<Home />} index />
-        <Route element={<Home />} path='/*' />
         <Route element={<Home />} path='/home' />
         <Route element={<RecipeBook />} path='/recipe-book' />
         <Route element={<Recipe />} path='/recipe' />

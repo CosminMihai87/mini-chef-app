@@ -27,7 +27,7 @@ const SideNavigation: React.FC = () => {
   const btnFridgeRef = useRef<RefObject<HTMLButtonElement> | null>(null);
 
   useEffect(()=>{
-    !navOpen && navigate('/home', { replace: true });
+    !navOpen && navigate('/', { replace: true });
   },[navOpen]);
 
   return (
