@@ -8,7 +8,7 @@ const App: FC = () => {
   return (
     <div className={styles.app}>
       <Layout />
-    </div>
+    </div> 
   );
 };
 

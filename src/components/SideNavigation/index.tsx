@@ -1,8 +1,10 @@
 import React, { 
   useRef,
   RefObject,
-  useState
+  useState,
+  useEffect
 } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './SideNavigation.module.scss';
 import sideNavOpenLogo from '../../assets/images/side-navigation/side-navigation-open-logo.png';
 import sideNavClosedLogo from '../../assets/images/side-navigation/side-navigation-closed-logo.png';
@@ -15,6 +17,7 @@ import FwButton from '../../shared/templates/Button';
 import UseTransitionAnimation from '../../shared/customHooks/useTransitionAnimation';
 
 const SideNavigation: React.FC = () => {
+  const navigate = useNavigate();
   const btnSideNavigationRef = useRef<RefObject<HTMLButtonElement> | null>(null);
   const [navOpen, setNavOpen] = useState(false);
   const btnRecipeBookRef = useRef<RefObject<HTMLButtonElement> | null>(null);
@@ -22,6 +25,10 @@ const SideNavigation: React.FC = () => {
   const btnShoppingCartRef = useRef<RefObject<HTMLButtonElement> | null>(null);
   const btnCalendarRef = useRef<RefObject<HTMLButtonElement> | null>(null);
   const btnFridgeRef = useRef<RefObject<HTMLButtonElement> | null>(null);
+
+  useEffect(()=>{
+    !navOpen && navigate('/home', { replace: true });
+  },[navOpen]);
 
   return (
     <div className={styles['side-navigation']}>
@@ -72,94 +79,104 @@ const SideNavigation: React.FC = () => {
       >
         <div className={styles['side-navigation-panel']}>
           <div className={styles['side-navigation-button']}>
-            <FwButton
-              animation='progress'
-              id='btnRecipeBook'
-              innerRef={btnRecipeBookRef}
-              onClick={()=>{
-                return;
-              }}
-              tooltipText='Recipe Book'
-              tooltipTextPlacement='right'
-              variant='secondary'
-            >
-              <img 
-                alt='Recipe Book Icon placeholder'
-                src={recipeBookLogo}
-              />
-            </FwButton>
+            <Link to='/recipe-book'>
+              <FwButton
+                animation='progress'
+                id='btnRecipeBook'
+                innerRef={btnRecipeBookRef}
+                onClick={()=>{
+                  return;
+                }}
+                tooltipText='Recipe Book'
+                tooltipTextPlacement='right'
+                variant='secondary'
+              >
+                <img 
+                  alt='Recipe Book Icon placeholder'
+                  src={recipeBookLogo}
+                />
+              </FwButton>
+            </Link>
           </div>
           <div className={styles['side-navigation-button']}>
-            <FwButton
-              animation='progress'
-              id='btnWeeklyPlan'
-              innerRef={btnWeeklyPlanRef}
-              onClick={()=>{
-                return;
-              }}
-              tooltipText='Weekly Plan'
-              tooltipTextPlacement='right'
-              variant='secondary'
-            >
-              <img 
-                alt='Weekly Plan Icon placeholder'
-                src={weeklyPlanLogo}
-              />
-            </FwButton>
+            <Link to='/weekly-plan'>
+              <FwButton
+                animation='progress'
+                id='btnWeeklyPlan'
+                innerRef={btnWeeklyPlanRef}
+                onClick={()=>{
+                  return;
+                }}
+                tooltipText='Weekly Plan'
+                tooltipTextPlacement='right'
+                variant='secondary'
+              >
+                <img 
+                  alt='Weekly Plan Icon placeholder'
+                  src={weeklyPlanLogo}
+                />
+              </FwButton>
+            </Link>
           </div>
           <div className={styles['side-navigation-button']}>
-            <FwButton
-              animation='progress'
-              id='btnShoppingCart'
-              innerRef={btnShoppingCartRef}
-              onClick={()=>{
-                return;
-              }}
-              tooltipText='Shopping Cart'
-              tooltipTextPlacement='right'
-              variant='secondary'
-            >
-              <img 
-                alt='Shopping Cart Icon placeholder'
-                src={shoppingCartLogo}
-              />
-            </FwButton>
+            <Link to='/shopping-card'>
+              <FwButton
+                animation='progress'
+                id='btnShoppingCart'
+                innerRef={btnShoppingCartRef}
+                onClick={()=>{
+                  return;
+                }}
+                tooltipText='Shopping Cart'
+                tooltipTextPlacement='right'
+                variant='secondary'
+              >
+                <img 
+                  alt='Shopping Cart Icon placeholder'
+                  src={shoppingCartLogo}
+                />
+              </FwButton>
+            </Link>
           </div>
           <div className={styles['side-navigation-button']}>
-            <FwButton
-              animation='progress'
-              id='btnCallendar'
-              innerRef={btnCalendarRef}
-              onClick={()=>{
-                return;
-              }}
-              tooltipText='Calendar'
-              tooltipTextPlacement='right'
-              variant='secondary'
-            >
-              <img 
-                alt='Calendar Icon placeholder'
-                src={calendarLogo}
-              />
-            </FwButton>
+            <Link to='/calendar'>
+              <FwButton
+                animation='progress'
+                id='btnCallendar'
+                innerRef={btnCalendarRef}
+                onClick={()=>{
+                  return;
+                }}
+                tooltipText='Calendar'
+                tooltipTextPlacement='right'
+                variant='secondary'
+              >
+                <img 
+                  alt='Calendar Icon placeholder'
+                  src={calendarLogo}
+                />
+              </FwButton>
+            </Link>
           </div>
           <div className={styles['side-navigation-button']}>
-            <FwButton
-              animation='progress'
-              id='btnFridge'
-              innerRef={btnFridgeRef}
-              onClick={()=>{
-                return;
-              }}
-              tooltipText='Fridge'
-              tooltipTextPlacement='right'
-              variant='secondary'
-            >
-              <img 
-                alt='Fridge Icon placeholder'
-                src={fridgeLogo}
-              />
-            </FwButton>
+            <Link to='/fridge'>
+              <FwButton
+                animation='progress'
+                id='btnFridge'
+                innerRef={btnFridgeRef}
+                onClick={()=>{
+                  return;
+                }}
+                tooltipText='Fridge'
+                tooltipTextPlacement='right'
+                variant='secondary'
+              >
+                <img 
+                  alt='Fridge Icon placeholder'
+                  src={fridgeLogo}
+                />
+              </FwButton>
+            </Link>
           </div>
         </div> 
       </UseTransitionAnimation>
