@@ -1,6 +1,7 @@
 import React, {
   useRef
 } from 'react';
+import { Outlet } from 'react-router-dom';
 import styles from './Layout.module.scss';
 import PageContent from './PageContent';
 import PageFooter from './PageFooter';
@@ -14,7 +15,9 @@ const Layout: React.FC = () => {
   return (
     <div className={styles.layout} ref={pageLayoutRef}>
       <PageHeader />
-      <PageContent />
+      <PageContent>
+        <Outlet />
+      </PageContent>
       <PageFooter 
         hitBottomOfPage={scrollData?.hitBottomOfPage} 
         percentageScrolled={scrollData?.percentageScrolled} 
