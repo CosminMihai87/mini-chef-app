@@ -9,8 +9,10 @@ import FwButton from '../../shared/templates/Button';
 import axios from '../../shared/axiosInstance';
 import { firebaseConfig } from '../../shared/constants';
 import { Form, Table } from 'react-bootstrap';
+import FWDropdown from '../../shared/templates/Dropdown';
 
 interface IIngredient {
+  key?: string,
   name: string,
   category: string
 }
@@ -221,6 +223,12 @@ const Ingredients: FC = (props) => {
             ))}
           </tbody>: null} 
       </Table> 
+      <br/> 
+      <div className={styles['ingredients-dropdown']}>
+        <FWDropdown
+          options={[{id: '1', text: '1'}, {id:'1', text: '2'}]}
+        />
+      </div>
     </div>
   );
 };

@@ -48,7 +48,6 @@ const FwButton:FC<FwButtonProps> = (props) => {
     ReactTooltip.hide(ref.current as Element | undefined);
   };
 
-
   return (
     <>
       <Button
