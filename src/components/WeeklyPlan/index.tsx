@@ -9,7 +9,7 @@ const WeeklyPlan: FC<IWeeklyPlanProps> = (props) => {
 
   return (
     <div className={styles['weekly-plan']}>
-      WeeklyPlan
+      <h1>WeeklyPlan</h1>
     </div>
   );
 };

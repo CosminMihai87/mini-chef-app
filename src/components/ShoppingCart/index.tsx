@@ -9,7 +9,7 @@ const ShoppingCart: FC<IShoppingCartProps> = (props) => {
 
   return (
     <div className={styles['shopping-cart']}>
-      ShoppingCart
+      <h1>ShoppingCart</h1>
     </div>
   );
 };

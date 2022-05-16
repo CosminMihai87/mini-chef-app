@@ -1,7 +1,10 @@
 import React, {
   useRef,
-  RefObject
+  RefObject,
+  useEffect,
+  useState
 } from 'react';
+import { useLocation } from 'react-router-dom';
 import styles from './PageFooter.module.scss';
 import linkedInLogo from '../../../assets/images/social-media/linked-in-logo.png';
 import gitLogo from '../../../assets/images/social-media/git-logo.png';
@@ -22,15 +25,28 @@ interface PageFooterInterface {
   percentageScrolled: number
 }
 
-// eslint-disable-next-line react/destructuring-assignment
-const PageFooter: React.FC<PageFooterInterface> = ({hitBottomOfPage, percentageScrolled}) => {
+const PageFooter: React.FC<PageFooterInterface> = (props) => {
+  const { 
+    hitBottomOfPage, 
+    percentageScrolled 
+  } = {...props};
+  const location = useLocation();
   const currentYear = new Date().getFullYear();
-  const displayFooter = percentageScrolled>=80 || hitBottomOfPage;
+  const [displayFooter, setDisplayFooter] = useState(true);
   const btnLinkedIn = useRef<RefObject<HTMLButtonElement> | null>(null);
   const btnGit = useRef<RefObject<HTMLButtonElement> | null>(null);
   const btnTwitter = useRef<RefObject<HTMLButtonElement> | null>(null);
   const btnInstagram = useRef<RefObject<HTMLButtonElement> | null>(null);
   const btnFacebook = useRef<RefObject<HTMLButtonElement> | null>(null);
+
+  useEffect(()=>{
+    setDisplayFooter(percentageScrolled>=80 || hitBottomOfPage);
+  },[percentageScrolled, hitBottomOfPage]);
+  
+  useEffect(()=>{
+    setDisplayFooter(true);
+  },[location]);
+
 
   return ( 
     <div className={`${styles['page-footer']} ${displayFooter && styles['animation']}`}>
@@ -46,28 +62,24 @@ const PageFooter: React.FC<PageFooterInterface> = ({hitBottomOfPage, percentageS
           entering: {
             opacity: 1,
             visibility: 'visible',
-            // transform: `translateY(${percentageScrolled ===0 ? 100 : 50}%)`,
             transform: 'translateX(100%)',
             transition: 'all 1000ms ease-in-out'
           },
           entered: {
             opacity: 1,
             visibility: 'visible',
-            // transform: 'translateY(0)',
             transform: 'translateX(0)',
             transition: 'all 1000ms ease-in-out'
           },
           exiting: {
             opacity: 0,
             visibility: 'visible',
-            // transform: `translateY(${percentageScrolled ===0 ? 100 : 50}%)`,
             transform: 'translateX(100%)',
             transition: 'all 1000ms ease-in-out'
           },
           exited: {
             opacity: 0,
             visibility: 'hidden',
-            // transform:`translateY(${percentageScrolled ===0 ? 100 : 50}%)`,
             transform: 'translateX(100%)',
             transition: 'all 1000ms ease-in-out'
           }

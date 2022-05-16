@@ -1,5 +1,14 @@
+@import "../../assets/stylesheets/_variables.scss";
+
 .home {
+  color: $fw-primary;
   width: 100%;
+  min-height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+
+  >h1 {
+    text-align: center;
+  }
 }

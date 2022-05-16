@@ -4,11 +4,13 @@ body {
   margin: 0;
   font-family: InsightWebRegular, Verdana, Helvetica, Arial, sans-serif;
   font-size: 14px;
-  overflow: -moz-scrollbars-none;
-  height: 100vh;
+  // overflow: -moz-scrollbars-none;
+  height: 100%;
   background-image: url("./assets/images/backgrounds/dark.jpg");
+  background-color: $fw-black;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   z-index: -1;
 
   > div {
@@ -19,4 +21,8 @@ body {
 // Google Chrome, Safari or newer versions of Opera
 body::-webkit-scrollbar {
   width: 0 !important;
+}
+
+html {
+  height: 100%;
 }

@@ -8,7 +8,7 @@ export interface IRecipeBookProps {}
 const RecipeBook: FC<IRecipeBookProps> = (props) =>{
   return (
     <div className={styles['recipe-book']}>
-      RecipeBook
+      <h1>RecipeBook</h1>
     </div>
   );
 };

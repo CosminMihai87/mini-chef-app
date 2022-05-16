@@ -4,11 +4,11 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  padding: 0.5em;
 
   .side-navigation-panel {
     display: flex;
     flex-direction: column;
-    // height: 80vh;
     background-color: transparent;
     border-radius: 0 0 0.5em;
     position: absolute;
@@ -20,7 +20,7 @@
       padding: 0.5em;
       display: flex;
 
-      > button {
+      >a > button {
         &:focus {
           &::after {
             content: "";
@@ -29,7 +29,7 @@
             border-radius: 5px;
             height: 50px;
             position: absolute;
-            left: 90%;
+            left: 85%;
             animation: grow 0.5s forwards;
           }
         }

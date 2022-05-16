@@ -9,7 +9,7 @@ const Calendar: FC<ICalendarProps> = (props) => {
 
   return (
     <div className={styles.calendar}>
-      Calendar
+      <h1>Calendar</h1>
     </div>
   );
 };

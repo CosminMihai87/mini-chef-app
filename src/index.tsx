@@ -19,7 +19,7 @@ import Calendar from './components/Calendar';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-<BrowserRouter basename='mini-chef-app'>
+  <BrowserRouter basename='mini-chef-app'>
     <Routes>
       <Route element={<App />} path='/'>
         <Route element={<Home />} index />

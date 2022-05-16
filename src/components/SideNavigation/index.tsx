@@ -40,6 +40,7 @@ const SideNavigation: React.FC = () => {
           return setNavOpen(!navOpen); 
         }}
         tooltipText={navOpen? 'Close' : 'Side Navigation'}
+        tooltipTextPlacement='right'
         variant='secondary'
       >
         <img 
@@ -88,7 +89,7 @@ const SideNavigation: React.FC = () => {
                   return;
                 }}
                 tooltipText='Recipe Book'
-                tooltipTextPlacement='right'
+                tooltipTextPlacement='top'
                 variant='secondary'
               >
                 <img 
@@ -108,7 +109,7 @@ const SideNavigation: React.FC = () => {
                   return;
                 }}
                 tooltipText='Weekly Plan'
-                tooltipTextPlacement='right'
+                tooltipTextPlacement='top'
                 variant='secondary'
               >
                 <img 
@@ -128,7 +129,7 @@ const SideNavigation: React.FC = () => {
                   return;
                 }}
                 tooltipText='Shopping Cart'
-                tooltipTextPlacement='right'
+                tooltipTextPlacement='top'
                 variant='secondary'
               >
                 <img 
@@ -148,7 +149,7 @@ const SideNavigation: React.FC = () => {
                   return;
                 }}
                 tooltipText='Calendar'
-                tooltipTextPlacement='right'
+                tooltipTextPlacement='top'
                 variant='secondary'
               >
                 <img 
@@ -168,7 +169,7 @@ const SideNavigation: React.FC = () => {
                   return;
                 }}
                 tooltipText='Fridge'
-                tooltipTextPlacement='right'
+                tooltipTextPlacement='top'
                 variant='secondary'
               >
                 <img 
