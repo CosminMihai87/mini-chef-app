@@ -33,7 +33,6 @@ const Ingredients: FC = (props) => {
   const [keyToDelete, setKeyToDelete] = useState<string>('');
   const [logs, setLogs] = useState<ILog[]>([]);
   const [selectedIngredient, setSelectedIngredient] = useState<string | undefined>();
-  console.log(selectedIngredient);
 
   useEffect(()=> {
     getIngredientsList(logs, false);
@@ -232,6 +231,17 @@ const Ingredients: FC = (props) => {
             options={Object.keys(ingredientsList).map((k:any) => {
               return { id: k, text:`${ingredientsList[k].name}(${ingredientsList[k].category})`} as IFWDropdownOption; 
             } ) }
+            selectedOption={selectedIngredient}
+            setSelectedOption={setSelectedIngredient}
+            variant='primary'
+          /> 
+        }
+        {ingredientsList!==null && Object.keys(ingredientsList).length>0 &&
+          <FWDropdown
+            options={Object.keys(ingredientsList).map((k:any) => {
+              return { id: k, text:`${ingredientsList[k].name}(${ingredientsList[k].category})`} as IFWDropdownOption; 
+            } ) }
+            selectedOption={selectedIngredient}
             setSelectedOption={setSelectedIngredient}
             variant='secondary'
           /> 

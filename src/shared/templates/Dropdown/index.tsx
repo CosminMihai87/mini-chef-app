@@ -2,7 +2,8 @@ import {
   FC,
   useState,
   MouseEvent,
-  useEffect
+  Dispatch,
+  SetStateAction
 } from 'react';
 import styles from './FwDropdown.module.scss';
 import { Dropdown } from 'react-bootstrap';
@@ -16,8 +17,8 @@ interface IFWDropdownProps {
   isDisabled?: boolean,
   id?: string,
   options: IFWDropdownOption[],
-  selectedOption?: string,
-  setSelectedOption: any
+  selectedOption: string | undefined,
+  setSelectedOption: Dispatch<SetStateAction<string | undefined>>
   animation?: animationType
   variant?: string,
 }
@@ -39,22 +40,12 @@ const FWDropdown: FC<IFWDropdownProps> = (props) => {
   } = {...props};
   const [expandedDropdown, setExpandedDropdown] = useState(false);
 
-  useEffect(()=>{
-    console.log(expandedDropdown);
-  },[expandedDropdown]);
-
   const handleOptionClick = (e: MouseEvent<HTMLElement>) => {
-    const foundItem:IFWDropdownOption | undefined = options.find((opt: IFWDropdownOption) => opt.text === (e.target as HTMLElement).innerText);
-    setSelectedOption(foundItem!==undefined ? foundItem.id : '');
+    setSelectedOption(options?.find((opt: IFWDropdownOption) => opt.text=== (e.target as HTMLElement).innerText)?.id);
   };
 
   const handleToggleClick = () => {
     !isDisabled && setExpandedDropdown(!expandedDropdown);
-  };
-
-  const findValueInOptions = (options:IFWDropdownOption[], key:string) => {
-    const found:IFWDropdownOption | undefined = options.find((opt: IFWDropdownOption) => opt.id === key);
-    return found!==undefined ? found.text : undefined;
   };
 
   return (
@@ -71,22 +62,22 @@ const FWDropdown: FC<IFWDropdownProps> = (props) => {
         `}
         disabled={isDisabled}
         id={id}
-      > 
-        <>
-          {findValueInOptions(options, selectedOption)}
-          {expandedDropdown ? <ChevronUpSVG /> :  <ChevronDownSVG />}
-        </>
+      >
+        {options?.find((t:IFWDropdownOption)=> t.id===selectedOption)?.text}
+        {expandedDropdown ? <ChevronUpSVG /> :  <ChevronDownSVG />}
       </Dropdown.Toggle>
       <Dropdown.Menu
         className={`
           ${styles['fw-dropdown-menu']}
-          ${styles[`${variant}`]}
+          ${!expandedDropdown ? `${styles.hide}` : ''}
         `}
       >
         {options && options.map((item: IFWDropdownOption) => (
           <Dropdown.Item
             className={`
               ${styles['fw-dropdown-item']}
+              ${styles[`${variant}`]}
+              ${styles[`animation-${animation}`]}
               ${selectedOption && selectedOption === item.id && styles['fw-dropdown-item-selected']}
             `}
             key={options.indexOf(item)}
