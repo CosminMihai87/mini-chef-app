@@ -9,7 +9,7 @@ import FwButton from '../../shared/templates/Button';
 import axios from '../../shared/axiosInstance';
 import { firebaseConfig } from '../../shared/constants';
 import { Form, Table } from 'react-bootstrap';
-import FWDropdown from '../../shared/templates/Dropdown';
+import FWDropdown, { IFWDropdownOption } from '../../shared/templates/Dropdown';
 
 interface IIngredient {
   key?: string,
@@ -32,6 +32,8 @@ const Ingredients: FC = (props) => {
   const [categoryToAdd, setCategoryToAdd] = useState<string>('');
   const [keyToDelete, setKeyToDelete] = useState<string>('');
   const [logs, setLogs] = useState<ILog[]>([]);
+  const [selectedIngredient, setSelectedIngredient] = useState<string | undefined>();
+  console.log(selectedIngredient);
 
   useEffect(()=> {
     getIngredientsList(logs, false);
@@ -225,9 +227,15 @@ const Ingredients: FC = (props) => {
       </Table> 
       <br/> 
       <div className={styles['ingredients-dropdown']}>
-        <FWDropdown
-          options={[{id: '1', text: '1'}, {id:'1', text: '2'}]}
-        />
+        {ingredientsList!==null && Object.keys(ingredientsList).length>0 &&
+          <FWDropdown
+            options={Object.keys(ingredientsList).map((k:any) => {
+              return { id: k, text:`${ingredientsList[k].name}(${ingredientsList[k].category})`} as IFWDropdownOption; 
+            } ) }
+            setSelectedOption={setSelectedIngredient}
+            variant='secondary'
+          /> 
+        }
       </div>
     </div>
   );
