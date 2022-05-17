@@ -123,31 +123,9 @@ module.exports = {
         }
       },
       {
-        test: /\.svg$/,
-        type: 'asset',
-        use: [
-          {
-            loader: require.resolve('@svgr/webpack'),
-            options: {
-              prettier: false,
-              svgo: false,
-              svgoConfig: {
-                plugins: [{ removeViewBox: false }],
-              },
-              titleProp: true,
-              ref: true,
-            },
-          },
-          {
-            loader: require.resolve('file-loader'),
-            options: {
-              name: 'assets/images/[name].[contenthash:8][ext]',
-            },
-          },
-        ],
-        issuer: {
-          and: [/\.(ts|tsx|js|jsx|md|mdx)$/],
-        },
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        use: ['@svgr/webpack'],
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
