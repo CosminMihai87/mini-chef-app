@@ -228,8 +228,9 @@ const Ingredients: FC = (props) => {
       <div className={styles['ingredients-dropdown']}>
         {ingredientsList!==null && Object.keys(ingredientsList).length>0 &&
           <FWDropdown
+            activateSearch={true}
             options={Object.keys(ingredientsList).map((k:any) => {
-              return { id: k, text:`${ingredientsList[k].name}(${ingredientsList[k].category})`} as IFWDropdownOption; 
+              return { id: k, text:`${ingredientsList[k].name} (${ingredientsList[k].category})`} as IFWDropdownOption; 
             } ) }
             selectedOption={selectedIngredient}
             setSelectedOption={setSelectedIngredient}
@@ -239,7 +240,7 @@ const Ingredients: FC = (props) => {
         {ingredientsList!==null && Object.keys(ingredientsList).length>0 &&
           <FWDropdown
             options={Object.keys(ingredientsList).map((k:any) => {
-              return { id: k, text:`${ingredientsList[k].name}(${ingredientsList[k].category})`} as IFWDropdownOption; 
+              return { id: k, text:`${ingredientsList[k].name} (${ingredientsList[k].category})`} as IFWDropdownOption; 
             } ) }
             selectedOption={selectedIngredient}
             setSelectedOption={setSelectedIngredient}
