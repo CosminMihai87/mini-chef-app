@@ -10,6 +10,7 @@ import axios from '../../shared/axiosInstance';
 import { firebaseConfig } from '../../shared/constants';
 import { Form, Table } from 'react-bootstrap';
 import FWDropdown, { IFWDropdownOption } from '../../shared/templates/Dropdown';
+import FWCheckBoxList from '../../shared/templates/CheckboxList';
 
 interface IIngredient {
   key?: string,
@@ -33,6 +34,15 @@ const Ingredients: FC = (props) => {
   const [keyToDelete, setKeyToDelete] = useState<string>('');
   const [logs, setLogs] = useState<ILog[]>([]);
   const [selectedIngredient, setSelectedIngredient] = useState<string | undefined>();
+  const [selectedIngredients, setSelectedIngredients] = useState<any>();
+
+  useEffect(()=> {
+    ingredientsList!==null &&
+    Object.keys(ingredientsList).length>0 &&
+    setSelectedIngredients(Object.keys(ingredientsList).map((k:any) => {
+      return { id: k, text:`${ingredientsList[k].name} (${ingredientsList[k].category})`, checked: false, disabled: false} as IFWDropdownOption; 
+    }));
+  },[ingredientsList]);
 
   useEffect(()=> {
     getIngredientsList(logs, false);
@@ -245,6 +255,15 @@ const Ingredients: FC = (props) => {
             selectedOption={selectedIngredient}
             setSelectedOption={setSelectedIngredient}
             variant='secondary'
+          /> 
+        }
+      </div>
+      <br/> 
+      <div className={styles['ingredients-checkbox-list']}>
+        {ingredientsList!==null && Object.keys(ingredientsList).length>0 &&
+          <FWCheckBoxList
+            options={selectedIngredients}
+            setOptions={setSelectedIngredients}
           /> 
         }
       </div>
