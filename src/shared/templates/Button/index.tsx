@@ -16,7 +16,7 @@ interface FwButtonProps {
   isDisabled?: boolean,
   id?: string,
   innerRef?: MutableRefObject<RefObject<HTMLButtonElement> | null>,
-  onClick: (e: MouseEvent) => void,
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void,
   tooltipText?: string,
   tooltipTextPlacement?: string,
   tooltipType?: string,
@@ -43,7 +43,7 @@ const FwButton:FC<FwButtonProps> = (props) => {
   const ref = useRef<HTMLButtonElement>(innerRef as HTMLButtonElement | null);
   const isChildAnImage = children?.type === 'img';
 
-  const handleBtnClick = (e: MouseEvent) => {
+  const handleBtnClick = (e: MouseEvent<HTMLButtonElement>) => {
     onClick(e);
     ReactTooltip.hide(ref.current as Element | undefined);
   };
@@ -65,7 +65,7 @@ const FwButton:FC<FwButtonProps> = (props) => {
         data-type={tooltipType}
         disabled={isDisabled}
         id={id}
-        onClick={(e: MouseEvent) => handleBtnClick(e)}
+        onClick={(e: MouseEvent<HTMLButtonElement>) => handleBtnClick(e)}
         ref={ref}
         style={isChildAnImage? {
           borderRadius: '50%',
