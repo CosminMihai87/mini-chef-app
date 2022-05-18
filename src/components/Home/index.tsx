@@ -10,8 +10,7 @@ export interface IHomeProps {}
 const Home: FC<IHomeProps> = (props) => {
 
   return (
-    <div className={styles['home']}>
-      <h1> Temporary Landing Page </h1>
+    <div className={styles['home']}> 
       <Ingredients />
       <Outlet />
     </div>

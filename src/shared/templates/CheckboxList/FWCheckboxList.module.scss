@@ -1,0 +1,47 @@
+@import "../../../assets/stylesheets/_variables.scss";
+
+.fw-checkbox-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+
+  &.column {
+    flex-direction: column;
+    gap: 0.2em;
+  }
+
+  &.row {
+    flex-direction: row;
+    gap: 1.5em;
+  }
+
+  .fw-checkbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    gap: 0.1em;
+
+    .fw-checkbox-label {
+      flex: 1;
+      font-family: InsightWebRegular, Arial, sans-serif;
+      font-size: 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .fw-checkbox-box {
+      margin-left: auto;
+      width: 20px;
+      height: 20px;
+
+      &.checked {
+        filter: drop-shadow(0 0 0.5rem $fw-primary);
+      }
+    }
+  }
+}
