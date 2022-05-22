@@ -22,7 +22,7 @@ root.render(
   <BrowserRouter basename='mini-chef-app'>
     <Routes>
       <Route element={<App />} path='/'>
-        <Route element={<Home />} index />
+        <Route element={<RecipeBook />} index />
         <Route element={<Home />} path='/home' />
         <Route element={<RecipeBook />} path='/recipe-book' />
         <Route element={<Recipe />} path='/recipe' />

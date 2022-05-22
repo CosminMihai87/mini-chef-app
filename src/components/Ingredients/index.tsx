@@ -10,7 +10,7 @@ import axios from '../../shared/axiosInstance';
 import { firebaseConfig } from '../../shared/constants';
 import { Form, Table } from 'react-bootstrap';
 import FWDropdown, { IFWDropdownOption } from '../../shared/templates/Dropdown';
-import FWCheckBoxList from '../../shared/templates/CheckboxList';
+import FwCheckBoxList from '../../shared/templates/CheckboxList';
 
 interface IIngredient {
   key?: string,
@@ -261,7 +261,7 @@ const Ingredients: FC = (props) => {
       <br/> 
       <div className={styles['ingredients-checkbox-list']}>
         {ingredientsList!==null && Object.keys(ingredientsList).length>0 &&
-          <FWCheckBoxList
+          <FwCheckBoxList
             options={selectedIngredients}
             setOptions={setSelectedIngredients}
           /> 
