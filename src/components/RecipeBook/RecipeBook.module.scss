@@ -1,7 +1,104 @@
+@import "../../assets/stylesheets/_variables.scss";
+
 .recipe-book {
-  color: #59bfaa;
+  width: 100%;
+  height: 100%;
+  color: $fw-primary;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  border-radius: 0.5em;
+  gap: 0.5em;
+
+  .recipe-book-left {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5em;
+
+    .title {
+      font-size: 24px;
+    }
+
+    .buttons-and-filters {
+      display: flex;
+      flex-direction: row;
+      gap: 1em;
+
+      .title {
+        font-size: 20px;
+        border: 0;
+
+        &:hover {
+          color: lighten($fw-primary, 20%);
+          text-decoration: underline overline;
+        }
+      }
+
+      .filter-by {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-right: 2px solid $fw-primary;
+        padding-right: 1em;
+
+        button {
+          align-self: flex-end;
+        }
+      }
+
+      .scope {
+        display: flex;
+        flex-direction: column;
+        border-right: 2px solid $fw-primary;
+        padding-right: 1em;
+      }
+
+      .tags {
+        display: flex;
+        flex-direction: column;
+        border-right: 2px solid $fw-primary;
+        padding-right: 1em;
+      }
+
+      .manage {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-right: 1em;
+      }
+    }
+
+    .preview {
+      width: 100%;
+      height: 100%;
+      border: 1px solid $fw-primary;
+      border-radius: 0.5em;
+    }
+  }
+
+  .recipe-book-right {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 1em;
+    gap: 0.5em;
+
+    .search {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      button {
+        padding: 2px !important;
+      }
+    }
+
+    .list {
+      width: 100%;
+      height: 100%;
+      border: 1px solid $fw-primary;
+      border-radius: 0.5em;
+    }
+  }
 }
