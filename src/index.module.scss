@@ -2,10 +2,12 @@
 
 body {
   margin: 0;
+  position: fixed;
   font-family: InsightWebRegular, Verdana, Helvetica, Arial, sans-serif;
   font-size: 14px;
-  // overflow: -moz-scrollbars-none;
+  overflow: -moz-scrollbars-none;
   height: 100%;
+  width: 100%;
   background-image: url("./assets/images/backgrounds/dark.jpg");
   background-color: $fw-black;
   background-size: cover;
@@ -15,6 +17,7 @@ body {
 
   > div {
     height: 100%;
+    width: 100%;
   }
 }
 
@@ -25,4 +28,5 @@ body::-webkit-scrollbar {
 
 html {
   height: 100%;
+  width: 100%;
 }
