@@ -115,8 +115,7 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
               handleClose={() => setOpenAddRecipe(false)} 
               isOpen={openAddRecipe}
               modalTitleText='Add Recipe'
-              // disablePrimaryButton={true}
-              // disableSecondaryButton={true}
+              modalBtnPrimaryText='Add'
             >
               This is Modal Content!
             </FwModal>

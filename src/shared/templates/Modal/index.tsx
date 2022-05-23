@@ -9,17 +9,17 @@ import styles from './Modal.module.scss';
 import { CSSTransition } from 'react-transition-group';
 import UsePortal from '../../customHooks/usePortal';
 import FwButton from '../../templates/Button';
-import closeLogo from '../../../assets/images/close-logo.png';
+import CloseLogo from '../../../assets/images/close-logo.svg';
 
 export interface IFwModalProps {
   children: ReactNode,
   isOpen: boolean,
-  handleClose: any,
+  handleClose: () => void,
   disableCloseBtn?: boolean,
   disablePrimaryButton?: boolean,
   disableSecondaryButton?: boolean,
-  handleBtnPrimary?: any,
-  handleBtnSecondary?: any,
+  handleBtnPrimary?: () => void,
+  handleBtnSecondary?: () => void,
   modalBtnPrimaryText?: string,
   modalBtnSecondaryText?: string,
   modalTitleText: string
@@ -33,8 +33,12 @@ const FwModal: FC<IFwModalProps> = (props) => {
     disableCloseBtn = false,
     disablePrimaryButton = false,
     disableSecondaryButton = false,
-    handleBtnPrimary,
-    handleBtnSecondary,
+    handleBtnPrimary = () => {
+      return undefined; 
+    },
+    handleBtnSecondary = () => {
+      return undefined; 
+    },
     modalBtnPrimaryText = 'Ok',
     modalBtnSecondaryText = 'Cancel',
     modalTitleText = ''
@@ -77,15 +81,15 @@ const FwModal: FC<IFwModalProps> = (props) => {
   return (
     <UsePortal wrapperId='react-portal-modal-container'>
       <CSSTransition
-        in={isOpen} 
-        timeout={100} 
         classNames={{
           enterActive: styles['enter-active'],
           enterDone: styles['enter-done'],
           exitActive: styles['exit-active'],
           exitDone: styles['exit-done']
-        }}
-				nodeRef={modalRef}
+        }} 
+        in={isOpen} 
+        nodeRef={modalRef}
+        timeout={100}
       > 
         <div 
           className={styles['fw-modal']} 
@@ -97,7 +101,7 @@ const FwModal: FC<IFwModalProps> = (props) => {
                 (<div className={styles['fw-modal-header-title']}>
                   <span>{modalTitleText}</span>
                 </div>
-              )}
+                )}
               {!disableCloseBtn && (
                 <div
                   className={styles['fw-modal-header-button']}
@@ -111,9 +115,9 @@ const FwModal: FC<IFwModalProps> = (props) => {
                     tooltipTextPlacement='top'
                     variant='secondary'
                   >
-                    <img 
-                      alt='Close Icon'
-                      src={closeLogo}
+                    <CloseLogo 
+                      height='30px'
+                      width='30px'
                     />
                   </FwButton>
                 </div>

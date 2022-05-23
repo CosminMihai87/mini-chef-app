@@ -6,42 +6,49 @@ import {
   Dispatch,
   SetStateAction,
   MouseEvent,
-  BaseSyntheticEvent
+  BaseSyntheticEvent,
+  RefObject
 } from 'react';
 import styles from './FwTextarea.module.scss';
 import { FormControl } from 'react-bootstrap';
 import FwButton from '../../../shared/templates/Button';
-import clearLogo from '../../../assets/images/close-logo.png';
-import searchLogo from '../../../assets/images/search-logo.png';
+import ClearLogo from '../../../assets/images/close-logo.svg';
+import SearchLogo from '../../../assets/images/search-logo.svg';
 
-type textAreaVariant = 'default' | 'search';
+type textAreaVariant = 'default' | 'search' | 'dropdown-search';
 
 export interface IFwTextareaProps {
   value: string,
   setValue: Dispatch<SetStateAction<string>>,
   nrFound?: number,
   placeholder?: string | undefined
-  variant?: textAreaVariant
+  variant?: textAreaVariant,
+  innerRef?: RefObject<HTMLInputElement> | null,
 }
 
 const FwTextarea: FC<IFwTextareaProps> = (props) => {
   const {
     value = '',
     setValue,
+    innerRef = null,
     nrFound = 0,
     placeholder = 'Type to filter...',
     variant = 'default'
   } = {...props};
   const [buttonAction, setButtonAction] = useState('Search');
-  const textareaRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLInputElement>(innerRef as HTMLInputElement | null);
 
   useEffect(()=>{
-    variant==='search' && setButtonAction(value.length > 0 ? 'Clear': 'Search');
+    variant.indexOf('search')!==-1 && setButtonAction(value.length > 0 ? 'Clear': 'Search');
   },[value, variant]);
 
   useEffect(()=>{
-    variant==='search' && textareaRef?.current?.focus();
+    variant.indexOf('search')!==-1 && textareaRef?.current?.focus();
   },[variant]);
+
+  useEffect(()=>{
+    variant==='dropdown-search' && textareaRef?.current?.focus();
+  });
 
   const handleButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     value.length > 0 && setValue('');
@@ -57,26 +64,33 @@ const FwTextarea: FC<IFwTextareaProps> = (props) => {
         ref={textareaRef}
         value={value}
       />
-      {variant==='search' && 
+      {variant.indexOf('search')!==-1 && 
         <div className={styles['fw-textarea-findings']}>
           <span>
             *{nrFound}
           </span>
         </div>
       }
-      {variant==='search' && 
-        <div className={styles['fw-textarea-button']}>
+      {variant.indexOf('search')!==-1 && 
+        <div className={`
+          ${styles['fw-textarea-button']}
+          ${styles[variant]}
+        `}>
           <FwButton
             animation='progress'
             onClick={(e: MouseEvent<HTMLButtonElement>) => handleButtonClick(e)}
-            tooltipText={buttonAction}
-            tooltipTextPlacement='left'
             variant='secondary'
           >
-            <img 
-              alt={`${buttonAction} Icon`}
-              src={buttonAction === 'Search'? searchLogo : clearLogo}
-            />
+            {buttonAction === 'Search'? 
+              <SearchLogo 
+                height='30px'
+                width='30px'
+              /> : 
+              <ClearLogo
+                height='30px'
+                width='30px'
+              />
+            } 
           </FwButton>
         </div>
       }

@@ -5,18 +5,14 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
-  useRef,
-  BaseSyntheticEvent
+  useRef
 } from 'react';
 import styles from './FwDropdown.module.scss';
-import { Dropdown, FormControl } from 'react-bootstrap';
-import FwButton from '../../../shared/templates/Button';
+import { Dropdown } from 'react-bootstrap';
+import FwTextarea from '../Textarea';
 import ChevronUpSVG from '../../../assets/images/chevron-up.svg';
 import ChevronDownSVG from '../../../assets/images/chevron-down.svg';
 import CheckSVG from '../../../assets/images/check.svg';
-import addLogo from '../../../assets/images/add-logo.png';
-import clearLogo from '../../../assets/images/close-logo.png';
-import searchLogo from '../../../assets/images/search-logo.png';
 
 type animationType = 'progress' | 'jello' | 'pulse' | undefined;
 
@@ -30,13 +26,6 @@ interface IFWDropdownProps {
   variant?: string,
   activateSearch?: boolean
   searchPlaceholder?: string | undefined,
-}
-
-interface IFWDropdownSearchProps {
-  value: string,
-  setValue: Dispatch<SetStateAction<string>>,
-  nrFound: number,
-  searchPlaceholder: string | undefined
 }
 
 export interface IFWDropdownOption {
@@ -59,6 +48,7 @@ const FWDropdown: FC<IFWDropdownProps> = (props) => {
   const [expandedDropdown, setExpandedDropdown] = useState(false);
   const [searchedValue, setSearchedValue] = useState('');
   const [filteredOptions, setFilteredOptions] = useState(options);
+  const searchTextareaRef = useRef<HTMLInputElement>(null);
 
   const handleDropdownOptionClick = (e: MouseEvent<HTMLInputElement>) => {
     setSelectedOption(options?.find((opt: IFWDropdownOption) => opt.text=== (e.target as HTMLElement).innerText)?.id);
@@ -101,13 +91,17 @@ const FWDropdown: FC<IFWDropdownProps> = (props) => {
           ${!expandedDropdown ? `${styles.hide}` : ''}
         `}
       >
-        {activateSearch && 
-          <FWDropdownSearch 
-            nrFound={filteredOptions.length}
-            searchPlaceholder={searchPlaceholder}
-            setValue={setSearchedValue}
-            value={searchedValue}
-          />
+        {activateSearch &&
+          <div className={styles['fw-dropdown-search']}>
+            <FwTextarea 
+              innerRef={searchTextareaRef}
+              nrFound={filteredOptions.length}
+              placeholder={searchPlaceholder}
+              setValue={setSearchedValue}
+              value={searchedValue}
+              variant='dropdown-search'
+            />
+          </div>
         }
         {filteredOptions?.map((item: IFWDropdownOption) => (
           <Dropdown.Item
@@ -132,67 +126,67 @@ const FWDropdown: FC<IFWDropdownProps> = (props) => {
   );
 };
 
-const FWDropdownSearch: FC<IFWDropdownSearchProps> = (props) => {
-  const {
-    value = '',
-    setValue,
-    nrFound = 0,
-    searchPlaceholder = 'Type to filter...'
-  } = {...props};
-  const [buttonAction, setButtonAction] = useState('Search');
-  const dropdownSearchRef = useRef<HTMLInputElement>(null);
+// const FWDropdownSearch: FC<IFWDropdownSearchProps> = (props) => {
+//   const {
+//     value = '',
+//     setValue,
+//     nrFound = 0,
+//     searchPlaceholder = 'Type to filter...'
+//   } = {...props};
+//   const [buttonAction, setButtonAction] = useState('Search');
+//   const dropdownSearchRef = useRef<HTMLInputElement>(null);
 
-  useEffect(()=>{
-    setButtonAction(nrFound > 0? (value.length > 0? 'Clear': 'Search') : 'Add');
-  },[nrFound]);
+//   useEffect(()=>{
+//     setButtonAction(nrFound > 0? (value.length > 0? 'Clear': 'Search') : 'Add');
+//   },[nrFound]);
 
-  useEffect(()=>{
-    dropdownSearchRef?.current?.focus();
-  });
+//   useEffect(()=>{
+//     dropdownSearchRef?.current?.focus();
+//   });
 
-  const handleSearchButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
-    const action = (e.target as HTMLInputElement).alt.split(' ')[0];
-    if (action === 'Clear') {
-      setValue(''); 
-    } else if ( action === 'Add') {
-      setValue('');
-      return;
-    } else {
-      return;
-    }
-  };
+//   const handleSearchButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
+//     const action = (e.target as HTMLInputElement).alt.split(' ')[0];
+//     if (action === 'Clear') {
+//       setValue(''); 
+//     } else if ( action === 'Add') {
+//       setValue('');
+//       return;
+//     } else {
+//       return;
+//     }
+//   };
 
-  return(
-    <div className={styles['fw-dropdown-search']}>
-      <FormControl
-        autoFocus
-        className={styles['fw-dropdown-search-area']}
-        onChange={(e: BaseSyntheticEvent) => setValue((e.target.value as string))}
-        placeholder={searchPlaceholder}
-        ref={dropdownSearchRef}
-        value={value}
-      />
-      <div className={styles['fw-dropdown-findings']}>
-        <span>
-          *{nrFound}
-        </span>
-      </div>
-      <div className={styles['fw-dropdown-button']}>
-        <FwButton
-          animation='progress'
-          onClick={(e: MouseEvent<HTMLButtonElement>) => handleSearchButtonClick(e)}
-          tooltipText={buttonAction}
-          tooltipTextPlacement='left'
-          variant='secondary'
-        >
-          <img 
-            alt={`${buttonAction} Icon`}
-            src={buttonAction === 'Search'? searchLogo : buttonAction === 'Add'? addLogo : clearLogo}
-          />
-        </FwButton>
-      </div>
-    </div>
-  );
-};
+//   return(
+//     <div className={styles['fw-dropdown-search']}>
+//       <FormControl
+//         autoFocus
+//         className={styles['fw-dropdown-search-area']}
+//         onChange={(e: BaseSyntheticEvent) => setValue((e.target.value as string))}
+//         placeholder={searchPlaceholder}
+//         ref={dropdownSearchRef}
+//         value={value}
+//       />
+//       <div className={styles['fw-dropdown-findings']}>
+//         <span>
+//           *{nrFound}
+//         </span>
+//       </div>
+//       <div className={styles['fw-dropdown-button']}>
+//         <FwButton
+//           animation='progress'
+//           onClick={(e: MouseEvent<HTMLButtonElement>) => handleSearchButtonClick(e)}
+//           tooltipText={buttonAction}
+//           tooltipTextPlacement='left'
+//           variant='secondary'
+//         >
+//           <img 
+//             alt={`${buttonAction} Icon`}
+//             src={buttonAction === 'Search'? searchLogo : buttonAction === 'Add'? addLogo : clearLogo}
+//           />
+//         </FwButton>
+//       </div>
+//     </div>
+//   );
+// };
 
 export default FWDropdown;

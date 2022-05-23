@@ -149,6 +149,14 @@
       display: none;
     }
 
+    /* Hide ScrollBar but keep functionality */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
     .fw-dropdown-item {
       display: flex;
       flex-direction: row;
@@ -182,60 +190,13 @@
     }
 
     .fw-dropdown-search {
-      display: flex;
-      flex-direction: row;
-      border-bottom: 2px solid $fw-default-text;
+      height: 40px;
       max-width: 100%;
-      gap: 5px;
+      border-bottom: 2px solid $fw-default-text;
 
-      &:hover,
-      &:active,
-      &:focus,
-      &:focus-visible {
-        outline: none;
-        background-color: lighten($fw-primary, 30%);
-      }
-
-      .fw-dropdown-search-area {
-        min-height: 40px;
-        padding: 10px 16px;
-        overflow-x: auto;
-        font-family: InsightWebRegular, Arial, sans-serif;
-        font-size: 16px;
-        color: $fw-default-text;
-        text-align: inherit;
-        text-decoration: none;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        background-color: transparent;
-        border: 0;
-        box-sizing: border-box;
-
-        &:hover,
-        &:active,
-        &:focus,
-        &:focus-visible {
-          outline: none;
-        }
-      }
-
-      .fw-dropdown-findings {
-        display: flex;
-        align-items: center;
-        margin-left: auto;
-        color: $fw-default-text;
-      }
-
-      .fw-dropdown-button {
-        margin-left: auto;
-
-        > button {
-          > img {
-            height: 23px;
-            width: 23px;
-          }
-        }
+      > button {
+        border-radius: 0 !important;
+        padding: 0 !important;
       }
     }
   }
