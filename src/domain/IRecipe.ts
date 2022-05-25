@@ -7,7 +7,7 @@ export type recipeScope = RecipeScope.PRIVATE | RecipeScope.PUBLIC;
 export type recipeTags = RecipeTags.BREAKFAST | RecipeTags.LUNCH | RecipeTags.DINNER |
   RecipeTags.SNACK | RecipeTags.DESERT | RecipeTags.VEGETARIAN | RecipeTags.VEGAN;
   
-export type timeUnit = TimeUnits.MILISECONS | TimeUnits.SECONDS | TimeUnits.MINUTES | TimeUnits.HOURS | TimeUnits.DAYS |
+export type timeUnit = TimeUnits.MILISECONDS | TimeUnits.SECONDS | TimeUnits.MINUTES | TimeUnits.HOURS | TimeUnits.DAYS |
   TimeUnits.WEEKS | TimeUnits.MONTHS | TimeUnits.YEARS;
 
 export type recipePopularity = 1 | 2 | 3 | 4 | 5;

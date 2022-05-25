@@ -1,203 +1,265 @@
 @import "../../../assets/stylesheets/_variables.scss";
 
-.fw-dropdown {
-  position: relative;
-  display: inline-block;
-  width: 100%;
+.fw-form-control {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 
-  .fw-dropdown-toggle {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 5px;
-    height: 40px;
-    width: 100%;
-    font-family: InsightWebRegular, Arial, sans-serif;
-    font-size: 16px;
-    color: $fw-default-text;
-    background-color: $fw-white;
-    border: 2px solid $fw-btn-border;
-    border-radius: 0.375rem;
-    padding: 0.5em 1em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .fw-dropdown-group {
+    .fw-dropdown {
+      position: relative;
+      display: inline-block;
+      width: 100%;
 
-    &:hover,
-    &:active {
-      cursor: pointer;
-    }
-
-    &:focus,
-    &:focus-visible {
-      outline: none;
-      box-sizing: border-box;
-    }
-
-    &.animation-progress {
-      &:hover {
-        animation: progress 0.5s ease-in-out;
-      }
-    }
-
-    &.animation-jello {
-      &:hover {
-        animation: jello 0.5s both;
-      }
-    }
-
-    &.animation-pulse {
-      animation: pulse 2s infinite;
-
-      &:hover {
-        animation: none;
-      }
-    }
-
-    &::after {
-      content: none;
-    }
-
-    > svg > path {
-      stroke: $fw-default-text;
-    }
-
-    &.primary {
-      color: $fw-default-text;
-      border: 1px solid $fw-btn-border;
-      background-size: 200% 100%;
-      background-image: linear-gradient(to left, $fw-btn-hover 50%, $fw-btn-primary 50%);
-      box-shadow:
-        inset 0 -0.3em 0.5em -0.15em $fw-secondary,
-        inset 0 0.3em 1em -0.15em rgb(255 255 255 / 53%),
-        inset 0 0 0 0.05em rgb(255 255 255 / 50%);
-
-      &:hover,
-      &:active {
-        border-color: $fw-white;
-        color: $fw-white;
+      .fw-dropdown-label {
+        font-family: InsightWebBold, Arial, sans-serif;
+        font-size: 20px;
       }
 
-      &:focus {
-        background-color: $fw-btn-primary;
-        border: 1px solid $fw-btn-secondary;
-        color: $fw-white;
-        box-shadow: inset 0 0 0 2px $fw-white;
-      }
+      .fw-dropdown-toggle {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 5px;
+        height: 40px;
+        width: 100%;
+        font-family: InsightWebRegular, Arial, sans-serif;
+        font-size: 16px;
+        color: $fw-default-text;
+        background-color: $fw-white;
+        border: 2px solid $fw-btn-border;
+        border-radius: 0.375rem;
+        padding: 0.5em 1em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
-      &.is-disabled {
-        color: $fw-btn-secondary-disabled;
-        background-color: $fw-btn-primary-disabled;
-        border: 1px solid $fw-btn-secondary-disabled;
+        .fw-dropdown-toggle-logos {
+          display: flex;
+
+          > svg > path {
+            stroke: $fw-default-text;
+          }
+        }
+
+        > svg {
+          margin-left: auto;
+        }
 
         &:hover,
+        &:active {
+          cursor: pointer;
+        }
+
         &:focus,
         &:focus-visible {
           outline: none;
-          border: 2px solid $fw-btn-primary-disabled;
+          box-sizing: border-box;
+        }
+
+        &.animation-progress {
+          &:hover {
+            animation: progress 0.5s ease-in-out;
+          }
+        }
+
+        &.animation-jello {
+          &:hover {
+            animation: jello 0.5s both;
+          }
+        }
+
+        &.animation-pulse {
+          animation: pulse 2s infinite;
+
+          &:hover {
+            animation: none;
+          }
+        }
+
+        &::after {
+          content: none;
+        }
+
+        &.primary {
+          color: $fw-default-text;
+          border: 1px solid $fw-btn-border;
+          background-size: 200% 100%;
+          background-image: linear-gradient(to left, $fw-btn-hover 50%, $fw-btn-primary 50%);
+          box-shadow:
+            inset 0 -0.3em 0.5em -0.15em $fw-secondary,
+            inset 0 0.3em 1em -0.15em rgb(255 255 255 / 53%),
+            inset 0 0 0 0.05em rgb(255 255 255 / 50%);
+
+          &:hover,
+          &:active {
+            border-color: $fw-white;
+            color: $fw-white;
+          }
+
+          &:focus {
+            background-color: $fw-btn-primary;
+            border: 1px solid $fw-btn-secondary;
+            color: $fw-white;
+            box-shadow: inset 0 0 0 2px $fw-white;
+          }
+
+          &.is-disabled {
+            color: $fw-btn-secondary-disabled;
+            background-color: $fw-btn-primary-disabled;
+            border: 1px solid $fw-btn-secondary-disabled;
+
+            &:hover,
+            &:focus,
+            &:focus-visible {
+              outline: none;
+              border: 2px solid $fw-btn-primary-disabled;
+            }
+          }
+        }
+
+        &.secondary {
+          color: $fw-btn-primary;
+          border: 1px solid $fw-btn-border;
+          background-size: 200% 100%;
+          background-image: linear-gradient(to right, $fw-white 50%, $fw-btn-primary 50%);
+          box-shadow:
+            inset 0 -0.3em 0.5em -0.15em $fw-btn-primary,
+            inset 0 0.3em 1em -0.15em rgb(255 255 255 / 53%),
+            inset 0 0 0 0.05em rgb(255 255 255 / 50%);
+
+          &:hover,
+          &:active {
+            color: $fw-primary;
+            border-color: $fw-btn-hover;
+          }
+
+          &:focus {
+            background-color: $fw-btn-primary;
+            border: 1px solid $fw-btn-secondary;
+            color: $fw-btn-secondary;
+            box-shadow: inset 0 0 10px $fw-btn-primary;
+          }
+
+          &.is-disabled {
+            color: $fw-btn-primary-disabled;
+            background-color: $fw-btn-secondary-disabled;
+            border: 1px solid $fw-btn-secondary-disabled;
+          }
+        }
+      }
+
+      .fw-dropdown-menu {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+        min-width: 100%;
+        max-height: 200px;
+        font-family: InsightWebRegular, Arial, sans-serif;
+        font-size: 16px;
+        overflow-y: auto;
+        line-height: 1;
+        background-color: $fw-white;
+        border: 1px solid $fw-primary;
+        border-radius: 0.375rem;
+        z-index: 1;
+
+        &.hide {
+          display: none;
+        }
+
+        /* Hide ScrollBar but keep functionality */
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        .fw-dropdown-item {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          height: 40px;
+          padding: 10px 16px;
+          color: $fw-default-text;
+          text-align: inherit;
+          text-decoration: none;
+          white-space: nowrap;
+          background-color: transparent;
+          border: 0;
+          box-sizing: border-box;
+
+          &:hover,
+          &:active,
+          &:focus,
+          &:focus-visible {
+            outline: none;
+            background-color: lighten($fw-primary, 30%);
+          }
+
+          &.fw-dropdown-item-selected {
+            background-color: $fw-primary;
+          }
+
+          > svg > path {
+            stroke: $fw-default-text;
+          }
+        }
+
+        .fw-dropdown-search {
+          height: 40px;
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          border-bottom: 2px solid $fw-default-text;
+
+          .fw-dropdown-search-area {
+            font-family: InsightWebRegular, Arial, sans-serif;
+            font-size: 16px;
+            border: 0;
+            padding: 10px 16px;
+            flex: 1;
+
+            &:hover,
+            &:active,
+            &:focus,
+            &:focus-visible {
+              outline: none;
+            }
+          }
+
+          .fw-dropdown-search-button {
+            margin-left: auto;
+
+            > button {
+              width: 55px;
+              display: flex;
+              justify-content: center;
+              padding: 0;
+              border-radius: 0 0.375rem 0 0;
+              border-top: 0;
+              border-right: 0;
+              border-bottom: 0;
+
+              &:focus {
+                border-top: 0 !important;
+                border-right: 0 !important;
+                border-bottom: 0 !important;
+                border-color: $fw-border !important;
+                box-shadow: none !important;
+              }
+            }
+          }
         }
       }
     }
 
-    &.secondary {
-      color: $fw-btn-primary;
-      border: 1px solid $fw-btn-border;
-      background-size: 200% 100%;
-      background-image: linear-gradient(to right, $fw-white 50%, $fw-btn-primary 50%);
-      box-shadow:
-        inset 0 -0.3em 0.5em -0.15em $fw-btn-primary,
-        inset 0 0.3em 1em -0.15em rgb(255 255 255 / 53%),
-        inset 0 0 0 0.05em rgb(255 255 255 / 50%);
-
-      &:hover,
-      &:active {
-        color: $fw-primary;
-        border-color: $fw-btn-hover;
-      }
-
-      &:focus {
-        background-color: $fw-btn-primary;
-        border: 1px solid $fw-btn-secondary;
-        color: $fw-btn-secondary;
-        box-shadow: inset 0 0 10px $fw-btn-primary;
-      }
-
-      &.is-disabled {
-        color: $fw-btn-primary-disabled;
-        background-color: $fw-btn-secondary-disabled;
-        border: 1px solid $fw-btn-secondary-disabled;
-      }
-    }
-  }
-
-  .fw-dropdown-menu {
-    display: flex;
-    flex-direction: column;
-    max-width: 100%;
-    min-width: 100%;
-    max-height: 200px;
-    font-family: InsightWebRegular, Arial, sans-serif;
-    font-size: 16px;
-    overflow-y: auto;
-    line-height: 1;
-    background-color: $fw-white;
-    border: 1px solid $fw-border;
-    border-radius: 0.375rem;
-
-    &.hide {
-      display: none;
-    }
-
-    /* Hide ScrollBar but keep functionality */
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-
-    .fw-dropdown-item {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      height: 40px;
-      padding: 10px 16px;
-      color: $fw-default-text;
-      text-align: inherit;
-      text-decoration: none;
-      white-space: nowrap;
-      background-color: transparent;
-      border: 0;
-      box-sizing: border-box;
-
-      &:hover,
-      &:active,
-      &:focus,
-      &:focus-visible {
-        outline: none;
-        background-color: lighten($fw-primary, 30%);
-      }
-
-      &.fw-dropdown-item-selected {
-        background-color: $fw-primary;
-      }
-
-      > svg > path {
-        stroke: $fw-default-text;
-      }
-    }
-
-    .fw-dropdown-search {
-      height: 40px;
-      max-width: 100%;
-      border-bottom: 2px solid $fw-default-text;
-
-      > button {
-        border-radius: 0 !important;
-        padding: 0 !important;
-      }
+    .fw-dropdown-error {
+      font-size: 14px;
+      color: $fw-error;
     }
   }
 }

@@ -1,5 +1,91 @@
 .add-recipe {
+  height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .row {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+
+      &.duration {
+        input[type="number"] {
+          width: 100px;
+        }
+      }
+    }
+
+    .combo {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .label {
+        font-family: InsightWebBold, Arial, sans-serif;
+        font-size: 20px;
+      }
+
+      .row {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 0.5rem;
+
+        &.step {
+          .order {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          .do {
+            flex: 1;
+          }
+
+          .duration {
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+
+            input[type="number"] {
+              width: 100px;
+            }
+          }
+        }
+
+        .buttons {
+          margin-left: auto;
+          display: flex;
+          flex-direction: row;
+          gap: 0.5rem;
+          height: 40px;
+        }
+      }
+
+      // &.steps {
+      //   display: flex;
+      //   flex-direction: column;
+      //   gap: 0.5rem;
+
+      //   .step {
+      //     display: flex;
+      //     flex-direction: row;
+      //     gap: 0.5rem;
+
+      // .buttons {
+      //   display: flex;
+      //   flex-direction: row;
+      //   gap: 0.5rem;
+      //   height: 40px;
+      // }
+      //   }
+      // }
+    }
+  }
 }

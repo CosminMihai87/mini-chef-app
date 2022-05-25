@@ -11,7 +11,7 @@ import Home from './components/Home';
 import Fridge from './components/Fridge';
 import RecipeBook from './components/RecipeBook';
 import Recipe from './components/Recipe';
-import Ingredients from './components/Ingredients';
+// import Ingredients from './components/Ingredients';
 import WeeklyPlan from './components/WeeklyPlan';
 import ShoppingCart from './components/ShoppingCart';
 import Calendar from './components/Calendar';
@@ -26,7 +26,7 @@ root.render(
         <Route element={<Home />} path='/home' />
         <Route element={<RecipeBook />} path='/recipe-book' />
         <Route element={<Recipe />} path='/recipe' />
-        <Route element={<Ingredients />} path='/ingredients' />
+        {/* <Route element={<Ingredients />} path='/ingredients' /> */}
         <Route element={<WeeklyPlan />} path='/weekly-plan' />
         <Route element={<ShoppingCart />} path='/shopping-card' />
         <Route element={<Calendar />} path='/calendar' />
