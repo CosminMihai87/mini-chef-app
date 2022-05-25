@@ -40,7 +40,7 @@ export enum IngredientMeasuringUnits {
 }
 
 export enum TimeUnits {
-  MILISECONS = 'milisecons',
+  MILISECONDS = 'miliseconds',
   SECONDS = 'seconds',
   MINUTES = 'minutes',
   HOURS = 'hours',

@@ -36,7 +36,8 @@
     "react-tooltip": "^4.2.21",
     "react-transition-group": "^4.4.2",
     "resolve": "^1.20.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",

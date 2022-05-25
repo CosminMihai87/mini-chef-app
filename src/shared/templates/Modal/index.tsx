@@ -20,6 +20,7 @@ export interface IFwModalProps {
   disableSecondaryButton?: boolean,
   handleBtnPrimary?: () => void,
   handleBtnSecondary?: () => void,
+  closeOnPrimaryButtonClick?: boolean,
   modalBtnPrimaryText?: string,
   modalBtnSecondaryText?: string,
   modalTitleText: string
@@ -39,6 +40,7 @@ const FwModal: FC<IFwModalProps> = (props) => {
     handleBtnSecondary = () => {
       return undefined; 
     },
+    closeOnPrimaryButtonClick = true,
     modalBtnPrimaryText = 'Ok',
     modalBtnSecondaryText = 'Cancel',
     modalTitleText = ''
@@ -58,7 +60,7 @@ const FwModal: FC<IFwModalProps> = (props) => {
 
   const handleBtnPrimaryClick = useCallback(() => {
     handleBtnPrimary();
-    handleClose();
+    closeOnPrimaryButtonClick && handleClose();
   },[handleBtnPrimary, handleClose]);
 
   const handleBtnSecondaryClick = useCallback(() => {

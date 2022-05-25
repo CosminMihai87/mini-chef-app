@@ -3,7 +3,7 @@ import {
   useRef,
   RefObject
 } from 'react';
-import styles from './FwTextarea.module.scss';
+import styles from './FwInput.module.scss';
 import { Field } from 'formik';
 import {
   FormGroup,
@@ -11,43 +11,46 @@ import {
   FormControl
 } from 'react-bootstrap';
 
-export interface IFwTextareaProps {
+export type inputType = 'text' | 'number' | 'password' | 'email' | 'color' | 'time' | 'week' | 'month' | 'range' | 'search';
+
+export interface IFwInputProps {
+  type?: inputType;
   label?: string,
   name: string,
   id?: string,
   placeholder?: string | undefined
-  innerRef?: RefObject<HTMLTextAreaElement> | null,
+  innerRef?: RefObject<HTMLInputElement> | null,
 }
 
-const FwTextarea: FC<IFwTextareaProps> = (props) => {
+const FwInput: FC<IFwInputProps> = (props) => {
   const {
+    type = 'text',
+    label = '',
     name,
     id = undefined,
-    label = '',
-    innerRef = null,
     placeholder,
+    innerRef = null,
   } = {...props};
-  const inputRef = useRef<HTMLTextAreaElement>(innerRef as HTMLTextAreaElement | null);
+  const inputRef = useRef<HTMLInputElement>(innerRef as HTMLInputElement | null);
 
   return(
     <div className={styles['fw-form-control']}>
       <Field name={name}>
         {({ field, form, meta }: any) => {
           return ( 
-            <FormGroup className={styles['fw-textarea-group']}>
+            <FormGroup className={styles['fw-input-group']}>
               {label && 
                 <FormLabel 
-                  className={styles['fw-textarea-label']}
+                  className={styles['fw-input-label']}
                   htmlFor={name}
                 >
                   {label}
                 </FormLabel>
               }
               <FormControl
-                as='textarea'
                 autoComplete ='off'
                 className={`
-                  ${styles['fw-textarea-box']}
+                  ${styles['fw-input-box']}
                   ${meta.touched && (meta.error ? `${styles.error}` : `${styles.valid}`)}
                 `}
                 id={id}
@@ -56,11 +59,10 @@ const FwTextarea: FC<IFwTextareaProps> = (props) => {
                 onChange={field.onChange}
                 placeholder={placeholder}
                 ref={inputRef}
-                rows={2}
+                type={type}
                 value={field.value}
-                wrap='off'
               /> 
-              <div className={styles['fw-textarea-error']}>
+              <div className={styles['fw-input-error']}>
                 {meta.error && meta.touched ? `* ${meta.error}` : ''}
               </div>
             </FormGroup>
@@ -71,4 +73,4 @@ const FwTextarea: FC<IFwTextareaProps> = (props) => {
   );
 };
 
-export default FwTextarea;
+export default FwInput;
