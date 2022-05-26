@@ -17,6 +17,7 @@ export interface IFwTextareaProps {
   id?: string,
   placeholder?: string | undefined
   innerRef?: RefObject<HTMLTextAreaElement> | null,
+  formikValidFrame?:boolean
 }
 
 const FwTextarea: FC<IFwTextareaProps> = (props) => {
@@ -26,13 +27,14 @@ const FwTextarea: FC<IFwTextareaProps> = (props) => {
     label = '',
     innerRef = null,
     placeholder,
+    formikValidFrame = true
   } = {...props};
   const inputRef = useRef<HTMLTextAreaElement>(innerRef as HTMLTextAreaElement | null);
 
   return(
     <div className={styles['fw-form-control']}>
       <Field name={name}>
-        {({ field, form, meta }: any) => {
+        {({ field, meta }: any) => {
           return ( 
             <FormGroup className={styles['fw-textarea-group']}>
               {label && 
@@ -48,7 +50,7 @@ const FwTextarea: FC<IFwTextareaProps> = (props) => {
                 autoComplete ='off'
                 className={`
                   ${styles['fw-textarea-box']}
-                  ${meta.touched && (meta.error ? `${styles.error}` : `${styles.valid}`)}
+                  ${formikValidFrame && meta.touched && (meta.error ? `${styles.error}` : `${styles.valid}`)}
                 `}
                 id={id}
                 name={name}

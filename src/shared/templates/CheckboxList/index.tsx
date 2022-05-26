@@ -2,7 +2,9 @@ import {
   FC
 } from 'react';
 import styles from './FwCheckBoxList.module.scss';
-import { Field } from 'formik';
+import { 
+  Field
+} from 'formik';
 import {
   FormGroup,
   FormLabel 
@@ -12,7 +14,7 @@ export type checkBoxDirection = 'column' | 'row';
 
 export interface IFwCheckBoxListProps {
   label?: string,
-  name?: string,
+  name: string,
   options: IFwCheckBox[] | undefined,
   direction?: checkBoxDirection,
   columnsNr?: number
@@ -44,6 +46,7 @@ const FwCheckBoxList: FC<IFwCheckBoxListProps> = (props) => {
     <div className={styles['fw-form-control']}>
       <Field name={name}>
         {({ field, meta }: any) => {
+          // console.log(meta);
           return (
             <FormGroup className={`
               ${styles['fw-checkbox-list']}
@@ -61,7 +64,9 @@ const FwCheckBoxList: FC<IFwCheckBoxListProps> = (props) => {
               <ul style={columnsStyle}>
                 {options?.map((option: IFwCheckBox, index: number) => (
                   <li key={option.key}>
-                    <div className={styles['fw-checkbox']} >
+                    <div 
+                      className={styles['fw-checkbox']}
+                    >
                       <input
                         checked={field.value.includes(option.value)}
                         className={`

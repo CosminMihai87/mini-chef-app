@@ -72,14 +72,6 @@ const FwModal: FC<IFwModalProps> = (props) => {
     handleClose();
   },[handleClose]);
 
-  // useEffect(()=> {
-  //   const buttonRef = !disableCloseBtn ? modalHeaderBtnRef.current && modalHeaderBtnRef?.current?.children[0] :
-  //     (!disablePrimaryButton || !disableSecondaryButton) ?
-  //       modalFooterBtnRef.current && modalFooterBtnRef?.current?.children[0]:
-  //       null
-  //   buttonRef && buttonRef?.focus();
-  // });
-
   return (
     <UsePortal wrapperId='react-portal-modal-container'>
       <CSSTransition

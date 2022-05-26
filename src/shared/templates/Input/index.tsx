@@ -20,6 +20,7 @@ export interface IFwInputProps {
   id?: string,
   placeholder?: string | undefined
   innerRef?: RefObject<HTMLInputElement> | null,
+  formikValidFrame?:boolean
 }
 
 const FwInput: FC<IFwInputProps> = (props) => {
@@ -30,13 +31,14 @@ const FwInput: FC<IFwInputProps> = (props) => {
     id = undefined,
     placeholder,
     innerRef = null,
+    formikValidFrame = true
   } = {...props};
   const inputRef = useRef<HTMLInputElement>(innerRef as HTMLInputElement | null);
 
   return(
     <div className={styles['fw-form-control']}>
       <Field name={name}>
-        {({ field, form, meta }: any) => {
+        {({ field, meta }: any) => {
           return ( 
             <FormGroup className={styles['fw-input-group']}>
               {label && 
@@ -51,7 +53,7 @@ const FwInput: FC<IFwInputProps> = (props) => {
                 autoComplete ='off'
                 className={`
                   ${styles['fw-input-box']}
-                  ${meta.touched && (meta.error ? `${styles.error}` : `${styles.valid}`)}
+                  ${formikValidFrame && meta.touched && (meta.error ? `${styles.error}` : `${styles.valid}`)}
                 `}
                 id={id}
                 name={name}
