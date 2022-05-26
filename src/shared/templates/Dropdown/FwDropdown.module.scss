@@ -212,6 +212,7 @@
         .fw-dropdown-search {
           height: 40px;
           width: 100%;
+          max-width: 100%;
           display: flex;
           flex-direction: row;
           border-bottom: 2px solid $fw-default-text;
@@ -233,6 +234,7 @@
 
           .fw-dropdown-search-button {
             margin-left: auto;
+            width: 100%;
 
             > button {
               width: 55px;

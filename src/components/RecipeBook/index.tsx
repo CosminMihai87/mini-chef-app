@@ -1,53 +1,26 @@
 import {
   FC,
-  useState
-  // useEffect
+  useState,
+  // useEffect,
+  useRef
 } from 'react'; 
 import styles from './RecipeBook.module.scss';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
+import { 
+  Formik, 
+  FormikProps
+} from 'formik'; 
 import FwButton from '../../shared/templates/Button';
 import FwCheckBoxList, { 
   IFwCheckBox 
 } from '../../shared/templates/CheckboxList';
-// import FwInput from '../../shared/templates/Input';
-import IRecipe from '../../domain/IRecipe'; //, { recipeScope } 
+import FwInput from '../../shared/templates/Input';
+import IRecipe from '../../domain/IRecipe';
 import { 
   RecipeScope, 
   RecipeTags 
 } from '../../domain/constants';
 import FwModal from '../../shared/templates/Modal';
 import AddRecipe from '../AddRecipe';
-
-const initialValues = {
-  name: '',
-  scope: [],
-  tags: [],
-  ingredientList: [],
-  duration: {
-    number: 0,
-    timeUnit: ''
-  },
-  steps: [{
-    do: '',
-    duration: {
-      number: 0,
-      timeUnit: ''
-    }
-  }],
-  popularity: 5
-};
-
-const validationSchema = Yup.object({
-  name: Yup.string().required('Field required!')
-});
-
-const onSubmit = (values: any, submitProps: any) => {
-  console.log('Form data', values);
-  console.log('submitProps', submitProps);
-  submitProps.setSubmitting(false);
-  submitProps.resetForm();
-};
 
 export interface IRecipeBookProps {
   recipeList?: IRecipe[]
@@ -59,7 +32,7 @@ export interface IRecipeBookProps {
 
 const RecipeBook: FC<IRecipeBookProps> = (props) =>{
 
-  const [ addRecipeSubmit, setAddRecipeSubmit ] = useState();
+  // const [ addRecipeSubmit, setAddRecipeSubmit ] = useState();
   const [ openAddRecipe, setOpenAddRecipe ] = useState(false);
   const recipeScopeOptions: IFwCheckBox[]  = (Object.keys(RecipeScope) as (keyof typeof RecipeScope)[]).map(
     (key, index) => {
@@ -81,26 +54,22 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
       };
     },
   );
+  const addRecipeRef = useRef<FormikProps<any>>(null);
 
   // useEffect(()=>{
-  //   console.log(openAddRecipe);
-  // },[openAddRecipe]);
-
-  const handleClearFilters = () => {
-    // setRecipeType(recipeType.map( (k: any)=>{
-    //   return {...k, ...{ checked: false}}; 
-    // } ));
-    // setRecipeTags(recipeTags.map( (k: any)=>{
-    //   return {...k, ...{ checked: false}}; 
-    // } ));
-    // setSearchValue('');
-  };
+  //   console.log(addRecipeSubmit);
+  // },[addRecipeSubmit]);
 
   return (
     <Formik
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      validationSchema={validationSchema}
+      initialValues={{
+        recipeScopeFilter: [],
+        recipeTagsFilter: [],
+        recipeNameFilter: '',
+      }}
+      onSubmit={() => {
+        return; 
+      }}
     >
       {formik => {
         // console.log(formik.values);
@@ -117,10 +86,12 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
                   </span>
                   <FwButton
                     animation='progress'
-                    onClick={() => handleClearFilters()} 
+                    onClick={() => {
+                      formik.resetForm();
+                    }} 
                     variant='primary'
                   >
-                    <span>Clear</span>
+                    <span>Clear Filters</span>
                   </FwButton>
                 </div>
                 <div className={styles['scope']}>  
@@ -128,7 +99,7 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
                     Scope:
                   </span>
                   <FwCheckBoxList
-                    name='recipeType'
+                    name='recipeScopeFilter'
                     options={recipeScopeOptions}
                   />
                 </div>
@@ -138,7 +109,7 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
                   </span>
                   <FwCheckBoxList
                     columnsNr={3}
-                    name='recipeTags'
+                    name='recipeTagsFilter'
                     options={recipeTagsOptions}
                   />
                 </div>
@@ -155,15 +126,15 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
                   </FwButton>
                   <FwModal 
                     closeOnPrimaryButtonClick={false} 
-                    handleBtnPrimary={() => addRecipeSubmit}
+                    handleBtnPrimary={() => addRecipeRef?.current?.handleSubmit()}
                     handleClose={() => setOpenAddRecipe(false)}
                     isOpen={openAddRecipe}
                     modalBtnPrimaryText='Add' 
                     modalTitleText='Add Recipe'
                   >
                     <AddRecipe 
-                      handleSubmit={addRecipeSubmit}
-                      setHandleSubmit={setAddRecipeSubmit}
+                      // @ts-ignore
+                      ref={addRecipeRef}
                     />
                   </FwModal>
                 </div>
@@ -174,10 +145,12 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
             </div>
             <div className={styles['recipe-book-right']}>
               <div className={styles.search}>
-                {/* <FwInput
-                  name='search'
+                <FwInput
+                  formikValidFrame={false}
+                  name='recipeNameFilter'
                   placeholder='Type to filter...'
-                /> */}
+                  type='search'
+                />
               </div>
               <div className={styles.list}>
 

@@ -28,7 +28,7 @@
       font-family: InsightWebRegular, Arial, sans-serif;
       font-size: 16px;
       min-height: 40px;
-      padding: 0.375rem 2.5rem 0.375rem 0.375rem;
+      padding: 0.375rem;
       overflow-x: auto;
       color: $fw-primary;
       text-align: inherit;
@@ -49,6 +49,7 @@
       }
 
       &.error {
+        padding: 0.375rem 2.5rem 0.375rem 0.375rem;
         border: 1px solid $fw-error;
         background-image: url("../../../assets/images/form-validation/error.svg");
         background-repeat: no-repeat;
@@ -57,6 +58,7 @@
       }
 
       &.valid {
+        padding: 0.375rem 2.5rem 0.375rem 0.375rem;
         border: 1px solid $fw-valid;
         background-image: url("../../../assets/images/form-validation/valid.svg");
         background-repeat: no-repeat;

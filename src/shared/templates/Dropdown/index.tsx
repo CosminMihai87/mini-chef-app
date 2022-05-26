@@ -70,12 +70,11 @@ const FwDropdown: FC<IFwDropdownProps> = (props) => {
   const handleDropdownOptionClick = (e: MouseEvent<HTMLInputElement>, field: any, form: any) => {
     setSelectedOption(options?.find((opt: IFwDropdownOption) => opt.value === (e.target as HTMLElement).innerText)?.key as SetStateAction<string>);
     form.setFieldValue(name, options?.find((opt: IFwDropdownOption) => opt.value === (e.target as HTMLElement).innerText)?.value as SetStateAction<string>);
-    field.onChange;
+    field.onChange();
   };
 
   const handleDropdownBlur = (field: any, form: any) => {
-    field.onBlur;
-    console.log(field.name);
+    field.onBlur();
     form.setTouched({...form.touched, [field.name]: true });
   };
 
@@ -125,7 +124,7 @@ const FwDropdown: FC<IFwDropdownProps> = (props) => {
                     searchedValue!=='' ? 
                       'Searching...' :
                       'Please select'
-                    : form.touched[field.name] ?
+                    : meta.touched ?
                       !meta.error ?
                         filteredOptions?.find((t: IFwDropdownOption)=> t.key===selectedOption)?.value :
                         'Please select'
@@ -176,7 +175,7 @@ const FwDropdown: FC<IFwDropdownProps> = (props) => {
                 </Dropdown.Menu>
               </Dropdown>
               <div className={styles['fw-dropdown-error']}>
-                {meta.error && form.touched[field.name]? `* ${meta.error}` : ''}
+                {meta.error && meta.touched? `* ${meta.error}` : ''}
               </div>
             </FormGroup>  
           );

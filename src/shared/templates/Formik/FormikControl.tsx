@@ -87,7 +87,6 @@ const FormikControl: FC<IFormikControlProps> = (props) => {
       name={name}
       options={checkBoxListOptions}
     />;
-
     // case 'radio':
     //   return <RadioButtons {...rest} />
     // case 'date':
