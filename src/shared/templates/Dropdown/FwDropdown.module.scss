@@ -10,6 +10,7 @@
       position: relative;
       display: inline-block;
       width: 100%;
+      min-width: 150px;
 
       .fw-dropdown-label {
         font-family: InsightWebBold, Arial, sans-serif;
@@ -153,8 +154,7 @@
       .fw-dropdown-menu {
         display: flex;
         flex-direction: column;
-        max-width: 100%;
-        min-width: 100%;
+        min-width: 150px;
         max-height: 200px;
         font-family: InsightWebRegular, Arial, sans-serif;
         font-size: 16px;
@@ -218,6 +218,7 @@
           border-bottom: 2px solid $fw-default-text;
 
           .fw-dropdown-search-area {
+            width: 100%;
             font-family: InsightWebRegular, Arial, sans-serif;
             font-size: 16px;
             border: 0;
@@ -234,7 +235,6 @@
 
           .fw-dropdown-search-button {
             margin-left: auto;
-            width: 100%;
 
             > button {
               width: 55px;
