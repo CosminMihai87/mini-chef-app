@@ -63,19 +63,17 @@ const FwDropdown: FC<IFwDropdownProps> = (props) => {
     searchPlaceholder = 'Type to filter...'
   } = {...props};
   const [expandedDropdown, setExpandedDropdown] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(''); //typeof options !== 'undefined' ? options[0].key : ''
+  const [selectedOption, setSelectedOption] = useState('');
   const [searchedValue, setSearchedValue] = useState('');
   const [filteredOptions, setFilteredOptions] = useState(options);
 
-  const handleDropdownOptionClick = (e: MouseEvent<HTMLInputElement>, field: any, form: any) => {
+  const handleDropdownOptionClick = (e: MouseEvent<HTMLInputElement>, form: any) => {
     setSelectedOption(options?.find((opt: IFwDropdownOption) => opt.value === (e.target as HTMLElement).innerText)?.key as SetStateAction<string>);
     form.setFieldValue(name, options?.find((opt: IFwDropdownOption) => opt.value === (e.target as HTMLElement).innerText)?.value as SetStateAction<string>);
-    field.onChange();
   };
 
-  const handleDropdownBlur = (field: any, form: any) => {
-    field.onBlur();
-    form.setTouched({...form.touched, [field.name]: true });
+  const handleDropdownBlur = (e: any, field: any) => {
+    field.onBlur(e);
   };
 
   const handleDropdownToggleClick = () => {
@@ -88,7 +86,7 @@ const FwDropdown: FC<IFwDropdownProps> = (props) => {
   useEffect(()=>{
     setFilteredOptions(options?.filter((t: IFwDropdownOption)=> t.value.toLowerCase().indexOf(searchedValue.toLowerCase())!==-1));
   },[searchedValue]);
-
+  
   return(
     <div className={styles['fw-form-control']}>
       <Field name={name}>
@@ -107,7 +105,6 @@ const FwDropdown: FC<IFwDropdownProps> = (props) => {
                 autoClose='inside'
                 className={styles['fw-dropdown']}
                 id={id}
-                onBlur={() => handleDropdownBlur(field, form)}
                 onClick={() => handleDropdownToggleClick()}
               >
                 <Dropdown.Toggle
@@ -124,11 +121,9 @@ const FwDropdown: FC<IFwDropdownProps> = (props) => {
                     searchedValue!=='' ? 
                       'Searching...' :
                       'Please select'
-                    : meta.touched ?
-                      !meta.error ?
-                        filteredOptions?.find((t: IFwDropdownOption)=> t.key===selectedOption)?.value :
-                        'Please select'
-                      : 'Please select'
+                    : selectedOption!=='' ? 
+                      filteredOptions?.find((t: IFwDropdownOption)=> t.key===selectedOption)?.value : 
+                      'Please select'
                   }
                   <div className={styles['fw-dropdown-toggle-logos']}>
                     {expandedDropdown ?
@@ -162,8 +157,8 @@ const FwDropdown: FC<IFwDropdownProps> = (props) => {
                       `}
                       key={filteredOptions.indexOf(item)}
                       name={name}
-                      onBlur={() => handleDropdownBlur(field, form)}
-                      onClick={(e: MouseEvent<HTMLInputElement>) => handleDropdownOptionClick(e, field, form)}
+                      onBlur={(e: any) => handleDropdownBlur(e, field)}
+                      onClick={(e: MouseEvent<HTMLInputElement>) => handleDropdownOptionClick(e, form)}
                       tabIndex={expandedDropdown ? 0 : -1}
                     >
                       {item.value}

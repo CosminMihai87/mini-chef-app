@@ -16,7 +16,7 @@ export enum RecipeTags {
 export enum IngredientMeasuringUnits {
   MILIGRAMS = 'miligrams',
   GRAMS = 'grams',
-  KILOGRAMS = 'kiliograms',
+  KILOGRAMS = 'kilograms',
   MILILITERS = 'mililiters',
   LITERS = 'liters',
   DROP = 'drop(~0.05mL)',
