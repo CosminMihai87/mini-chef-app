@@ -1,14 +1,12 @@
 {
   "files": {
-    "main.css": "/mini-chef-app/main.77bf554a.css",
-    "main.js": "/mini-chef-app/main.4999eaaa.js",
+    "main.css": "/mini-chef-app/main.c264f6dc.css",
+    "main.js": "/mini-chef-app/main.4e4b8797.js",
     "assets/fonts/insight_web_light.ttf": "/mini-chef-app/assets/fonts/insight_web_light.80ddf2f1.ttf",
     "assets/images/dark.jpg": "/mini-chef-app/assets/images/dark.a619ffef.jpg",
     "assets/fonts/insight_web_regular.ttf": "/mini-chef-app/assets/fonts/insight_web_regular.91166ed3.ttf",
     "assets/fonts/insight_web_bold.ttf": "/mini-chef-app/assets/fonts/insight_web_bold.ceca421a.ttf",
-    "assets/images/add-logo.png": "/mini-chef-app/assets/images/add-logo.25635c32.png",
     "assets/images/git-logo.png": "/mini-chef-app/assets/images/git-logo.3a26bd61.png",
-    "assets/images/close-logo.png": "/mini-chef-app/assets/images/close-logo.889c6836.png",
     "assets/images/side-navigation-open-logo.png": "/mini-chef-app/assets/images/side-navigation-open-logo.889c6836.png",
     "assets/images/instagram-logo.png": "/mini-chef-app/assets/images/instagram-logo.b4ae9978.png",
     "assets/images/twitter-logo.png": "/mini-chef-app/assets/images/twitter-logo.09f033b1.png",
@@ -20,16 +18,17 @@
     "assets/images/recipe-book-logo.png": "/mini-chef-app/assets/images/recipe-book-logo.3ba33ee8.png",
     "assets/images/logged-in-user-logo.png": "/mini-chef-app/assets/images/logged-in-user-logo.f25f568f.png",
     "assets/images/calendar-logo.png": "/mini-chef-app/assets/images/calendar-logo.91fa8efe.png",
-    "assets/images/search-logo.png": "/mini-chef-app/assets/images/search-logo.8b87f1ab.png",
     "assets/fonts/insight_web_light.eot": "/mini-chef-app/assets/fonts/insight_web_light.35e1abc3.eot",
     "assets/fonts/insight_web_regular.eot": "/mini-chef-app/assets/fonts/insight_web_regular.b302f5e4.eot",
     "assets/fonts/insight_web_bold.eot": "/mini-chef-app/assets/fonts/insight_web_bold.7d73dffe.eot",
     "favicon.ico": "/mini-chef-app/favicon.ico",
     "assets/images/fridge-logo.png": "/mini-chef-app/assets/images/fridge-logo.fa478099.png",
-    "index.html": "/mini-chef-app/index.html"
+    "index.html": "/mini-chef-app/index.html",
+    "error.svg": "/mini-chef-app/2eaf26e913d2427cf6ff.svg",
+    "valid.svg": "/mini-chef-app/6db2f48991c308ac92d1.svg"
   },
   "entrypoints": [
-    "main.77bf554a.css",
-    "main.4999eaaa.js"
+    "main.c264f6dc.css",
+    "main.4e4b8797.js"
   ]
 }
