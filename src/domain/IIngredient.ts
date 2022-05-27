@@ -1,16 +1,14 @@
 import { IngredientMeasuringUnits } from '../domain/constants';
 
 export interface IIngredient {
-  [key: string]: {
-    name: string,
-    category: string
-    measuringUnit: IngredientMeasuringUnits
-  }
+  key: string,
+  name: string,
+  category: string,
+  quantity: IIngredientQuantity,
+  canBeReplacedBy: IIngredient
 }
 
-// export interface IIngredientList extends IIngredient {
-//   [key: string]: {  
-//     quantity: number,
-//     canBeReplacedBy: IIngredient
-//   }
-// }
+export interface IIngredientQuantity {
+  number: number,
+  measuringUnit: IngredientMeasuringUnits
+}

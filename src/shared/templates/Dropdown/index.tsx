@@ -86,11 +86,7 @@ const FwDropdown: FC<IFwDropdownProps> = (props) => {
   useEffect(()=>{
     setFilteredOptions(options?.filter((t: IFwDropdownOption)=> t.value.toLowerCase().indexOf(searchedValue.toLowerCase())!==-1));
   },[searchedValue]);
-
-  useEffect(()=>{
-    console.log(selectedOption);
-  },[selectedOption]);
-
+  
   return(
     <div className={styles['fw-form-control']}>
       <Field name={name}>

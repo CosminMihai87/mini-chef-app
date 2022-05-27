@@ -14,10 +14,12 @@ import * as Yup from 'yup';
 import { 
   RecipeScope, 
   RecipeTags, 
-  TimeUnits 
+  TimeUnits,
+  IngredientMeasuringUnits
 } from '../../domain/constants';
 import FwButton from '../../shared/templates/Button';
 import { IFwCheckBox } from '../../shared/templates/CheckboxList';
+import { IFwDropdownOption } from '../../shared/templates/Dropdown';
 import FormikControl from '../../shared/templates/Formik/FormikControl';
 import PlusLogo from '../../assets/images/form-validation/plus.svg';
 import MinusLogo from '../../assets/images/form-validation/minus.svg';
@@ -26,9 +28,16 @@ const initialValues = {
   name: '',
   scope: [],
   tags: [],
-  ingredientList: [],
+  ingredients: [{
+    ingredient: '',
+    quantity: {
+      number: '',
+      measuringUnit: ''
+    },
+    replacement: ''
+  }],
   duration: {
-    number: 0,
+    number: '',
     timeUnit: ''
   },
   steps: [{
@@ -47,15 +56,28 @@ const validationSchema = Yup.object({
     .required('Field required!'),
   scope: Yup.array().min(1, 'Atleast 1 required!'),
   tags: Yup.array().min(1, 'Atleast 1 required!'),
-  //ingredient list validation goes here
   duration: Yup.object().shape({
     number: Yup.number()
-      .positive()
-      .integer()
+      .typeError('Must be a Number!')
+      .integer('Must be Integer!')
       .min(1,'Must be greater or equal than 1!')
       .required('Field required!'),
     timeUnit: Yup.string().required('Field required!')
   }),
+  ingredients: Yup.array().of(
+    Yup.object().shape({
+      ingredient: Yup.string().required('Field required!'),
+      quantity: Yup.object().shape({
+        number: Yup.number()
+          .typeError('Must be a Number!')
+          .integer('Must be Integer!')
+          .min(1,'Must be greater or equal than 1!')
+          .required('Field required!'),
+        measuringUnit: Yup.string().required('Field required!')
+      }),
+      // replacement: Yup.string().required('Field required!')  //optional field!
+    })
+  ).min(1, 'Need at least 1 ingredient!'),
   steps: Yup.array().of(
     Yup.object().shape({
       do: Yup.string()
@@ -63,8 +85,8 @@ const validationSchema = Yup.object({
         .required('Field required!'),
       duration: Yup.object().shape({
         number: Yup.number()
-          .positive()
-          .integer()
+          .typeError('Must be a Number!')
+          .integer('Must be Integer!')
           .min(1,'Must be greater or equal than 1!')
           .required('Field required!'),
         timeUnit: Yup.string().required('Field required!')
@@ -72,8 +94,8 @@ const validationSchema = Yup.object({
     })
   ).min(1, 'Need at least 1 step!'),
   popularity: Yup.number()
-    .positive()
-    .integer()
+    .typeError('Must be a Number!')
+    .integer('Must be Integer!')
     .min(1,'Must be greater or equal than 1!')
     .max(5,'Must be less or equal than 5!')
     .required('Field required!')
@@ -81,7 +103,7 @@ const validationSchema = Yup.object({
 
 const onSubmit = (values: any, submitProps: any) => {
   console.log('Form data', values);
-  console.log('submitProps', submitProps);
+  // console.log('submitProps', submitProps);
   submitProps.setSubmitting(false);
   submitProps.resetForm();
 };
@@ -108,6 +130,36 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
       };
     },
   );
+  const recipeTimeUnitsOptions: IFwDropdownOption[] = (Object.keys(TimeUnits) as (keyof typeof TimeUnits)[]).map(
+    (key, index) => {
+      return {
+        key: key,
+        value: Object.values(TimeUnits)[index]
+      };
+    },
+  ); 
+  const recipeMeasuringUnitOptions: IFwDropdownOption[] = (Object.keys(IngredientMeasuringUnits) as (keyof typeof IngredientMeasuringUnits)[]).map(
+    (key, index) => {
+      return {
+        key: key,
+        value: Object.values(IngredientMeasuringUnits)[index]
+      };
+    },
+  ); 
+  const ingredientsOptions: IFwDropdownOption[] = [
+    {
+      key: '1',
+      value: 'Potatoes'
+    },
+    {
+      key: '2',
+      value: 'Chicken Breast'
+    },
+    {
+      key: '3',
+      value: 'Flour'
+    }
+  ];
 
   return (
     <div className={styles['add-recipe']}> 
@@ -141,36 +193,122 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
                 label='Tags:'
                 name='tags'
               />
-              <div className={`
-                ${styles.row} 
-                ${styles.duration}
-              `}>
-                <FormikControl
-                  control='input'
-                  inputType='number'
-                  label='Prep time:'
-                  name='duration.number'
-                />
-                <FormikControl
-                  control='dropdown'
-                  dropdownOptions= {(Object.keys(TimeUnits) as (keyof typeof TimeUnits)[]).map(
-                    (key, index) => {
-                      return {
-                        key: key, 
-                        value: Object.values(TimeUnits)[index]
-                      };
-                    },
-                  )}
-                  label=''
-                  name='duration.timeUnit'
-                />
+              <div className={styles.row}>
+                <label className={styles.label}>
+                  Prep time: 
+                </label>
+                <div className={`
+                  ${styles.fields}
+                  ${styles.duration}
+                `}>
+                  <div className={styles.number}>
+                    <FormikControl
+                      control='input'
+                      inputType='number'
+                      label=''
+                      name='duration.number'
+                    />
+                  </div>
+                  <div className={styles['time-unit']}>
+                    <FormikControl
+                      control='dropdown'
+                      dropdownOptions= {recipeTimeUnitsOptions}
+                      label=''
+                      name='duration.timeUnit'
+                    />
+                  </div>
+                </div>
               </div>
-              <div className={`
-                ${styles.combo}
-                ${styles.steps}
-              `}>
+              <div className={styles.row}>
                 <label 
-                  className={styles['label']}
+                  className={styles.label}
+                  htmlFor='ingredients'
+                >
+                  Ingredients: 
+                </label>
+                <FieldArray name='ingredients'>
+                  {
+                    (fieldArrayProps) => {
+                      const { push, remove, form } = fieldArrayProps;
+                      const { values } = form;
+                      const { ingredients } = values;
+                      return <>
+                        {ingredients.map((ingredient: string, index: number) => (
+                          <div 
+                            className={`
+                              ${styles.fields}
+                              ${styles.ingredients}
+                            `}
+                            key={index}
+                          >
+                            <div className={styles.ingredient}>
+                              <FormikControl
+                                control='dropdown'
+                                dropdownOptions= {ingredientsOptions}
+                                label='Name:'
+                                name={`ingredients[${index}].ingredient`}
+                              />
+                            </div>
+                            <div className={styles.quantity}>
+                              <div className={styles.number}>
+                                <FormikControl
+                                  control='input'
+                                  inputType='number'
+                                  label='Quantity:'
+                                  name={`ingredients[${index}].quantity.number`}
+                                />
+                              </div>
+                              <div className={styles['measuring-unit']}>
+                                <FormikControl
+                                  control='dropdown'
+                                  dropdownOptions= {recipeMeasuringUnitOptions}
+                                  label='&nbsp;'
+                                  name={`ingredients[${index}].quantity.measuringUnit`}
+                                />
+                              </div>
+                            </div>
+                            <div className={styles.replacement}>
+                              <FormikControl
+                                control='dropdown'
+                                dropdownOptions= {ingredientsOptions}
+                                label='Can be replaced by:'
+                                name={`ingredients[${index}].replacement`}
+                              />
+                            </div>
+                            <div className={styles.buttons}>
+                              <FwButton
+                                animation='progress'
+                                onClick={() => push({ ingredient: '', quantity: { number: null, measuringUnit: '' }, replacement: ''})}
+                                variant='secondary'
+                              >
+                                <PlusLogo 
+                                  height='30px'
+                                  width='30px'
+                                />
+                              </FwButton>
+                              {index > 0 && 
+                                <FwButton
+                                  animation='progress'
+                                  onClick={() => remove(index)}
+                                  variant='secondary'
+                                >
+                                  <MinusLogo 
+                                    height='30px'
+                                    width='30px'
+                                  />
+                                </FwButton>
+                              }
+                            </div>
+                          </div>
+                        ))}
+                      </>;
+                    }
+                  }
+                </FieldArray>
+              </div>
+              <div className={styles.row}>
+                <label 
+                  className={styles.label}
                   htmlFor='steps'
                 >
                   Steps: 
@@ -185,14 +323,15 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
                         {steps.map((step: string, index: number) => (
                           <div 
                             className={`
-                              ${styles.row} 
-                              ${styles.step}
+                              ${styles.fields}
+                              ${styles.steps}
                             `}
                             key={index}
                           >
                             <div className={styles.do}>
                               <FormikControl
                                 control='textarea'
+                                label='Description:'
                                 name={`steps[${index}].do`}
                               />
                             </div>
@@ -201,22 +340,15 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
                                 <FormikControl
                                   control='input'
                                   inputType='number'
-                                  label=''
+                                  label='How Long:'
                                   name={`steps[${index}].duration.number`}
                                 />
                               </div>
                               <div className={styles['time-units']}>
                                 <FormikControl
                                   control='dropdown'
-                                  dropdownOptions= {(Object.keys(TimeUnits) as (keyof typeof TimeUnits)[]).map(
-                                    (key, index) => {
-                                      return {
-                                        key: key,
-                                        value: Object.values(TimeUnits)[index]
-                                      };
-                                    },
-                                  )}
-                                  label=''
+                                  dropdownOptions= {recipeTimeUnitsOptions}
+                                  label='&nbsp;'
                                   name={`steps[${index}].duration.timeUnit`}
                                 />
                               </div>
@@ -224,7 +356,7 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
                             <div className={styles.buttons}>
                               <FwButton
                                 animation='progress'
-                                onClick={() => push({ do: '', duration: { number: '', timeUnit: '' }})}
+                                onClick={() => push({ do: '', duration: { number: null, timeUnit: '' }})}
                                 variant='secondary'
                               >
                                 <PlusLogo 
