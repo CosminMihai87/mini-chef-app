@@ -13,3 +13,25 @@ export const firebaseConfig = {
   measurementId: 'G-085JWQXFRK',
   referenceURL: 'https://mini-chef-74da9-default-rtdb.europe-west1.firebasedatabase.app'
 };
+
+export enum TemplateVariant {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary'
+}
+
+export type templateVariant = TemplateVariant.PRIMARY | TemplateVariant.SECONDARY;
+
+export enum AnimationType {
+  PROGRESS = 'progress',
+  JELLO = 'jello',
+  PULSE = 'pulse'
+}
+
+export type animationType = AnimationType.PROGRESS | AnimationType.JELLO | AnimationType.PULSE;
+
+export enum DropdownType {
+  DEFAULT = 'default',
+  SEARCH = 'search'
+}
+
+export type dropdownType = DropdownType.DEFAULT | DropdownType.SEARCH;

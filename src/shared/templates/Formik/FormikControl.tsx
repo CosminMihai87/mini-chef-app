@@ -5,12 +5,12 @@ import FwInput, {
   inputType 
 } from '../Input';
 import FwTextarea from '../Textarea';
-import FwDropdown, { 
-  IFwDropdownOption, 
-  dropdownType, 
-  dropdownVariant, 
-  animationType 
-}  from '../Dropdown';
+import FwDropdown, { IFwDropdownOption }  from '../Dropdown';
+import { 
+  dropdownType,
+  templateVariant,
+  animationType
+} from '../../constants';
 import FwCheckBoxList, {
   IFwCheckBox,
   checkBoxDirection
@@ -27,7 +27,7 @@ export interface IFormikControlProps {
   innerRef?: any,
   dropdownOptions?: IFwDropdownOption[],
   checkBoxListOptions?: IFwCheckBox[],
-  dropdownVariant?: dropdownVariant,
+  dropdownVariant?: templateVariant,
   animation?: animationType
   direction?: checkBoxDirection,
   columnsNr?: number
