@@ -16,16 +16,17 @@ import {
   FormControl, 
   FormLabel 
 } from 'react-bootstrap';
+import { 
+  dropdownType,
+  templateVariant,
+  animationType
+} from '../../constants';
 import FwButton from '../Button';
 import ChevronUpLogo from '../../../assets/images/chevron-up.svg';
 import ChevronDownLogo from '../../../assets/images/chevron-down.svg';
 import CheckLogo from '../../../assets/images/check-logo.svg';
 import ClearLogo from '../../../assets/images/close-logo.svg';
 import SearchLogo from '../../../assets/images/search-logo.svg';
-
-export type animationType = 'progress' | 'jello' | 'pulse' | undefined;
-export type dropdownType = 'default' | 'search';
-export type dropdownVariant = 'primary' | 'secondary';
 
 interface IFwDropdownProps {
   dropdownType?: dropdownType,
@@ -35,7 +36,7 @@ interface IFwDropdownProps {
   options: IFwDropdownOption[] | undefined,
   isDisabled?: boolean,
   animation?: animationType
-  variant?: dropdownVariant,
+  variant?: templateVariant,
   searchPlaceholder?: string,
 }
 
