@@ -4,7 +4,10 @@ import {
   RefObject
 } from 'react';
 import styles from './FwTextarea.module.scss';
-import { Field } from 'formik';
+import { 
+  Field,
+  FieldProps
+} from 'formik';
 import {
   FormGroup,
   FormLabel,
@@ -34,7 +37,11 @@ const FwTextarea: FC<IFwTextareaProps> = (props) => {
   return(
     <div className={styles['fw-form-control']}>
       <Field name={name}>
-        {({ field, meta }: any) => {
+        {(props: FieldProps) => {
+          const { 
+            field, 
+            meta 
+          } = props;
           return ( 
             <FormGroup className={styles['fw-textarea-group']}>
               {label && 

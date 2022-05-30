@@ -1,12 +1,14 @@
 
 import {
   FC,
-  forwardRef
+  forwardRef,
+  ForwardedRef
 } from 'react';
 import styles from './AddRecipe.module.scss';
 import { 
   Formik, 
   FormikProps,
+  FormikHelpers,
   Form, 
   FieldArray
 } from 'formik';
@@ -22,32 +24,60 @@ import { IFwCheckBox } from '../../shared/templates/CheckboxList';
 import { IFwDropdownOption } from '../../shared/templates/Dropdown';
 import { 
   ControlType,
-  InputType
+  InputType,
+  TemplateVariant,
+  AnimationType
 } from '../../shared/constants';
 import FormikControl from '../../shared/templates/Formik/FormikControl';
 import PlusLogo from '../../assets/images/form-validation/plus.svg';
 import MinusLogo from '../../assets/images/form-validation/minus.svg';
 
-const initialValues = {
+export interface IAddRecipeForm {
+  name: string;
+  scope: string[];
+  tags: string[];
+  ingredients: {
+    ingredient: string,
+    quantity: {
+      number: number,
+      measuringUnit: string
+    },
+    replacement: string
+  }[],
+  duration: {
+    number: number,
+    timeUnit: string
+  },
+  steps: {
+    do: string,
+    duration: {
+      number: number,
+      timeUnit: string
+    }
+  }[],
+  popularity: number
+}
+
+const initialValues: IAddRecipeForm = {
   name: '',
   scope: [],
   tags: [],
   ingredients: [{
     ingredient: '',
     quantity: {
-      number: '',
+      number: 0,
       measuringUnit: ''
     },
     replacement: ''
   }],
   duration: {
-    number: '',
+    number: 0,
     timeUnit: ''
   },
   steps: [{
     do: '',
     duration: {
-      number: '',
+      number: 0,
       timeUnit: ''
     }
   }],
@@ -105,14 +135,13 @@ const validationSchema = Yup.object({
     .required('Field required!')
 });
 
-const onSubmit = (values: any, submitProps: any) => {
-  console.log('Form data', values);
-  // console.log('submitProps', submitProps);
+const onSubmit = (_values: IAddRecipeForm, submitProps: FormikHelpers<IAddRecipeForm>) => {
+  // console.log('Form data', values);
   submitProps.setSubmitting(false);
   submitProps.resetForm();
 };
 
-const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
+const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((_props, ref: ForwardedRef<FormikProps<IAddRecipeForm>> | null) => {
 
   const recipeScopeOptions: IFwCheckBox[]  = (Object.keys(RecipeScope) as (keyof typeof RecipeScope)[]).map(
     (key, index) => {
@@ -281,9 +310,9 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
                             </div>
                             <div className={styles.buttons}>
                               <FwButton
-                                animation='progress'
+                                animation={AnimationType.PROGRESS}
                                 onClick={() => push({ ingredient: '', quantity: { number: null, measuringUnit: '' }, replacement: ''})}
-                                variant='secondary'
+                                variant={TemplateVariant.SECONDARY}
                               >
                                 <PlusLogo 
                                   height='30px'
@@ -292,9 +321,9 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
                               </FwButton>
                               {index > 0 && 
                                 <FwButton
-                                  animation='progress'
+                                  animation={AnimationType.PROGRESS}
                                   onClick={() => remove(index)}
-                                  variant='secondary'
+                                  variant={TemplateVariant.SECONDARY}
                                 >
                                   <MinusLogo 
                                     height='30px'
@@ -359,9 +388,9 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
                             </div>
                             <div className={styles.buttons}>
                               <FwButton
-                                animation='progress'
+                                animation={AnimationType.PROGRESS}
                                 onClick={() => push({ do: '', duration: { number: null, timeUnit: '' }})}
-                                variant='secondary'
+                                variant={TemplateVariant.SECONDARY}
                               >
                                 <PlusLogo 
                                   height='30px'
@@ -370,9 +399,9 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
                               </FwButton>
                               {index > 0 && 
                                 <FwButton
-                                  animation='progress'
+                                  animation={AnimationType.PROGRESS}
                                   onClick={() => remove(index)}
-                                  variant='secondary'
+                                  variant={TemplateVariant.SECONDARY}
                                 >
                                   <MinusLogo 
                                     height='30px'

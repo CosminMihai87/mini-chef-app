@@ -3,7 +3,9 @@ import {
 } from 'react';
 import styles from './Calendar.module.scss';
 
-export interface ICalendarProps {}
+export interface ICalendarProps {
+  test?: string
+}
 
 const Calendar: FC<ICalendarProps> = (props) => {
 

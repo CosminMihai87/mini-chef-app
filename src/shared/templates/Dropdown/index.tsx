@@ -17,9 +17,12 @@ import {
   FormLabel 
 } from 'react-bootstrap';
 import { 
+  DropdownType,
   dropdownType,
   templateVariant,
-  animationType
+  TemplateVariant,
+  animationType,
+  AnimationType,
 } from '../../constants';
 import FwButton from '../Button';
 import ChevronUpLogo from '../../../assets/images/chevron-up.svg';
@@ -53,14 +56,14 @@ export interface IFwDropdownSearchProps {
 
 const FwDropdown: FC<IFwDropdownProps> = (props) => {
   const {
-    dropdownType = 'search',
+    dropdownType = DropdownType.SEARCH,
     label = '',
     name,
     id = undefined,
     options,
     isDisabled = false,
-    animation = 'progress',
-    variant = 'primary',
+    animation = AnimationType.PROGRESS,
+    variant = TemplateVariant.PRIMARY,
     searchPlaceholder = 'Type to filter...'
   } = {...props};
   const [expandedDropdown, setExpandedDropdown] = useState(false);
@@ -214,9 +217,9 @@ const FwDropdownSearch: FC<IFwDropdownSearchProps> = (props) => {
       />
       <div className={styles['fw-dropdown-search-button']}>
         <FwButton
-          animation='progress'
+          animation={AnimationType.PROGRESS}
           onClick={(e: MouseEvent<HTMLButtonElement>) => handleButtonClick(e)}
-          variant='secondary'
+          variant={TemplateVariant.SECONDARY}
         >
           {buttonAction === 'Search'? 
             <SearchLogo 

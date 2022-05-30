@@ -3,7 +3,9 @@ import {
 } from 'react';
 import styles from './ShoppingCart.module.scss';
 
-export interface IShoppingCartProps {}
+export interface IShoppingCartProps {
+  test?: string
+}
 
 const ShoppingCart: FC<IShoppingCartProps> = (props) => {
 

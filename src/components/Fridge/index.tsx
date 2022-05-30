@@ -3,7 +3,9 @@ import {
 } from 'react';
 import styles from './Fridge.module.scss';
 
-export interface IFridgeProps {}
+export interface IFridgeProps {
+  test?: string
+}
 
 const Fridge: FC<IFridgeProps> = (props) => {
 

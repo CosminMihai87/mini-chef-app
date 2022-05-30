@@ -3,7 +3,9 @@ import {
 } from 'react';
 import styles from './Recipe.module.scss';
 
-export interface IRecipeProps {}
+export interface IRecipeProps {
+  test?: string
+}
 
 const Recipe: FC<IRecipeProps> = (props) => {
 

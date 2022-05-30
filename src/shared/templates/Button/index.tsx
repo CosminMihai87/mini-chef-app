@@ -6,11 +6,16 @@ import {
   MutableRefObject
 } from 'react';
 import { Button } from 'react-bootstrap';
+import { 
+  ButtonType,
+  buttonType,
+  TemplateVariant,
+  templateVariant,
+  AnimationType,
+  animationType
+} from '../../constants';
 import ReactTooltip from 'react-tooltip';
 import styles from './FwButton.module.scss';
- 
-type buttonType = 'button' | 'submit' | 'reset' | undefined;
-type animationType = 'progress' | 'jello' | 'pulse' | undefined;
 
 interface FwButtonProps {
   isDisabled?: boolean,
@@ -21,7 +26,7 @@ interface FwButtonProps {
   tooltipTextPlacement?: string,
   tooltipType?: string,
   type?: buttonType,
-  variant?: string,
+  variant?: templateVariant,
   children: React.ReactElement<HTMLParagraphElement | HTMLHeadElement>
   animation?: animationType
 }
@@ -35,9 +40,9 @@ const FwButton:FC<FwButtonProps> = (props) => {
     tooltipText = '',
     tooltipTextPlacement = 'bottom',
     tooltipType = 'dark',
-    type = 'button',
-    variant = 'primary',
-    animation = 'progress',
+    type = ButtonType.BUTTON,
+    variant = TemplateVariant.PRIMARY,
+    animation = AnimationType.PULSE,
     children = undefined,
   } = {...props};
   const ref = useRef<HTMLButtonElement>(innerRef as HTMLButtonElement | null);

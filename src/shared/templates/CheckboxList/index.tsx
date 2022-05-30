@@ -3,13 +3,17 @@ import {
 } from 'react';
 import styles from './FwCheckBoxList.module.scss';
 import { 
-  Field
+  Field,
+  FieldProps
 } from 'formik';
 import {
   FormGroup,
   FormLabel 
 } from 'react-bootstrap';
-import { checkBoxDirection } from '../../constants';
+import { 
+  CheckBoxDirection,
+  checkBoxDirection 
+} from '../../constants';
 
 export interface IFwCheckBoxListProps {
   label?: string,
@@ -31,10 +35,10 @@ const FwCheckBoxList: FC<IFwCheckBoxListProps> = (props) => {
     label = '',
     name,
     options,
-    direction = 'column',
+    direction = CheckBoxDirection.COLUMN,
     columnsNr = 1
   } = {...props};
-  const columnsStyle: any = {
+  const columnsStyle: Object = {
     listStyleType: 'none',
     padding: 0,
     margin: 0,
@@ -44,8 +48,11 @@ const FwCheckBoxList: FC<IFwCheckBoxListProps> = (props) => {
   return (
     <div className={styles['fw-form-control']}>
       <Field name={name}>
-        {({ field, meta }: any) => {
-          // console.log(meta);
+        {(props: FieldProps) => {
+          const { 
+            field, 
+            meta 
+          } = props;
           return (
             <FormGroup className={`
               ${styles['fw-checkbox-list']}

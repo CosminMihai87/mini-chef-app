@@ -5,7 +5,9 @@ import { Outlet } from 'react-router-dom';
 import styles from './Home.module.scss';
 // import Ingredients from '../Ingredients';
 
-export interface IHomeProps {}
+export interface IHomeProps {
+  test?: string
+}
 
 const Home: FC<IHomeProps> = (props) => {
 

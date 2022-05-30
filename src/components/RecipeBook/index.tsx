@@ -13,14 +13,18 @@ import FwCheckBoxList, {
   IFwCheckBox 
 } from '../../shared/templates/CheckboxList';
 import FwInput from '../../shared/templates/Input';
-import { InputType } from '../../shared/constants';
+import { 
+  AnimationType, 
+  InputType, 
+  TemplateVariant 
+} from '../../shared/constants';
 import IRecipe from '../../domain/IRecipe';
 import { 
   RecipeScope, 
   RecipeTags 
 } from '../../domain/constants';
 import FwModal from '../../shared/templates/Modal';
-import AddRecipe from '../AddRecipe';
+import AddRecipe, { IAddRecipeForm } from '../AddRecipe';
 
 export interface IRecipeBookProps {
   recipeList?: IRecipe[]
@@ -33,6 +37,7 @@ export interface IRecipeBookProps {
 const RecipeBook: FC<IRecipeBookProps> = (props) =>{
 
   const [ openAddRecipe, setOpenAddRecipe ] = useState(false);
+  const [ openEditRecipe, setOpenEditRecipe ] = useState(false);
   const recipeScopeOptions: IFwCheckBox[]  = (Object.keys(RecipeScope) as (keyof typeof RecipeScope)[]).map(
     (key, index) => {
       return {
@@ -53,7 +58,12 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
       };
     },
   );
-  const addRecipeRef = useRef<FormikProps<any>>(null);
+  const addRecipeRef = useRef<FormikProps<IAddRecipeForm>>(null);
+  const editRecipeRef = useRef<FormikProps<IAddRecipeForm>>(null);
+
+  const handleRecipeRemove = () => {
+    return true;
+  };
 
   return (
     <Formik
@@ -74,22 +84,8 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
               <div className={styles.title}>
                 <span>Recipe Book:</span>
               </div>
-              <div className={styles['buttons-and-filters']}>  
-                <div className={styles['filter-by']}>  
-                  <span className={styles.title}>
-                    Filter by:
-                  </span>
-                  <FwButton
-                    animation='progress'
-                    onClick={() => {
-                      formik.resetForm();
-                    }} 
-                    variant='primary'
-                  >
-                    <span>Clear Filters</span>
-                  </FwButton>
-                </div>
-                <div className={styles['scope']}>  
+              <div className={styles['buttons-and-filters']}>
+                <div className={styles.scope}>  
                   <span className={styles.title}>
                     Scope:
                   </span>
@@ -98,47 +94,77 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
                     options={recipeScopeOptions}
                   />
                 </div>
-                <div className={styles['tags']}>  
+                <div className={styles.tags}>  
                   <span className={styles.title}>
                     Tags:
                   </span>
                   <FwCheckBoxList
-                    columnsNr={3}
+                    columnsNr={2}
                     name='recipeTagsFilter'
                     options={recipeTagsOptions}
                   />
                 </div>
-                <div className={styles['manage']}>  
+                <div className={styles['manage-recipes']}>  
                   <span className={styles.title}>
                     Manage Recipes:
                   </span>
-                  <FwButton
-                    animation='progress'
-                    onClick={() => setOpenAddRecipe(!openAddRecipe)} 
-                    variant='primary'
-                  >
-                    <span>Add Recipe</span>
-                  </FwButton>
-                  <FwModal 
-                    closeOnPrimaryButtonClick={false} 
-                    handleBtnPrimary={() => addRecipeRef?.current?.handleSubmit()}
-                    handleClose={() => setOpenAddRecipe(false)}
-                    isOpen={openAddRecipe}
-                    modalBtnPrimaryText='Add' 
-                    modalTitleText='Add Recipe'
-                  >
-                    <AddRecipe 
-                      // @ts-ignore
-                      ref={addRecipeRef}
-                    />
-                  </FwModal>
+                  <div className={styles.buttons}> 
+                    <div className={styles.add}>  
+                      <FwButton
+                        animation={AnimationType.PROGRESS}
+                        onClick={() => setOpenAddRecipe(!openAddRecipe)} 
+                        variant={TemplateVariant.PRIMARY}
+                      >
+                        <span>Add</span>
+                      </FwButton>
+                      <FwModal 
+                        closeOnPrimaryButtonClick={false} 
+                        handleBtnPrimary={() => addRecipeRef?.current?.handleSubmit()}
+                        handleClose={() => setOpenAddRecipe(false)}
+                        isOpen={openAddRecipe}
+                        modalBtnPrimaryText='Add' 
+                        modalTitleText='Add Recipe'
+                      >
+                        <AddRecipe 
+                          // @ts-ignore
+                          ref={addRecipeRef}
+                        />
+                      </FwModal>
+                    </div>
+                    <div className={styles.remove}>  
+                      <FwButton
+                        animation={AnimationType.PROGRESS}
+                        onClick={() => handleRecipeRemove()} 
+                        variant={TemplateVariant.PRIMARY}
+                      >
+                        <span>Remove</span>
+                      </FwButton>
+                    </div>
+                    <div className={styles.edit}>  
+                      <FwButton
+                        animation={AnimationType.PROGRESS}
+                        onClick={() => setOpenEditRecipe(!openEditRecipe)} 
+                        variant={TemplateVariant.PRIMARY}
+                      >
+                        <span>Edit</span>
+                      </FwButton>
+                      <FwModal 
+                        closeOnPrimaryButtonClick={false} 
+                        handleBtnPrimary={() => editRecipeRef?.current?.handleSubmit()}
+                        handleClose={() => setOpenAddRecipe(false)}
+                        isOpen={openAddRecipe}
+                        modalBtnPrimaryText='Save' 
+                        modalTitleText='Edit Recipe'
+                      >
+                        <AddRecipe 
+                          // @ts-ignore
+                          ref={editRecipeRef}
+                        />
+                      </FwModal>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className={styles.preview}>
-
-              </div>
-            </div>
-            <div className={styles['recipe-book-right']}>
               <div className={styles.search}>
                 <FwInput
                   formikValidFrame={false}
@@ -146,8 +172,22 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
                   placeholder='Type to filter...'
                   type={InputType.SEARCH}
                 />
+                <FwButton
+                  animation={AnimationType.PROGRESS}
+                  onClick={() => {
+                    formik.resetForm();
+                  }} 
+                  variant={TemplateVariant.PRIMARY}
+                >
+                  <span>Clear Filters</span>
+                </FwButton>
               </div>
               <div className={styles.list}>
+
+              </div>
+            </div>
+            <div className={styles['recipe-book-right']}>
+              <div className={styles.preview}>
 
               </div>
             </div>
