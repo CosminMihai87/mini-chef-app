@@ -1,23 +1,22 @@
 import {
   FC
 } from 'react';
-import FwInput, { 
-  inputType 
-} from '../Input';
+import FwInput from '../Input';
 import FwTextarea from '../Textarea';
 import FwDropdown, { IFwDropdownOption }  from '../Dropdown';
 import { 
+  controlType,
+  ControlType,
   dropdownType,
   templateVariant,
-  animationType
+  animationType,
+  checkBoxDirection,
+  inputType
 } from '../../constants';
-import FwCheckBoxList, {
-  IFwCheckBox,
-  checkBoxDirection
-} from '../CheckboxList';
+import FwCheckBoxList, { IFwCheckBox } from '../CheckboxList';
 
 export interface IFormikControlProps {
-  control: string,
+  control: controlType,
   inputType?: inputType,
   dropdownType?: dropdownType,
   label?: string,
@@ -52,7 +51,7 @@ const FormikControl: FC<IFormikControlProps> = (props) => {
   } = {...props};
 
   switch (control) {
-  case 'input':
+  case ControlType.INPUT:
     return <FwInput 
       id={id}
       innerRef={innerRef}
@@ -61,7 +60,7 @@ const FormikControl: FC<IFormikControlProps> = (props) => {
       placeholder={placeholder}
       type={inputType}
     />;
-  case 'textarea':
+  case ControlType.TEXTAREA:
     return <FwTextarea 
       id={id}
       innerRef={innerRef}
@@ -69,7 +68,7 @@ const FormikControl: FC<IFormikControlProps> = (props) => {
       name={name}
       placeholder={placeholder}
     />;
-  case 'dropdown':
+  case ControlType.DROPDOWN:
     return <FwDropdown
       animation={animation}
       dropdownType={dropdownType}
@@ -79,7 +78,7 @@ const FormikControl: FC<IFormikControlProps> = (props) => {
       options={dropdownOptions}
       variant={dropdownVariant}
     />;
-  case 'checkboxList':
+  case ControlType.CHECKBOXLIST:
     return <FwCheckBoxList 
       columnsNr={columnsNr}
       direction={direction}

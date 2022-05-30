@@ -35,3 +35,35 @@ export enum DropdownType {
 }
 
 export type dropdownType = DropdownType.DEFAULT | DropdownType.SEARCH;
+
+export enum CheckBoxDirection {
+  COLUMN = 'column',
+  ROW = 'row'
+}
+
+export type checkBoxDirection = CheckBoxDirection.COLUMN | CheckBoxDirection.ROW;
+
+export enum InputType {
+  TEXT = 'text',
+  NUMBER = 'number',
+  PASSWORD = 'password',
+  EMAIL = 'email',
+  COLOR = 'color',
+  TIME = 'time',
+  WEEK = 'week',
+  MONTH = 'month',
+  RANGE = 'range',
+  SEARCH = 'search',
+}
+
+export type inputType = InputType.TEXT | InputType.NUMBER | InputType.PASSWORD | InputType.EMAIL | InputType.COLOR | InputType.TIME | 
+InputType.WEEK | InputType.MONTH | InputType.RANGE | InputType.SEARCH;
+
+export enum ControlType {
+  INPUT = 'input',
+  TEXTAREA = 'textarea',
+  DROPDOWN = 'dropdown',
+  CHECKBOXLIST = 'checkboxList'
+}
+
+export type controlType = ControlType.INPUT |  ControlType.TEXTAREA |  ControlType.DROPDOWN |  ControlType.CHECKBOXLIST;

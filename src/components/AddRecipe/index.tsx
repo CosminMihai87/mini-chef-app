@@ -20,6 +20,10 @@ import {
 import FwButton from '../../shared/templates/Button';
 import { IFwCheckBox } from '../../shared/templates/CheckboxList';
 import { IFwDropdownOption } from '../../shared/templates/Dropdown';
+import { 
+  ControlType,
+  InputType
+} from '../../shared/constants';
 import FormikControl from '../../shared/templates/Formik/FormikControl';
 import PlusLogo from '../../assets/images/form-validation/plus.svg';
 import MinusLogo from '../../assets/images/form-validation/minus.svg';
@@ -174,22 +178,22 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
           return (
             <Form>
               <FormikControl
-                control='input'
-                inputType='text'
+                control={ControlType.INPUT}
+                inputType={InputType.TEXT}
                 label='Name:'
                 name='name'
               />
               <FormikControl
                 checkBoxListOptions={recipeScopeOptions}
                 columnsNr={2}
-                control='checkboxList'
+                control={ControlType.CHECKBOXLIST}
                 label='Scope:'
                 name='scope'
               />
               <FormikControl
                 checkBoxListOptions={recipeTagsOptions}
                 columnsNr={5}
-                control='checkboxList'
+                control={ControlType.CHECKBOXLIST}
                 label='Tags:'
                 name='tags'
               />
@@ -203,15 +207,15 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
                 `}>
                   <div className={styles.number}>
                     <FormikControl
-                      control='input'
-                      inputType='number'
+                      control={ControlType.INPUT}
+                      inputType={InputType.NUMBER}
                       label=''
                       name='duration.number'
                     />
                   </div>
                   <div className={styles['time-unit']}>
                     <FormikControl
-                      control='dropdown'
+                      control={ControlType.DROPDOWN}
                       dropdownOptions= {recipeTimeUnitsOptions}
                       label=''
                       name='duration.timeUnit'
@@ -243,7 +247,7 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
                           >
                             <div className={styles.ingredient}>
                               <FormikControl
-                                control='dropdown'
+                                control={ControlType.DROPDOWN}
                                 dropdownOptions= {ingredientsOptions}
                                 label='Name:'
                                 name={`ingredients[${index}].ingredient`}
@@ -252,15 +256,15 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
                             <div className={styles.quantity}>
                               <div className={styles.number}>
                                 <FormikControl
-                                  control='input'
-                                  inputType='number'
+                                  control={ControlType.INPUT}
+                                  inputType={InputType.NUMBER}
                                   label='Quantity:'
                                   name={`ingredients[${index}].quantity.number`}
                                 />
                               </div>
                               <div className={styles['measuring-unit']}>
                                 <FormikControl
-                                  control='dropdown'
+                                  control={ControlType.DROPDOWN}
                                   dropdownOptions= {recipeMeasuringUnitOptions}
                                   label='&nbsp;'
                                   name={`ingredients[${index}].quantity.measuringUnit`}
@@ -269,7 +273,7 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
                             </div>
                             <div className={styles.replacement}>
                               <FormikControl
-                                control='dropdown'
+                                control={ControlType.DROPDOWN}
                                 dropdownOptions= {ingredientsOptions}
                                 label='Can be replaced by:'
                                 name={`ingredients[${index}].replacement`}
@@ -330,7 +334,7 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
                           >
                             <div className={styles.do}>
                               <FormikControl
-                                control='textarea'
+                                control={ControlType.TEXTAREA}
                                 label='Description:'
                                 name={`steps[${index}].do`}
                               />
@@ -338,15 +342,15 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
                             <div className={styles.duration}>
                               <div className={styles.number}>
                                 <FormikControl
-                                  control='input'
-                                  inputType='number'
+                                  control={ControlType.INPUT}
+                                  inputType={InputType.NUMBER}
                                   label='How Long:'
                                   name={`steps[${index}].duration.number`}
                                 />
                               </div>
                               <div className={styles['time-units']}>
                                 <FormikControl
-                                  control='dropdown'
+                                  control={ControlType.DROPDOWN}
                                   dropdownOptions= {recipeTimeUnitsOptions}
                                   label='&nbsp;'
                                   name={`steps[${index}].duration.timeUnit`}
@@ -385,8 +389,8 @@ const AddRecipe: FC = forwardRef<FormikProps<any>>((props, ref) => {
                 </FieldArray>
               </div>
               <FormikControl
-                control='input'
-                inputType='text'
+                control={ControlType.INPUT}
+                inputType={InputType.NUMBER}
                 label='Rate the recipe:'
                 name='popularity'
               />

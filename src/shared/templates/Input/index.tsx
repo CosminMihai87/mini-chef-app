@@ -10,8 +10,7 @@ import {
   FormLabel,
   FormControl
 } from 'react-bootstrap';
-
-export type inputType = 'text' | 'number' | 'password' | 'email' | 'color' | 'time' | 'week' | 'month' | 'range' | 'search';
+import { inputType } from '../../constants';
 
 export interface IFwInputProps {
   type?: inputType;
