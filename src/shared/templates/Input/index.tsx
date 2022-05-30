@@ -4,13 +4,19 @@ import {
   RefObject
 } from 'react';
 import styles from './FwInput.module.scss';
-import { Field } from 'formik';
+import { 
+  Field,
+  FieldProps
+} from 'formik';
 import {
   FormGroup,
   FormLabel,
   FormControl
 } from 'react-bootstrap';
-import { inputType } from '../../constants';
+import {
+  InputType,
+  inputType
+} from '../../constants';
 
 export interface IFwInputProps {
   type?: inputType;
@@ -24,7 +30,7 @@ export interface IFwInputProps {
 
 const FwInput: FC<IFwInputProps> = (props) => {
   const {
-    type = 'text',
+    type = InputType.TEXT,
     label = '',
     name,
     id = undefined,
@@ -37,7 +43,11 @@ const FwInput: FC<IFwInputProps> = (props) => {
   return(
     <div className={styles['fw-form-control']}>
       <Field name={name}>
-        {({ field, meta }: any) => {
+        {(props: FieldProps) => {
+          const { 
+            field, 
+            meta 
+          } = props;
           return ( 
             <FormGroup className={styles['fw-input-group']}>
               {label && 

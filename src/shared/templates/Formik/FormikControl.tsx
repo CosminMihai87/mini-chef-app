@@ -1,5 +1,6 @@
 import {
-  FC
+  FC,
+  RefObject
 } from 'react';
 import FwInput from '../Input';
 import FwTextarea from '../Textarea';
@@ -23,7 +24,7 @@ export interface IFormikControlProps {
   name: string,
   id?: string,
   placeholder?: string
-  innerRef?: any,
+  innerRef?: RefObject<HTMLElement> | null,
   dropdownOptions?: IFwDropdownOption[],
   checkBoxListOptions?: IFwCheckBox[],
   dropdownVariant?: templateVariant,
@@ -54,7 +55,7 @@ const FormikControl: FC<IFormikControlProps> = (props) => {
   case ControlType.INPUT:
     return <FwInput 
       id={id}
-      innerRef={innerRef}
+      innerRef={innerRef as RefObject<HTMLInputElement>}
       label={label}
       name={name}
       placeholder={placeholder}
@@ -63,7 +64,7 @@ const FormikControl: FC<IFormikControlProps> = (props) => {
   case ControlType.TEXTAREA:
     return <FwTextarea 
       id={id}
-      innerRef={innerRef}
+      innerRef={innerRef as RefObject<HTMLTextAreaElement>}
       label={label}
       name={name}
       placeholder={placeholder}

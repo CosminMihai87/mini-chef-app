@@ -14,6 +14,10 @@ import facebookLogo from '../../../assets/images/social-media/facebook-logo.png'
 import UseTransitionAnimation from '../../../shared/customHooks/useTransitionAnimation';
 import FwButton from '../../../shared/templates/Button';
 import {
+  TemplateVariant,
+  AnimationType
+} from '../../../shared/constants';
+import {
   LINKED_IN_URL,
   GIT_URL,
   INSTAGRAM_URL,
@@ -88,14 +92,14 @@ const PageFooter: React.FC<PageFooterInterface> = (props) => {
         <div className={styles.content}>
           <div className={styles.links}>
             <FwButton
-              animation='jello'
+              animation={AnimationType.JELLO}
               id='btnLinkedInID'
               innerRef={btnLinkedIn}
               onClick={()=>{
                 window.open(LINKED_IN_URL,'_blank');
               }}
               tooltipText='LinkedIn'
-              variant='secondary'
+              variant={TemplateVariant.SECONDARY}
             >
               <img 
                 alt='LinkedIn Icon placeholder'
@@ -103,14 +107,14 @@ const PageFooter: React.FC<PageFooterInterface> = (props) => {
               />
             </FwButton>
             <FwButton
-              animation='jello'
+              animation={AnimationType.JELLO}
               id='btnGitID'
               innerRef={btnGit}
               onClick={()=>{
                 window.open(GIT_URL,'_blank');
               }}
               tooltipText='Git'
-              variant='secondary'
+              variant={TemplateVariant.SECONDARY}
             >
               <img 
                 alt='Git Icon placeholder'
@@ -118,14 +122,14 @@ const PageFooter: React.FC<PageFooterInterface> = (props) => {
               />
             </FwButton>
             <FwButton
-              animation='jello'
+              animation={AnimationType.JELLO}
               id='btTwitterID'
               innerRef={btnTwitter}
               onClick={()=>{
                 return;
               }}
               tooltipText='Twitter'
-              variant='secondary'
+              variant={TemplateVariant.SECONDARY}
             >
               <img 
                 alt='Twitter Icon placeholder'
@@ -133,14 +137,14 @@ const PageFooter: React.FC<PageFooterInterface> = (props) => {
               />
             </FwButton>
             <FwButton
-              animation='jello'
+              animation={AnimationType.JELLO}
               id='btInstagramID'
               innerRef={btnInstagram}
               onClick={()=>{
                 window.open(INSTAGRAM_URL,'_blank');
               }}
               tooltipText='Instagram'
-              variant='secondary'
+              variant={TemplateVariant.SECONDARY}
             >
               <img 
                 alt='Instagram Icon placeholder'
@@ -148,14 +152,14 @@ const PageFooter: React.FC<PageFooterInterface> = (props) => {
               />
             </FwButton>
             <FwButton
-              animation='jello'
+              animation={AnimationType.JELLO}
               id='btFacebookID'
               innerRef={btnFacebook}
               onClick={()=>{
                 window.open(FACEBOOK_URL,'_blank');
               }}
               tooltipText='Facebook'
-              variant='secondary'
+              variant={TemplateVariant.SECONDARY}
             >
               <img 
                 alt='Facebook Icon placeholder'

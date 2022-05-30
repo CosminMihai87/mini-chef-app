@@ -9,6 +9,10 @@ import styles from './Modal.module.scss';
 import { CSSTransition } from 'react-transition-group';
 import UsePortal from '../../customHooks/usePortal';
 import FwButton from '../../templates/Button';
+import { 
+  AnimationType,
+  TemplateVariant 
+} from '../../constants';
 import CloseLogo from '../../../assets/images/close-logo.svg';
 
 export interface IFwModalProps {
@@ -102,12 +106,12 @@ const FwModal: FC<IFwModalProps> = (props) => {
                   ref={modalHeaderBtnRef}
                 >
                   <FwButton
-                    animation='progress'
+                    animation={AnimationType.PROGRESS}
                     id='BtnModalHeaderClose'
                     onClick={() => handleBtnClose()} 
                     tooltipText='Close'
                     tooltipTextPlacement='top'
-                    variant='secondary'
+                    variant={TemplateVariant.SECONDARY}
                   >
                     <CloseLogo 
                       height='30px'
@@ -128,20 +132,20 @@ const FwModal: FC<IFwModalProps> = (props) => {
                 >
                   {!disableSecondaryButton && (
                     <FwButton
-                      animation='progress'
+                      animation={AnimationType.PROGRESS}
                       id='BtnModalFooterSecondary'
                       onClick={() => handleBtnSecondaryClick()} 
-                      variant='secondary'
+                      variant={TemplateVariant.SECONDARY}
                     >
                       <span>{modalBtnSecondaryText}</span>
                     </FwButton>
                   )}
                   {!disablePrimaryButton && (
                     <FwButton
-                      animation='progress'
+                      animation={AnimationType.PROGRESS}
                       id='BtnModalFooterPrimary'
                       onClick={() => handleBtnPrimaryClick()} 
-                      variant='primary'
+                      variant={TemplateVariant.PRIMARY}
                     >
                       <span>{modalBtnPrimaryText}</span>
                     </FwButton>

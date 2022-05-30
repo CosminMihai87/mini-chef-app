@@ -3,7 +3,9 @@ import {
 } from 'react';
 import styles from './WeeklyPlan.module.scss';
 
-export interface IWeeklyPlanProps {}
+export interface IWeeklyPlanProps {
+  test?: string
+}
 
 const WeeklyPlan: FC<IWeeklyPlanProps> = (props) => {
 

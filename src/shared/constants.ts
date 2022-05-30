@@ -14,6 +14,13 @@ export const firebaseConfig = {
   referenceURL: 'https://mini-chef-74da9-default-rtdb.europe-west1.firebasedatabase.app'
 };
 
+export enum ThemeType {
+  LIGHT = 'light',
+  DARK = 'dark'
+}
+
+export type themeType = ThemeType.LIGHT | ThemeType.DARK;
+
 export enum TemplateVariant {
   PRIMARY = 'primary',
   SECONDARY = 'secondary'
@@ -28,6 +35,14 @@ export enum AnimationType {
 }
 
 export type animationType = AnimationType.PROGRESS | AnimationType.JELLO | AnimationType.PULSE;
+
+export enum ButtonType {
+  BUTTON = 'button',
+  SUBMIT = 'submit',
+  RESET = 'reset'
+}
+
+export type buttonType = ButtonType.BUTTON | ButtonType.SUBMIT | ButtonType.RESET | undefined;
 
 export enum DropdownType {
   DEFAULT = 'default',

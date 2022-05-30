@@ -14,6 +14,10 @@ import shoppingCartLogo from '../../assets/images/side-navigation/shopping-cart-
 import calendarLogo from '../../assets/images/side-navigation/calendar-logo.png';
 import fridgeLogo from '../../assets/images/side-navigation/fridge-logo.png';
 import FwButton from '../../shared/templates/Button';
+import {
+  TemplateVariant,
+  AnimationType
+} from '../../shared/constants';
 import UseTransitionAnimation from '../../shared/customHooks/useTransitionAnimation';
 
 const SideNavigation: React.FC = () => {
@@ -33,15 +37,15 @@ const SideNavigation: React.FC = () => {
   return (
     <div className={styles['side-navigation']}>
       <FwButton
-        animation={navOpen? 'progress' : 'pulse'}
+        animation={navOpen? AnimationType.PROGRESS : AnimationType.PULSE}
         id='btnSideNavigation'
         innerRef={btnSideNavigationRef}
         onClick={()=>{
           return setNavOpen(!navOpen); 
         }}
-        tooltipText={navOpen? 'Close' : 'Side Navigation'}
+        tooltipText={navOpen? 'Close' : 'Navigation'}
         tooltipTextPlacement='right'
-        variant='secondary'
+        variant={TemplateVariant.SECONDARY}
       >
         <img 
           alt='Logged in Burger Icon placeholder'
@@ -82,7 +86,7 @@ const SideNavigation: React.FC = () => {
           <div className={styles['side-navigation-button']}>
             <Link to='/recipe-book'>
               <FwButton
-                animation='progress'
+                animation={AnimationType.PROGRESS}
                 id='btnRecipeBook'
                 innerRef={btnRecipeBookRef}
                 onClick={()=>{
@@ -90,7 +94,7 @@ const SideNavigation: React.FC = () => {
                 }}
                 tooltipText='Recipe Book'
                 tooltipTextPlacement='top'
-                variant='secondary'
+                variant={TemplateVariant.SECONDARY}
               >
                 <img 
                   alt='Recipe Book Icon placeholder'
@@ -102,7 +106,7 @@ const SideNavigation: React.FC = () => {
           <div className={styles['side-navigation-button']}>
             <Link to='/weekly-plan'>
               <FwButton
-                animation='progress'
+                animation={AnimationType.PROGRESS}
                 id='btnWeeklyPlan'
                 innerRef={btnWeeklyPlanRef}
                 onClick={()=>{
@@ -110,7 +114,7 @@ const SideNavigation: React.FC = () => {
                 }}
                 tooltipText='Weekly Plan'
                 tooltipTextPlacement='top'
-                variant='secondary'
+                variant={TemplateVariant.SECONDARY}
               >
                 <img 
                   alt='Weekly Plan Icon placeholder'
@@ -122,7 +126,7 @@ const SideNavigation: React.FC = () => {
           <div className={styles['side-navigation-button']}>
             <Link to='/shopping-card'>
               <FwButton
-                animation='progress'
+                animation={AnimationType.PROGRESS}
                 id='btnShoppingCart'
                 innerRef={btnShoppingCartRef}
                 onClick={()=>{
@@ -130,7 +134,7 @@ const SideNavigation: React.FC = () => {
                 }}
                 tooltipText='Shopping Cart'
                 tooltipTextPlacement='top'
-                variant='secondary'
+                variant={TemplateVariant.SECONDARY}
               >
                 <img 
                   alt='Shopping Cart Icon placeholder'
@@ -142,7 +146,7 @@ const SideNavigation: React.FC = () => {
           <div className={styles['side-navigation-button']}>
             <Link to='/calendar'>
               <FwButton
-                animation='progress'
+                animation={AnimationType.PROGRESS}
                 id='btnCallendar'
                 innerRef={btnCalendarRef}
                 onClick={()=>{
@@ -150,7 +154,7 @@ const SideNavigation: React.FC = () => {
                 }}
                 tooltipText='Calendar'
                 tooltipTextPlacement='top'
-                variant='secondary'
+                variant={TemplateVariant.SECONDARY}
               >
                 <img 
                   alt='Calendar Icon placeholder'
@@ -162,7 +166,7 @@ const SideNavigation: React.FC = () => {
           <div className={styles['side-navigation-button']}>
             <Link to='/fridge'>
               <FwButton
-                animation='progress'
+                animation={AnimationType.PROGRESS}
                 id='btnFridge'
                 innerRef={btnFridgeRef}
                 onClick={()=>{
@@ -170,7 +174,7 @@ const SideNavigation: React.FC = () => {
                 }}
                 tooltipText='Fridge'
                 tooltipTextPlacement='top'
-                variant='secondary'
+                variant={TemplateVariant.SECONDARY}
               >
                 <img 
                   alt='Fridge Icon placeholder'

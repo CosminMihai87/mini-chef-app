@@ -1,19 +1,23 @@
-import React from 'react';
+import {
+  FC
+} from 'react';
+import {
+  ThemeType,
+  themeType
+} from '../../shared/constants';
 import styles from './Loading.module.scss';
 import loadingAnimationLight from '../../assets/images/loading-light.gif';
 import loadingAnimationDark from '../../assets/images/loading-dark.gif';
 
-type themeType = 'light' | 'dark';
-
-interface LoadingProps {
+interface ILoadingProps {
   theme?: themeType
   backgroundColor?: string
   size?: number
 }
 
-const Loading: React.FC<LoadingProps> = (props) => {
+const Loading: FC<ILoadingProps> = (props) => {
   const { 
-    theme = 'light',
+    theme = ThemeType.LIGHT,
     backgroundColor = 'transparent',
     size = 1
   } = {...props};
@@ -22,7 +26,7 @@ const Loading: React.FC<LoadingProps> = (props) => {
     <div className={styles['loading']}>
       <img 
         alt='Loading Animation placeholder'
-        src={theme==='light' ? loadingAnimationLight : loadingAnimationDark}
+        src={theme===ThemeType.LIGHT ? loadingAnimationLight : loadingAnimationDark}
         style={{
           background: `${backgroundColor}`,
           transform: `scale(${size})`
