@@ -9,8 +9,7 @@ import {
   FormGroup,
   FormLabel 
 } from 'react-bootstrap';
-
-export type checkBoxDirection = 'column' | 'row';
+import { checkBoxDirection } from '../../constants';
 
 export interface IFwCheckBoxListProps {
   label?: string,

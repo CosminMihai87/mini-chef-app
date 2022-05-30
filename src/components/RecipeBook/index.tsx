@@ -1,7 +1,6 @@
 import {
   FC,
   useState,
-  // useEffect,
   useRef
 } from 'react'; 
 import styles from './RecipeBook.module.scss';
@@ -14,6 +13,7 @@ import FwCheckBoxList, {
   IFwCheckBox 
 } from '../../shared/templates/CheckboxList';
 import FwInput from '../../shared/templates/Input';
+import { InputType } from '../../shared/constants';
 import IRecipe from '../../domain/IRecipe';
 import { 
   RecipeScope, 
@@ -32,7 +32,6 @@ export interface IRecipeBookProps {
 
 const RecipeBook: FC<IRecipeBookProps> = (props) =>{
 
-  // const [ addRecipeSubmit, setAddRecipeSubmit ] = useState();
   const [ openAddRecipe, setOpenAddRecipe ] = useState(false);
   const recipeScopeOptions: IFwCheckBox[]  = (Object.keys(RecipeScope) as (keyof typeof RecipeScope)[]).map(
     (key, index) => {
@@ -55,10 +54,6 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
     },
   );
   const addRecipeRef = useRef<FormikProps<any>>(null);
-
-  // useEffect(()=>{
-  //   console.log(addRecipeSubmit);
-  // },[addRecipeSubmit]);
 
   return (
     <Formik
@@ -149,7 +144,7 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
                   formikValidFrame={false}
                   name='recipeNameFilter'
                   placeholder='Type to filter...'
-                  type='search'
+                  type={InputType.SEARCH}
                 />
               </div>
               <div className={styles.list}>
