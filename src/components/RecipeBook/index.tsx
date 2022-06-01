@@ -37,7 +37,7 @@ export interface IRecipeBookProps {
 const RecipeBook: FC<IRecipeBookProps> = (props) =>{
 
   const [ openAddRecipe, setOpenAddRecipe ] = useState(false);
-  const [ openEditRecipe, setOpenEditRecipe ] = useState(false);
+  const [ openUpdateRecipe, setOpenUpdateRecipe ] = useState(false);
   const recipeScopeOptions: IFwCheckBox[]  = (Object.keys(RecipeScope) as (keyof typeof RecipeScope)[]).map(
     (key, index) => {
       return {
@@ -59,7 +59,7 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
     },
   );
   const addRecipeRef = useRef<FormikProps<IAddRecipeForm>>(null);
-  const editRecipeRef = useRef<FormikProps<IAddRecipeForm>>(null);
+  const updateRecipeRef = useRef<FormikProps<IAddRecipeForm>>(null);
 
   const handleRecipeRemove = () => {
     return true;
@@ -140,25 +140,27 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
                         <span>Remove</span>
                       </FwButton>
                     </div>
-                    <div className={styles.edit}>  
+                    <div className={styles.update}>  
                       <FwButton
                         animation={AnimationType.PROGRESS}
-                        onClick={() => setOpenEditRecipe(!openEditRecipe)} 
+                        onClick={() => setOpenUpdateRecipe(!openUpdateRecipe)} 
                         variant={TemplateVariant.PRIMARY}
                       >
-                        <span>Edit</span>
+                        <span>Update</span>
                       </FwButton>
                       <FwModal 
                         closeOnPrimaryButtonClick={false} 
-                        handleBtnPrimary={() => editRecipeRef?.current?.handleSubmit()}
-                        handleClose={() => setOpenAddRecipe(false)}
-                        isOpen={openAddRecipe}
-                        modalBtnPrimaryText='Save' 
-                        modalTitleText='Edit Recipe'
+                        handleBtnPrimary={() => {
+                          console.log('Recipe Update!');
+                        }}
+                        handleClose={() => setOpenUpdateRecipe(false)}
+                        isOpen={openUpdateRecipe}
+                        modalBtnPrimaryText='Update' 
+                        modalTitleText='Update Recipe'
                       >
                         <AddRecipe 
                           // @ts-ignore
-                          ref={editRecipeRef}
+                          ref={updateRecipeRef}
                         />
                       </FwModal>
                     </div>
