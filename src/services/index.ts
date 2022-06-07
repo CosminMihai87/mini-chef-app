@@ -1,5 +1,4 @@
-import { 
-  FC,
+import {
   useReducer, 
   useCallback 
 } from 'react';
@@ -15,8 +14,7 @@ import {
   CREATE_RECIPE
 } from './actionTypes';
 
-// @ts-ignore
-const Services: FC<any> = () => {
+const Services = () => {
 
   const [createRecipeState, dispatchCreateRecipe] = useReducer(recipeReducer, {
     loading: false,
@@ -36,7 +34,7 @@ const Services: FC<any> = () => {
     };
     axios(firebaseConfig.referenceURL)
       .post(
-        '/app-data/ingredients-list.json',
+        '/app-data/recipes-list.json',
         JSON.stringify(recipe),
         requestHeader
       )

@@ -24,15 +24,14 @@ import {
   RecipeTags 
 } from '../../domain/constants';
 import FwModal from '../../shared/templates/Modal';
-import AddRecipe, { IAddRecipeForm } from '../AddRecipe';
+import AddRecipe, { 
+  IAddRecipeForm 
+} from '../AddRecipe';
+import Services from '../../services';
 
 export interface IRecipeBookProps {
   recipeList?: IRecipe[]
 }
-
-// interface IRecipeList {
-//   [key: string]: IRecipe 
-// }
 
 const RecipeBook: FC<IRecipeBookProps> = (props) =>{
 
@@ -60,6 +59,10 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
   );
   const addRecipeRef = useRef<FormikProps<IAddRecipeForm>>(null);
   const updateRecipeRef = useRef<FormikProps<IAddRecipeForm>>(null);
+  const {
+    createRecipe,
+    createRecipeState
+  } = Services();
 
   const handleRecipeRemove = () => {
     return true;
@@ -127,6 +130,8 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
                       >
                         <AddRecipe 
                           // @ts-ignore
+                          createRecipe={createRecipe}
+                          createRecipeState={createRecipeState}
                           ref={addRecipeRef}
                         />
                       </FwModal>

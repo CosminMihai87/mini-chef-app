@@ -2,7 +2,8 @@
 import {
   FC,
   forwardRef,
-  ForwardedRef
+  ForwardedRef,
+  useEffect
 } from 'react';
 import styles from './AddRecipe.module.scss';
 import { 
@@ -31,6 +32,11 @@ import {
 import FormikControl from '../../shared/templates/Formik/FormikControl';
 import PlusLogo from '../../assets/images/form-validation/plus.svg';
 import MinusLogo from '../../assets/images/form-validation/minus.svg';
+import { 
+  ToastContainer, 
+  toast 
+} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export interface IAddRecipeForm {
   name: string;
@@ -135,13 +141,15 @@ const validationSchema = Yup.object({
     .required('Field required!')
 });
 
-const onSubmit = (_values: IAddRecipeForm, submitProps: FormikHelpers<IAddRecipeForm>) => {
-  // console.log('Form data', values);
-  submitProps.setSubmitting(false);
-  submitProps.resetForm();
-};
-
-const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((_props, ref: ForwardedRef<FormikProps<IAddRecipeForm>> | null) => {
+const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((props: any, ref: ForwardedRef<FormikProps<IAddRecipeForm>> | null) => {
+  const {
+    createRecipe = null,
+    createRecipeState = {
+      loading: false,
+      data: {},
+      error: {}
+    }
+  } = {...props};
 
   const recipeScopeOptions: IFwCheckBox[]  = (Object.keys(RecipeScope) as (keyof typeof RecipeScope)[]).map(
     (key, index) => {
@@ -194,8 +202,45 @@ const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((_props, ref: Forw
     }
   ];
 
+  const onSubmit = (values: IAddRecipeForm, submitProps: FormikHelpers<IAddRecipeForm>) => {
+    console.log('Form data', values);
+    createRecipe(values);
+    // submitProps.setSubmitting(createRecipeState.loading);
+    // if (!createRecipeState.loading && createRecipeState.error === '') {
+    submitProps.resetForm();
+    // }
+  };
+
+  useEffect(() => {
+    // console.log(createRecipeState);
+    if (createRecipeState.loading === false) {
+      if (Object.keys(createRecipeState.error).length === 0 &&
+        Object.keys(createRecipeState.data).length > 0) {
+        toast.success('Recipe Added!',{
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+        });
+      }
+      if (Object.keys(createRecipeState.error).length > 0 &&
+      Object.keys(createRecipeState.data).length === 0) {
+        toast.error('Error adding Recipe!',{
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+        });
+      }
+    }
+  },[createRecipeState]);
+
   return (
     <div className={styles['add-recipe']}> 
+      <ToastContainer 
+        autoClose={3000}
+        pauseOnFocusLoss={false}
+        position='top-center'
+        rtl={false}
+      />
       <Formik
         initialValues={initialValues}
         innerRef={ref}
