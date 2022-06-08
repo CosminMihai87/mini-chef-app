@@ -1,0 +1,55 @@
+@import "../../../assets/stylesheets/_variables.scss";
+
+.recipe-row {
+  font-family: InsightWebRegular, Arial, sans-serif;
+  font-size: 16px;
+  color: $fw-primary;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $fw-primary;
+  border-radius: 0.5em;
+  padding: 0.375em 0.5em;
+  margin: 5px;
+
+  .name {
+    max-width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 10px;
+  }
+
+  .duration-popularity {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    gap: 0.5em;
+
+    .duration {
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+      margin-right: 20px;
+    }
+
+    .popularity {
+      width: 125px;
+      max-width: 125px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 2px;
+
+      svg {
+        path {
+          fill: $fw-primary;
+        }
+      }
+    }
+  }
+}

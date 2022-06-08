@@ -14,6 +14,7 @@ export enum RecipeTags {
 }
 
 export enum IngredientMeasuringUnits {
+  PIECE = 'piece',
   MILIGRAMS = 'miligrams',
   GRAMS = 'grams',
   KILOGRAMS = 'kilograms',

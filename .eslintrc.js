@@ -88,6 +88,7 @@ module.exports = {
       "react/jsx-one-expression-per-line": "off",
       "react/require-default-props": 0,
       "react/button-has-type": 1,
+      "react/destructuring-assignment": "off",
       "@typescript-eslint/ban-types": "off",
       "@typescript-eslint/consistent-type-assertions": "off",
       "@typescript-eslint/explicit-module-boundary-types": "off",

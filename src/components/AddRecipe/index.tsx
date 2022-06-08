@@ -199,11 +199,22 @@ const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((props: any, ref: 
     {
       key: '3',
       value: 'Flour'
+    },
+    {
+      key: '4',
+      value: 'Eggs'
+    },
+    {
+      key: '5',
+      value: 'Milk'
+    },
+    {
+      key: '6',
+      value: 'Yeast'
     }
   ];
 
   const onSubmit = (values: IAddRecipeForm, submitProps: FormikHelpers<IAddRecipeForm>) => {
-    console.log('Form data', values);
     createRecipe(values);
     // submitProps.setSubmitting(createRecipeState.loading);
     // if (!createRecipeState.loading && createRecipeState.error === '') {
@@ -212,7 +223,6 @@ const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((props: any, ref: 
   };
 
   useEffect(() => {
-    // console.log(createRecipeState);
     if (createRecipeState.loading === false) {
       if (Object.keys(createRecipeState.error).length === 0 &&
         Object.keys(createRecipeState.data).length > 0) {
@@ -247,8 +257,7 @@ const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((props: any, ref: 
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        {formik => {
-          // console.log(formik);
+        {_formik => {
           return (
             <Form>
               <FormikControl

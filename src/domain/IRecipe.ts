@@ -13,6 +13,9 @@ export type timeUnit = TimeUnits.MILISECONDS | TimeUnits.SECONDS | TimeUnits.MIN
 export type recipePopularity = 1 | 2 | 3 | 4 | 5;
 
 export default interface IRecipe {
+  addedOn: string,
+  editedOn: string,
+  deletedOn: string,
   name: string,
   scope: recipeScope,
   tags: recipeTags,
