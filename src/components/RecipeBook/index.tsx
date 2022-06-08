@@ -1,7 +1,8 @@
 import {
   FC,
   useState,
-  useRef
+  useRef,
+  useEffect
 } from 'react'; 
 import styles from './RecipeBook.module.scss';
 import { 
@@ -18,7 +19,6 @@ import {
   InputType, 
   TemplateVariant 
 } from '../../shared/constants';
-import IRecipe from '../../domain/IRecipe';
 import { 
   RecipeScope, 
   RecipeTags 
@@ -28,15 +28,13 @@ import AddRecipe, {
   IAddRecipeForm 
 } from '../AddRecipe';
 import Services from '../../services';
+import RecipeRow from './RecipeRow';
 
-export interface IRecipeBookProps {
-  recipeList?: IRecipe[]
-}
-
-const RecipeBook: FC<IRecipeBookProps> = (props) =>{
+const RecipeBook: FC = (props) =>{
 
   const [ openAddRecipe, setOpenAddRecipe ] = useState(false);
   const [ openUpdateRecipe, setOpenUpdateRecipe ] = useState(false);
+  const [ recipeList, setRecipeList ] = useState<any>({});
   const recipeScopeOptions: IFwCheckBox[]  = (Object.keys(RecipeScope) as (keyof typeof RecipeScope)[]).map(
     (key, index) => {
       return {
@@ -61,12 +59,33 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
   const updateRecipeRef = useRef<FormikProps<IAddRecipeForm>>(null);
   const {
     createRecipe,
-    createRecipeState
+    createRecipeState,
+    getRecipes,
+    getRecipesState
   } = Services();
 
   const handleRecipeRemove = () => {
     return true;
   };
+
+  useEffect(()=>{
+    getRecipes();
+  },[]);
+
+  useEffect(()=>{
+    if (getRecipesState.loading === false && 
+    Object.keys(getRecipesState.data).length > 0) {
+      setRecipeList(getRecipesState.data);
+    }
+  },[getRecipesState]);
+
+  useEffect(()=>{
+    if (createRecipeState.loading === false && 
+    Object.keys(createRecipeState.data).length > 0) {
+      getRecipes();
+      setRecipeList(createRecipeState.data);
+    }
+  },[createRecipeState]);
 
   return (
     <Formik
@@ -79,8 +98,37 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
         return; 
       }}
     >
-      {formik => {
-        // console.log(formik.values);
+      {formik => { 
+        let filteredRecipeList = Object.values(recipeList)
+          .map((item: any, index: number) => {
+            return { 
+              key: Object.keys(recipeList)[index],
+              name: item.name,
+              scope: item.scope,
+              tags: item.tags,
+              duration: {
+                number: item.duration.number,
+                timeUnit:  item.duration.timeUnit
+              },
+              popularity: item.popularity
+            };
+          })
+          .filter((item: any) => item.name.toLowerCase().indexOf(formik.values.recipeNameFilter.toLowerCase())!==-1);
+
+        if (formik.values.recipeScopeFilter.length > 0) {
+          filteredRecipeList = filteredRecipeList.filter((item: any) =>
+          // @ts-ignore
+            item.scope.filter((k: string) => formik.values.recipeScopeFilter.includes(k)).length
+          );
+        }
+
+        if (formik.values.recipeTagsFilter.length > 0) {
+          filteredRecipeList = filteredRecipeList.filter((item: any) => 
+          // @ts-ignore
+            item.tags.filter((k: string) => formik.values.recipeTagsFilter.includes(k)).length
+          );
+        }
+        
         return (
           <div className={styles['recipe-book']}>
             <div className={styles['recipe-book-left']}>
@@ -190,12 +238,43 @@ const RecipeBook: FC<IRecipeBookProps> = (props) =>{
                 </FwButton>
               </div>
               <div className={styles.list}>
-
+                <div className={styles['list-header']}>
+                  <span className={styles.name}>
+                    Name
+                  </span>
+                  <span className={styles['duration-popularity']}>
+                    <span className={styles.duration}>
+                      Duration
+                    </span>
+                    <span className={styles.popularity}>
+                      Popularity
+                    </span>
+                  </span>
+                </div>
+                <div className={styles['list-content']}>
+                  {
+                    filteredRecipeList.length > 0 && 
+                    filteredRecipeList.map((item: any) => {
+                      const { 
+                        duration,
+                        key,
+                        name,
+                        popularity
+                      } = item;
+                      return <RecipeRow 
+                        duration={duration}
+                        key={key}
+                        name={name}
+                        popularity={popularity}
+                      />;
+                    })
+                  } 
+                </div>
               </div>
             </div>
             <div className={styles['recipe-book-right']}>
               <div className={styles.preview}>
-
+                [TODO: Recipe Preview on select]
               </div>
             </div>
           </div>

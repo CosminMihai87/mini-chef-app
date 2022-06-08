@@ -1,32 +1,29 @@
 import {
-  CREATE_RECIPE,
-  // READ_RECIPE,
-  // UPDATE_RECIPE,
-  // DELETE_RECIPE
+  GET_RECIPES
 } from '../actionTypes';
 
-export const initialRecipeState = {
+export const initialRecipesState = {
   loading: false,
   data: {},
   error: {}
 };
 
-export const recipeReducer = (state = initialRecipeState, action: any ) => {
+export const recipesReducer = (state = initialRecipesState, action: any ) => {
   switch ( action.type ) {
-  case CREATE_RECIPE.START: {
+  case GET_RECIPES.START: {
     return { 
       ...state, 
       loading: true 
     };
   }
-  case CREATE_RECIPE.SUCCESS: {
+  case GET_RECIPES.SUCCESS: {
     return { 
       ...state,
       loading: false,
       data: action.data
     };
   }
-  case CREATE_RECIPE.FAIL: {
+  case GET_RECIPES.FAIL: {
     return { 
       ...state,
       loading: false,
