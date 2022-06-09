@@ -1,6 +1,5 @@
 import {
   CREATE_RECIPE,
-  // READ_RECIPE,
   // UPDATE_RECIPE,
   // DELETE_RECIPE
 } from '../actionTypes';
