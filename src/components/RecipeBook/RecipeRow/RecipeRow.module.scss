@@ -14,6 +14,20 @@
   padding: 0.375em 0.5em;
   margin: 5px;
 
+  &:hover,
+  &:active {
+    cursor: pointer;
+    border-color: $fw-white;
+    color: $fw-white;
+  }
+
+  &:focus {
+    background-color: $fw-btn-primary;
+    border: 1px solid $fw-btn-secondary;
+    color: $fw-white;
+    box-shadow: inset 0 0 0 2px $fw-white;
+  }
+
   .name {
     max-width: 400px;
     white-space: nowrap;
