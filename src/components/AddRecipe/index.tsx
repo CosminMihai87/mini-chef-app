@@ -224,7 +224,8 @@ const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((props: any, ref: 
 
   useEffect(() => {
     if (createRecipeState.loading === false) {
-      if (Object.keys(createRecipeState.error).length === 0 &&
+      if (createRecipeState.data !== null &&
+        Object.keys(createRecipeState.error).length === 0 &&
         Object.keys(createRecipeState.data).length > 0) {
         toast.success('Recipe Added!',{
           closeOnClick: true,
@@ -232,8 +233,9 @@ const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((props: any, ref: 
           draggable: false,
         });
       }
-      if (Object.keys(createRecipeState.error).length > 0 &&
-      Object.keys(createRecipeState.data).length === 0) {
+      if (createRecipeState.data !== null &&
+        Object.keys(createRecipeState.error).length > 0 &&
+        Object.keys(createRecipeState.data).length === 0) {
         toast.error('Error adding Recipe!',{
           closeOnClick: true,
           pauseOnHover: false,

@@ -19,12 +19,15 @@ import {
 import IRecipe from '../../src/domain/IRecipe';
 import {
   CREATE_RECIPE,
+  // UPDATE_RECIPE,
+  DELETE_RECIPE,
   GET_RECIPES
 } from './actionTypes';
 
 const Services = () => {
 
   const [createRecipeState, dispatchCreateRecipe] = useReducer(recipeReducer, initialRecipeState);
+  const [deleteRecipeState, dispatchDeleteRecipe] = useReducer(recipeReducer, initialRecipeState);
   const [getRecipesState, dispatchGetRecipes] = useReducer(recipesReducer, initialRecipesState);
 
   const createRecipe = useCallback((recipe: IRecipe ) => {
@@ -55,6 +58,35 @@ const Services = () => {
       .catch((error: AxiosError) => {
         dispatchCreateRecipe({
           type: CREATE_RECIPE.FAIL,
+          error: error
+        });
+      });
+  }, []);
+
+  const deleteRecipe = useCallback((key: string ) => {
+    dispatchDeleteRecipe({ 
+      type:DELETE_RECIPE.START 
+    });
+    const requestHeader = {
+      headers: {
+        'Auth': firebaseConfig.apiKey,
+        'content-type': 'application/x-www-form-urlencoded'
+      }
+    };
+    axios(firebaseConfig.referenceURL)
+      .delete(
+        `/app-data/recipes-list/${key}.json`,
+        requestHeader
+      )
+      .then((response: AxiosResponse) => {
+        dispatchDeleteRecipe({
+          type: DELETE_RECIPE.SUCCESS,
+          data: response.data
+        });
+      })
+      .catch((error: AxiosError) => {
+        dispatchDeleteRecipe({
+          type: DELETE_RECIPE.FAIL,
           error: error
         });
       });
@@ -92,6 +124,8 @@ const Services = () => {
   return {
     createRecipe: createRecipe,
     createRecipeState: createRecipeState,
+    deleteRecipe: deleteRecipe,
+    deleteRecipeState: deleteRecipeState,
     getRecipes: getRecipes,
     getRecipesState: getRecipesState
   };

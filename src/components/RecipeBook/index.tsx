@@ -35,6 +35,7 @@ const RecipeBook: FC = (props) =>{
   const [ openAddRecipe, setOpenAddRecipe ] = useState(false);
   const [ openUpdateRecipe, setOpenUpdateRecipe ] = useState(false);
   const [ recipeList, setRecipeList ] = useState<any>({});
+  const [ selectedRecipeRow, setSelectedRecipeRow ] = useState<string>('');
   const recipeScopeOptions: IFwCheckBox[]  = (Object.keys(RecipeScope) as (keyof typeof RecipeScope)[]).map(
     (key, index) => {
       return {
@@ -60,12 +61,14 @@ const RecipeBook: FC = (props) =>{
   const {
     createRecipe,
     createRecipeState,
+    deleteRecipe,
+    deleteRecipeState,
     getRecipes,
     getRecipesState
   } = Services();
 
   const handleRecipeRemove = () => {
-    return true;
+    deleteRecipe(selectedRecipeRow);
   };
 
   useEffect(()=>{
@@ -74,18 +77,26 @@ const RecipeBook: FC = (props) =>{
 
   useEffect(()=>{
     if (getRecipesState.loading === false && 
-    Object.keys(getRecipesState.data).length > 0) {
+      getRecipesState.data !== null &&
+      Object.keys(getRecipesState.data).length > 0) {
       setRecipeList(getRecipesState.data);
     }
   },[getRecipesState]);
 
   useEffect(()=>{
-    if (createRecipeState.loading === false && 
-    Object.keys(createRecipeState.data).length > 0) {
+    console.log(deleteRecipeState);
+    if (
+      (createRecipeState.loading === false && 
+        createRecipeState.data !== null &&
+        Object.keys(createRecipeState.data).length > 0) ||
+      (deleteRecipeState.loading === false && 
+        deleteRecipeState.data !== null &&
+        Object.keys(deleteRecipeState.data).length > 0)
+    ) {
       getRecipes();
       setRecipeList(createRecipeState.data);
     }
-  },[createRecipeState]);
+  },[createRecipeState, deleteRecipeState]);
 
   return (
     <Formik
@@ -99,6 +110,7 @@ const RecipeBook: FC = (props) =>{
       }}
     >
       {formik => { 
+        console.log(recipeList);
         let filteredRecipeList = Object.values(recipeList)
           .map((item: any, index: number) => {
             return { 
@@ -187,7 +199,8 @@ const RecipeBook: FC = (props) =>{
                     <div className={styles.remove}>  
                       <FwButton
                         animation={AnimationType.PROGRESS}
-                        onClick={() => handleRecipeRemove()} 
+                        isDisabled={selectedRecipeRow.length === 0} 
+                        onClick={() => handleRecipeRemove()}
                         variant={TemplateVariant.PRIMARY}
                       >
                         <span>Remove</span>
@@ -263,9 +276,12 @@ const RecipeBook: FC = (props) =>{
                       } = item;
                       return <RecipeRow 
                         duration={duration}
+                        entryKey={key}
                         key={key}
                         name={name}
                         popularity={popularity}
+                        selected={key === selectedRecipeRow}
+                        setSelectedRecipeRow={setSelectedRecipeRow}
                       />;
                     })
                   } 

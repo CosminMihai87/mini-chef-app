@@ -21,7 +21,7 @@
     color: $fw-white;
   }
 
-  &:focus {
+  &.selected {
     background-color: $fw-btn-primary;
     border: 1px solid $fw-btn-secondary;
     color: $fw-white;
@@ -62,6 +62,14 @@
       svg {
         path {
           fill: $fw-primary;
+        }
+      }
+
+      &.selected {
+        svg {
+          path {
+            fill: $fw-white;
+          }
         }
       }
     }
