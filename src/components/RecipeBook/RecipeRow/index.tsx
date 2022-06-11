@@ -11,20 +11,25 @@ type timeUnit = TimeUnits.MILISECONDS | TimeUnits.SECONDS | TimeUnits.MINUTES | 
 type recipePopularity = 1 | 2 | 3 | 4 | 5;
   
 export type IRecipeRowProps = {
-  key: string,
+  entryKey: string,
   name: string,
   duration: {
     number: number,
     timeUnit: timeUnit
   },
-  popularity: recipePopularity
+  popularity: recipePopularity,
+  selected: boolean,
+  setSelectedRecipeRow: any,
 };
 
 const RecipeRow: FC<IRecipeRowProps> = (props) => {
   const {
+    entryKey,
     name,
     duration,
-    popularity
+    popularity,
+    selected,
+    setSelectedRecipeRow
   } = props;
   const {
     number,
@@ -32,7 +37,13 @@ const RecipeRow: FC<IRecipeRowProps> = (props) => {
   } = duration;
 
   return (
-    <div className={styles['recipe-row']}>
+    <div 
+      className={`
+        ${styles['recipe-row']}
+        ${selected ? styles.selected : ''}
+      `}
+      onClick={()=> setSelectedRecipeRow(entryKey)} 
+    >
       <div className={styles.name}>
         <span>{name}</span>
       </div>
@@ -45,7 +56,10 @@ const RecipeRow: FC<IRecipeRowProps> = (props) => {
             <span>{timeUnit}</span>
           </div>
         </div>
-        <div className={styles.popularity}>
+        <div className={`
+          ${styles.popularity}
+          ${selected ? styles.selected : ''}
+        `}>
           {[...Array(popularity)].map((_elem, key) => 
             <StarLogo 
               height='25px'
