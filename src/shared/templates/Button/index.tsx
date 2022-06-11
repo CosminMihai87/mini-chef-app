@@ -60,7 +60,7 @@ const FwButton:FC<FwButtonProps> = (props) => {
           ${styles['fw-button']}
           ${styles[`${variant}`]}
           ${isDisabled? styles['is-disabled']: ''}
-          ${styles[`animation-${animation}`]} 
+          ${isDisabled? '' : styles[`animation-${animation}`]}
         `}
         data-delay-hide='50'
         data-delay-show='300'

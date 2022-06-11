@@ -7,6 +7,8 @@ import {
 export const initialRecipeState = {
   loading: false,
   data: null,
+  recipeDeleted: false,
+  recipeUpdated: false,
   error: {}
 };
 
@@ -20,15 +22,31 @@ export const recipeReducer = (state = initialRecipeState, action: any ) => {
       loading: true 
     };
   }
-  case CREATE_RECIPE.SUCCESS: 
-  case UPDATE_RECIPE.SUCCESS: 
-  case DELETE_RECIPE.SUCCESS: {
+
+  case CREATE_RECIPE.SUCCESS: {
     return { 
       ...state,
       loading: false,
       data: action.data
     };
   }
+  
+  case DELETE_RECIPE.SUCCESS: {
+    return { 
+      ...state,
+      loading: false,
+      recipeDeleted: true
+    };
+  }
+
+  case UPDATE_RECIPE.SUCCESS: {
+    return { 
+      ...state,
+      loading: false,
+      recipeUpdated: true
+    };
+  }
+
   case CREATE_RECIPE.FAIL: 
   case UPDATE_RECIPE.FAIL: 
   case DELETE_RECIPE.FAIL: {
@@ -38,6 +56,7 @@ export const recipeReducer = (state = initialRecipeState, action: any ) => {
       error: action.error
     };
   }
+
   default: return state;
   }
 };
