@@ -23,6 +23,7 @@ import {
   DELETE_RECIPE,
   GET_RECIPES
 } from './actionTypes';
+import { currentDateISOString } from '../shared/utility';
 
 const Services = () => {
 
@@ -45,14 +46,14 @@ const Services = () => {
         '/app-data/recipes-list.json',
         JSON.stringify({
           ...recipe, 
-          addedOn: new Date(Date.now()).toISOString().split('.')[0]
+          createdOn: currentDateISOString()
         }),
         requestHeader
       )
       .then((response: AxiosResponse) => {
         dispatchCreateRecipe({
           type: CREATE_RECIPE.SUCCESS,
-          data: response.data
+          createdOn: currentDateISOString()
         });
       })
       .catch((error: AxiosError) => {
@@ -80,8 +81,8 @@ const Services = () => {
       )
       .then((response: AxiosResponse) => {
         dispatchDeleteRecipe({
-          type: DELETE_RECIPE.SUCCESS,
-          data: response.data
+          type: DELETE_RECIPE.SUCCESS, 
+          deletedOn: currentDateISOString()
         });
       })
       .catch((error: AxiosError) => {

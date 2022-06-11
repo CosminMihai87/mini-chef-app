@@ -27,13 +27,14 @@ import FwModal from '../../shared/templates/Modal';
 import AddRecipe, { 
   IAddRecipeForm 
 } from '../AddRecipe';
+import RecipeRow from './RecipeRow';
 import Services from '../../services';
 import { 
   ToastContainer, 
   toast 
 } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import RecipeRow from './RecipeRow';
+// import { filterJSONbyKey } from '../../shared/utility';
 
 const RecipeBook: FC = (props) =>{
 
@@ -89,18 +90,19 @@ const RecipeBook: FC = (props) =>{
   },[getRecipesState]);
 
   useEffect(()=>{
-    if ((createRecipeState.loading === false && 
-        createRecipeState.data !== null ) || 
+    if ((!createRecipeState.loading && 
+        createRecipeState.createdOn.length > 0) || 
       (!deleteRecipeState.loading && 
-        deleteRecipeState.recipeDeleted)) {
+        deleteRecipeState.deletedOn.length > 0)) {
       getRecipes();
       setRecipeList(getRecipesState.data);
+      setSelectedRecipeRow('');
     }
   },[createRecipeState, deleteRecipeState]);
 
   useEffect(() => {
     if (deleteRecipeState.loading === false) {
-      if (deleteRecipeState.recipeDeleted &&
+      if (deleteRecipeState.deletedOn.length > 0 &&
         Object.keys(deleteRecipeState.error).length === 0) {
         toast.success('Recipe Deleted!',{
           closeOnClick: true,
@@ -108,7 +110,7 @@ const RecipeBook: FC = (props) =>{
           draggable: false,
         });
       }
-      if (!deleteRecipeState.recipeDeleted &&
+      if (deleteRecipeState.deletedOn.length === 0 &&
         Object.keys(deleteRecipeState.error).length > 0) {
         toast.error('Error deleting Recipe!',{
           closeOnClick: true,
@@ -131,7 +133,6 @@ const RecipeBook: FC = (props) =>{
       }}
     >
       {formik => {
-        console.log(recipeList);
         let filteredRecipeList = Object.values(recipeList)
           .map((item: any, index: number) => {
             return { 
@@ -161,11 +162,29 @@ const RecipeBook: FC = (props) =>{
             item.tags.filter((k: string) => formik.values.recipeTagsFilter.includes(k)).length
           );
         }
+
+        // let filteredRecipeList = filterJSONbyKey(recipeList, formik.values.recipeNameFilter);
+
+        // console.log(filteredRecipeList);
+
+        // if (formik.values.recipeScopeFilter.length > 0) {
+        //   // filteredRecipeList = filteredRecipeList.filter((item: any) =>
+        //   //   // @ts-ignore
+        //   //   item.scope.filter((k: string) => formik.values.recipeScopeFilter.includes(k)).length
+        //   // );
+        // }
+
+        // // if (formik.values.recipeTagsFilter.length > 0) {
+        // //   filteredRecipeList = filteredRecipeList.filter((item: any) => 
+        // //     // @ts-ignore
+        // //     item.tags.filter((k: string) => formik.values.recipeTagsFilter.includes(k)).length
+        // //   );
+        // // }
           
         return (
           <div className={styles['recipe-book']}>
             <ToastContainer 
-              autoClose={3000}
+              autoClose={1500}
               pauseOnFocusLoss={false}
               position='top-center'
               rtl={false}

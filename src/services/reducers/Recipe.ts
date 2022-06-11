@@ -6,9 +6,9 @@ import {
 
 export const initialRecipeState = {
   loading: false,
-  data: null,
-  recipeDeleted: false,
-  recipeUpdated: false,
+  createdOn: '',
+  updatedOn: '',
+  deletedOn: '',
   error: {}
 };
 
@@ -27,7 +27,7 @@ export const recipeReducer = (state = initialRecipeState, action: any ) => {
     return { 
       ...state,
       loading: false,
-      data: action.data
+      createdOn: action.createdOn
     };
   }
   
@@ -35,7 +35,7 @@ export const recipeReducer = (state = initialRecipeState, action: any ) => {
     return { 
       ...state,
       loading: false,
-      recipeDeleted: true
+      deletedOn: action.deletedOn
     };
   }
 
@@ -43,7 +43,7 @@ export const recipeReducer = (state = initialRecipeState, action: any ) => {
     return { 
       ...state,
       loading: false,
-      recipeUpdated: true
+      updatedOn: action.updatedOn
     };
   }
 

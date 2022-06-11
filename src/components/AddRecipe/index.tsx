@@ -37,6 +37,7 @@ import {
   toast 
 } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { initialRecipeState } from '../../services/reducers/Recipe';
 
 export interface IAddRecipeForm {
   name: string;
@@ -144,11 +145,7 @@ const validationSchema = Yup.object({
 const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((props: any, ref: ForwardedRef<FormikProps<IAddRecipeForm>> | null) => {
   const {
     createRecipe = null,
-    createRecipeState = {
-      loading: false,
-      data: {},
-      error: {}
-    }
+    createRecipeState = initialRecipeState
   } = {...props};
 
   const recipeScopeOptions: IFwCheckBox[]  = (Object.keys(RecipeScope) as (keyof typeof RecipeScope)[]).map(
@@ -224,18 +221,16 @@ const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((props: any, ref: 
 
   useEffect(() => {
     if (createRecipeState.loading === false) {
-      if (createRecipeState.data !== null &&
-        Object.keys(createRecipeState.error).length === 0 &&
-        Object.keys(createRecipeState.data).length > 0) {
+      if (createRecipeState.createdOn.length > 0 &&
+        Object.keys(createRecipeState.error).length === 0) {
         toast.success('Recipe Added!',{
           closeOnClick: true,
           pauseOnHover: false,
           draggable: false,
         });
       }
-      if (createRecipeState.data !== null &&
-        Object.keys(createRecipeState.error).length > 0 &&
-        Object.keys(createRecipeState.data).length === 0) {
+      if (createRecipeState.createdOn.length === 0 &&
+        Object.keys(createRecipeState.error).length > 0) {
         toast.error('Error adding Recipe!',{
           closeOnClick: true,
           pauseOnHover: false,
