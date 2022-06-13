@@ -2,39 +2,29 @@ import {
   FC
 } from 'react';
 import styles from './RecipeRow.module.scss';
-import { TimeUnits } from '../../../domain/constants';
 import StarLogo from '../../../assets/images/star-logo.svg';
-
-type timeUnit = TimeUnits.MILISECONDS | TimeUnits.SECONDS | TimeUnits.MINUTES | TimeUnits.HOURS | TimeUnits.DAYS |
-  TimeUnits.WEEKS | TimeUnits.MONTHS | TimeUnits.YEARS;
-
-type recipePopularity = 1 | 2 | 3 | 4 | 5;
+import IRecipe from '../../../domain/IRecipe';
   
 export type IRecipeRowProps = {
-  entryKey: string,
-  name: string,
-  duration: {
-    number: number,
-    timeUnit: timeUnit
-  },
-  popularity: recipePopularity,
+  recipe: IRecipe,
   selected: boolean,
-  setSelectedRecipeRow: any,
+  setSelectedRecipe: any,
 };
 
 const RecipeRow: FC<IRecipeRowProps> = (props) => {
+  const { recipe } = props;
   const {
-    entryKey,
-    name,
-    duration,
-    popularity,
+    recipe: {
+      name,
+      duration: {
+        number,
+        timeUnit
+      },
+      popularity,
+    },
     selected,
-    setSelectedRecipeRow
+    setSelectedRecipe
   } = props;
-  const {
-    number,
-    timeUnit
-  } = duration;
 
   return (
     <div 
@@ -42,7 +32,7 @@ const RecipeRow: FC<IRecipeRowProps> = (props) => {
         ${styles['recipe-row']}
         ${selected ? styles.selected : ''}
       `}
-      onClick={()=> setSelectedRecipeRow(entryKey)} 
+      onClick={()=> setSelectedRecipe(recipe)} 
     >
       <div className={styles.name}>
         <span>{name}</span>

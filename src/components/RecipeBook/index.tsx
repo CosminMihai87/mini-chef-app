@@ -34,14 +34,14 @@ import {
   toast 
 } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import { filterJSONbyKey } from '../../shared/utility';
+import IRecipe from '../../domain/IRecipe';
 
 const RecipeBook: FC = (props) =>{
 
   const [ openAddRecipe, setOpenAddRecipe ] = useState(false);
   const [ openUpdateRecipe, setOpenUpdateRecipe ] = useState(false);
   const [ recipeList, setRecipeList ] = useState<any>({});
-  const [ selectedRecipeRow, setSelectedRecipeRow ] = useState<string>('');
+  const [ selectedRecipe, setSelectedRecipe ] = useState<IRecipe | null>(null);
   const recipeScopeOptions: IFwCheckBox[]  = (Object.keys(RecipeScope) as (keyof typeof RecipeScope)[]).map(
     (key, index) => {
       return {
@@ -74,7 +74,7 @@ const RecipeBook: FC = (props) =>{
   } = Services();
 
   const handleRecipeRemove = () => {
-    selectedRecipeRow.length > 0 && deleteRecipe(selectedRecipeRow);
+    selectedRecipe && deleteRecipe(selectedRecipe.key as string);
   };
 
   useEffect(()=>{
@@ -96,7 +96,7 @@ const RecipeBook: FC = (props) =>{
         deleteRecipeState.deletedOn.length > 0)) {
       getRecipes();
       setRecipeList(getRecipesState.data);
-      setSelectedRecipeRow('');
+      setSelectedRecipe(null);
     }
   },[createRecipeState, deleteRecipeState]);
 
@@ -121,6 +121,10 @@ const RecipeBook: FC = (props) =>{
     }
   },[deleteRecipeState]);
 
+  useEffect(()=>{
+    console.log(selectedRecipe);
+  },[selectedRecipe]);
+
   return (
     <Formik
       initialValues={{
@@ -133,21 +137,16 @@ const RecipeBook: FC = (props) =>{
       }}
     >
       {formik => {
-        let filteredRecipeList = Object.values(recipeList)
-          .map((item: any, index: number) => {
-            return { 
-              key: Object.keys(recipeList)[index],
-              name: item.name,
-              scope: item.scope,
-              tags: item.tags,
-              duration: {
-                number: item.duration.number,
-                timeUnit:  item.duration.timeUnit
-              },
-              popularity: item.popularity
+        let filteredRecipeList = Object.keys(recipeList)
+          .map(key => { 
+            return {
+              ...recipeList[key],
+              key: key
             };
           })
-          .filter((item: any) => item.name.toLowerCase().indexOf(formik.values.recipeNameFilter.toLowerCase())!==-1);
+          .filter((item: any) => 
+            item.name.toLowerCase().indexOf(formik.values.recipeNameFilter.toLowerCase())!==-1
+          );
 
         if (formik.values.recipeScopeFilter.length > 0) {
           filteredRecipeList = filteredRecipeList.filter((item: any) =>
@@ -162,24 +161,6 @@ const RecipeBook: FC = (props) =>{
             item.tags.filter((k: string) => formik.values.recipeTagsFilter.includes(k)).length
           );
         }
-
-        // let filteredRecipeList = filterJSONbyKey(recipeList, formik.values.recipeNameFilter);
-
-        // console.log(filteredRecipeList);
-
-        // if (formik.values.recipeScopeFilter.length > 0) {
-        //   // filteredRecipeList = filteredRecipeList.filter((item: any) =>
-        //   //   // @ts-ignore
-        //   //   item.scope.filter((k: string) => formik.values.recipeScopeFilter.includes(k)).length
-        //   // );
-        // }
-
-        // // if (formik.values.recipeTagsFilter.length > 0) {
-        // //   filteredRecipeList = filteredRecipeList.filter((item: any) => 
-        // //     // @ts-ignore
-        // //     item.tags.filter((k: string) => formik.values.recipeTagsFilter.includes(k)).length
-        // //   );
-        // // }
           
         return (
           <div className={styles['recipe-book']}>
@@ -245,7 +226,7 @@ const RecipeBook: FC = (props) =>{
                     <div className={styles.remove}>  
                       <FwButton
                         animation={AnimationType.PROGRESS}
-                        isDisabled={selectedRecipeRow.length === 0}
+                        isDisabled={selectedRecipe === null}
                         onClick={() => handleRecipeRemove()}
                         variant={TemplateVariant.PRIMARY}
                       >
@@ -314,20 +295,11 @@ const RecipeBook: FC = (props) =>{
                   {
                     filteredRecipeList.length > 0 && 
                     filteredRecipeList.map((item: any) => {
-                      const { 
-                        duration,
-                        key,
-                        name,
-                        popularity
-                      } = item;
                       return <RecipeRow 
-                        duration={duration}
-                        entryKey={key}
-                        key={key}
-                        name={name}
-                        popularity={popularity}
-                        selected={key === selectedRecipeRow}
-                        setSelectedRecipeRow={setSelectedRecipeRow}
+                        key={item.key}
+                        recipe={item}
+                        selected={item.key === selectedRecipe?.key}
+                        setSelectedRecipe={setSelectedRecipe}
                       />;
                     })
                   } 
