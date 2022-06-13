@@ -87,7 +87,6 @@
         justify-content: center;
         align-items: center;
         padding: 0.375em 0.5em;
-        margin-right: 20px;
         border-bottom: 2px solid $fw-primary;
 
         .name {
@@ -102,7 +101,7 @@
           }
 
           .popularity {
-            margin-right: 10px;
+            margin-right: 20px;
           }
         }
       }

@@ -27,8 +27,14 @@ import FwModal from '../../shared/templates/Modal';
 import AddRecipe, { 
   IAddRecipeForm 
 } from '../AddRecipe';
-import Services from '../../services';
 import RecipeRow from './RecipeRow';
+import Services from '../../services';
+import { 
+  ToastContainer, 
+  toast 
+} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// import { filterJSONbyKey } from '../../shared/utility';
 
 const RecipeBook: FC = (props) =>{
 
@@ -68,7 +74,7 @@ const RecipeBook: FC = (props) =>{
   } = Services();
 
   const handleRecipeRemove = () => {
-    deleteRecipe(selectedRecipeRow);
+    selectedRecipeRow.length > 0 && deleteRecipe(selectedRecipeRow);
   };
 
   useEffect(()=>{
@@ -84,19 +90,36 @@ const RecipeBook: FC = (props) =>{
   },[getRecipesState]);
 
   useEffect(()=>{
-    console.log(deleteRecipeState);
-    if (
-      (createRecipeState.loading === false && 
-        createRecipeState.data !== null &&
-        Object.keys(createRecipeState.data).length > 0) ||
-      (deleteRecipeState.loading === false && 
-        deleteRecipeState.data !== null &&
-        Object.keys(deleteRecipeState.data).length > 0)
-    ) {
+    if ((!createRecipeState.loading && 
+        createRecipeState.createdOn.length > 0) || 
+      (!deleteRecipeState.loading && 
+        deleteRecipeState.deletedOn.length > 0)) {
       getRecipes();
-      setRecipeList(createRecipeState.data);
+      setRecipeList(getRecipesState.data);
+      setSelectedRecipeRow('');
     }
   },[createRecipeState, deleteRecipeState]);
+
+  useEffect(() => {
+    if (deleteRecipeState.loading === false) {
+      if (deleteRecipeState.deletedOn.length > 0 &&
+        Object.keys(deleteRecipeState.error).length === 0) {
+        toast.success('Recipe Deleted!',{
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+        });
+      }
+      if (deleteRecipeState.deletedOn.length === 0 &&
+        Object.keys(deleteRecipeState.error).length > 0) {
+        toast.error('Error deleting Recipe!',{
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+        });
+      }
+    }
+  },[deleteRecipeState]);
 
   return (
     <Formik
@@ -109,8 +132,7 @@ const RecipeBook: FC = (props) =>{
         return; 
       }}
     >
-      {formik => { 
-        console.log(recipeList);
+      {formik => {
         let filteredRecipeList = Object.values(recipeList)
           .map((item: any, index: number) => {
             return { 
@@ -129,20 +151,44 @@ const RecipeBook: FC = (props) =>{
 
         if (formik.values.recipeScopeFilter.length > 0) {
           filteredRecipeList = filteredRecipeList.filter((item: any) =>
-          // @ts-ignore
+            // @ts-ignore
             item.scope.filter((k: string) => formik.values.recipeScopeFilter.includes(k)).length
           );
         }
 
         if (formik.values.recipeTagsFilter.length > 0) {
           filteredRecipeList = filteredRecipeList.filter((item: any) => 
-          // @ts-ignore
+            // @ts-ignore
             item.tags.filter((k: string) => formik.values.recipeTagsFilter.includes(k)).length
           );
         }
-        
+
+        // let filteredRecipeList = filterJSONbyKey(recipeList, formik.values.recipeNameFilter);
+
+        // console.log(filteredRecipeList);
+
+        // if (formik.values.recipeScopeFilter.length > 0) {
+        //   // filteredRecipeList = filteredRecipeList.filter((item: any) =>
+        //   //   // @ts-ignore
+        //   //   item.scope.filter((k: string) => formik.values.recipeScopeFilter.includes(k)).length
+        //   // );
+        // }
+
+        // // if (formik.values.recipeTagsFilter.length > 0) {
+        // //   filteredRecipeList = filteredRecipeList.filter((item: any) => 
+        // //     // @ts-ignore
+        // //     item.tags.filter((k: string) => formik.values.recipeTagsFilter.includes(k)).length
+        // //   );
+        // // }
+          
         return (
           <div className={styles['recipe-book']}>
+            <ToastContainer 
+              autoClose={1500}
+              pauseOnFocusLoss={false}
+              position='top-center'
+              rtl={false}
+            />
             <div className={styles['recipe-book-left']}>
               <div className={styles.title}>
                 <span>Recipe Book:</span>
@@ -150,7 +196,7 @@ const RecipeBook: FC = (props) =>{
               <div className={styles['buttons-and-filters']}>
                 <div className={styles.scope}>  
                   <span className={styles.title}>
-                    Scope:
+                      Scope:
                   </span>
                   <FwCheckBoxList
                     name='recipeScopeFilter'
@@ -159,7 +205,7 @@ const RecipeBook: FC = (props) =>{
                 </div>
                 <div className={styles.tags}>  
                   <span className={styles.title}>
-                    Tags:
+                      Tags:
                   </span>
                   <FwCheckBoxList
                     columnsNr={2}
@@ -169,7 +215,7 @@ const RecipeBook: FC = (props) =>{
                 </div>
                 <div className={styles['manage-recipes']}>  
                   <span className={styles.title}>
-                    Manage Recipes:
+                      Manage Recipes:
                   </span>
                   <div className={styles.buttons}> 
                     <div className={styles.add}>  
@@ -199,7 +245,7 @@ const RecipeBook: FC = (props) =>{
                     <div className={styles.remove}>  
                       <FwButton
                         animation={AnimationType.PROGRESS}
-                        isDisabled={selectedRecipeRow.length === 0} 
+                        isDisabled={selectedRecipeRow.length === 0}
                         onClick={() => handleRecipeRemove()}
                         variant={TemplateVariant.PRIMARY}
                       >

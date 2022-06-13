@@ -20,7 +20,7 @@ export const recipesReducer = (state = initialRecipesState, action: any ) => {
     return { 
       ...state,
       loading: false,
-      data: action.data
+      data: action.data === null ? {} : action.data
     };
   }
   case GET_RECIPES.FAIL: {

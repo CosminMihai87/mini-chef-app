@@ -69,6 +69,8 @@
       color: $fw-btn-secondary-disabled;
       background-color: $fw-btn-primary-disabled;
       border: 1px solid $fw-btn-secondary-disabled;
+      background-size: 100%;
+      background-image: none;
     }
   }
 
