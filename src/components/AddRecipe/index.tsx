@@ -44,7 +44,7 @@ export interface IAddRecipeForm {
   scope: string[];
   tags: string[];
   ingredients: {
-    ingredient: string,
+    name: string,
     quantity: {
       number: number,
       measuringUnit: string
@@ -70,7 +70,7 @@ const initialValues: IAddRecipeForm = {
   scope: [],
   tags: [],
   ingredients: [{
-    ingredient: '',
+    name: '',
     quantity: {
       number: 0,
       measuringUnit: ''
@@ -107,7 +107,7 @@ const validationSchema = Yup.object({
   }),
   ingredients: Yup.array().of(
     Yup.object().shape({
-      ingredient: Yup.string().required('Field required!'),
+      name: Yup.string().required('Field required!'),
       quantity: Yup.object().shape({
         number: Yup.number()
           .typeError('Must be a Number!')
@@ -115,8 +115,7 @@ const validationSchema = Yup.object({
           .min(1,'Must be greater or equal than 1!')
           .required('Field required!'),
         measuringUnit: Yup.string().required('Field required!')
-      }),
-      // replacement: Yup.string().required('Field required!')  //optional field!
+      })
     })
   ).min(1, 'Need at least 1 ingredient!'),
   steps: Yup.array().of(
@@ -330,7 +329,7 @@ const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((props: any, ref: 
                                 control={ControlType.DROPDOWN}
                                 dropdownOptions= {ingredientsOptions}
                                 label='Name:'
-                                name={`ingredients[${index}].ingredient`}
+                                name={`ingredients[${index}].name`}
                               />
                             </div>
                             <div className={styles.quantity}>
@@ -362,7 +361,7 @@ const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((props: any, ref: 
                             <div className={styles.buttons}>
                               <FwButton
                                 animation={AnimationType.PROGRESS}
-                                onClick={() => push({ ingredient: '', quantity: { number: null, measuringUnit: '' }, replacement: ''})}
+                                onClick={() => push({ name: '', quantity: { number: null, measuringUnit: '' }, replacement: ''})}
                                 variant={TemplateVariant.SECONDARY}
                               >
                                 <PlusLogo 
