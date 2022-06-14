@@ -5,7 +5,7 @@ export interface IIngredient {
   name: string,
   category: string,
   quantity: IIngredientQuantity,
-  canBeReplacedBy: IIngredient
+  replacement: string
 }
 
 export interface IIngredientQuantity {

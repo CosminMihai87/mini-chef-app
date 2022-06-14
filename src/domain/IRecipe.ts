@@ -20,7 +20,7 @@ export default interface IRecipe {
   name: string,
   scope: recipeScope,
   tags: recipeTags,
-  ingredientList: IIngredient[]
+  ingredients: IIngredient[]
   duration: {
     number: number,
     timeUnit: timeUnit

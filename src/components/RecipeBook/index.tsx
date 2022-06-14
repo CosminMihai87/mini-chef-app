@@ -28,6 +28,7 @@ import AddRecipe, {
   IAddRecipeForm 
 } from '../AddRecipe';
 import RecipeRow from './RecipeRow';
+import RecipePreview from './RecipePreview';
 import Services from '../../services';
 import { 
   ToastContainer, 
@@ -120,10 +121,6 @@ const RecipeBook: FC = (props) =>{
       }
     }
   },[deleteRecipeState]);
-
-  useEffect(()=>{
-    console.log(selectedRecipe);
-  },[selectedRecipe]);
 
   return (
     <Formik
@@ -308,7 +305,15 @@ const RecipeBook: FC = (props) =>{
             </div>
             <div className={styles['recipe-book-right']}>
               <div className={styles.preview}>
-                [TODO: Recipe Preview on select]
+                {
+                  selectedRecipe !== null ?
+                    <RecipePreview 
+                      recipe={selectedRecipe}
+                    /> :
+                    <div className={styles.placeholder}>
+                      <span>Please Click on a Recipe to Preview it!</span>
+                    </div>
+                } 
               </div>
             </div>
           </div>
