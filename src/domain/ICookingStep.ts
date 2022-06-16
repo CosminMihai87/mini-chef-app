@@ -1,9 +1,9 @@
 import { timeUnit } from './IRecipe';
 
 export default interface ICookingStep {
-  do: string,
+  description: string,
   duration: {
     number: number
-    unit: timeUnit
+    timeUnit: timeUnit
   }
 }

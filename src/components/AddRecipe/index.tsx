@@ -56,7 +56,7 @@ export interface IAddRecipeForm {
     timeUnit: string
   },
   steps: {
-    do: string,
+    description: string,
     duration: {
       number: number,
       timeUnit: string
@@ -82,7 +82,7 @@ const initialValues: IAddRecipeForm = {
     timeUnit: ''
   },
   steps: [{
-    do: '',
+    description: '',
     duration: {
       number: 0,
       timeUnit: ''
@@ -120,7 +120,7 @@ const validationSchema = Yup.object({
   ).min(1, 'Need at least 1 ingredient!'),
   steps: Yup.array().of(
     Yup.object().shape({
-      do: Yup.string()
+      description: Yup.string()
         .max(255,'Must be less or equal than 255 chars!')
         .required('Field required!'),
       duration: Yup.object().shape({
@@ -411,11 +411,11 @@ const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((props: any, ref: 
                             `}
                             key={index}
                           >
-                            <div className={styles.do}>
+                            <div className={styles.description}>
                               <FormikControl
                                 control={ControlType.TEXTAREA}
                                 label='Description:'
-                                name={`steps[${index}].do`}
+                                name={`steps[${index}].description`}
                               />
                             </div>
                             <div className={styles.duration}>
@@ -439,7 +439,7 @@ const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((props: any, ref: 
                             <div className={styles.buttons}>
                               <FwButton
                                 animation={AnimationType.PROGRESS}
-                                onClick={() => push({ do: '', duration: { number: null, timeUnit: '' }})}
+                                onClick={() => push({ description: '', duration: { number: null, timeUnit: '' }})}
                                 variant={TemplateVariant.SECONDARY}
                               >
                                 <PlusLogo 

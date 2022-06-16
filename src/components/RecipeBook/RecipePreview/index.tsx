@@ -15,12 +15,8 @@ const RecipePreview: FC<IRecipePreviewProps> = (props) => {
     // editedOn,
     // deletedOn,
     name,
-    // scope,
-    // tags,
-    ingredients
-    // duration,
-    // steps,
-    // popularity
+    ingredients,
+    steps
   } = props.recipe;
 
   return (
@@ -41,15 +37,36 @@ const RecipePreview: FC<IRecipePreviewProps> = (props) => {
                 const { 
                   name,
                   quantity: {
-                    measuringUnit,
-                    number
+                    number,
+                    measuringUnit
                   },
                   replacement
                 } = item;
-                return <li key={`${key}-${index}`}>
+                return <li key={`${key}-ingredients-${index}`}>
                   <span>
                     {number} {measuringUnit} of {name}
                     {replacement? `(replace with ${replacement})` : ''}
+                  </span>
+                </li>;
+              })}
+            </ul>
+          </div>
+          <div className={styles.steps}>
+            <div className={styles['steps-title']}>
+              <span>Steps:</span>
+            </div>
+            <ul>
+              {steps.map((item, index) => {
+                const { 
+                  description,
+                  duration: {
+                    number,
+                    timeUnit
+                  }
+                } = item;
+                return <li key={`${key}-steps-${index}`}>
+                  <span>
+                    {description} ({number} {timeUnit})
                   </span>
                 </li>;
               })}
