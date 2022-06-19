@@ -49,6 +49,11 @@
       overflow: auto;
       height: 400px;
 
+      .creation {
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
       .ingredients {
         .ingredients-title {
           font-family: InsightWebBold, Verdana, Helvetica, Arial, sans-serif;

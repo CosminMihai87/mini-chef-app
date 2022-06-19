@@ -11,9 +11,9 @@ export interface IRecipePreviewProps {
 const RecipePreview: FC<IRecipePreviewProps> = (props) => {
   const {
     key,
-    // createdOn,
-    // editedOn,
-    // deletedOn,
+    createdOn,
+    editedOn,
+    deletedOn,
     name,
     ingredients,
     steps
@@ -28,6 +28,11 @@ const RecipePreview: FC<IRecipePreviewProps> = (props) => {
           {name}
         </div>
         <div className={styles.details}>
+          <div className={styles.creation}> 
+            <span>***Created On: {createdOn.replace('T', ' ')}</span>
+            {editedOn && <span>***Edited On: {editedOn.replace('T', ' ')}</span>}
+            {deletedOn && <span>***Deleted On: {deletedOn.replace('T', ' ')}</span>} 
+          </div>
           <div className={styles.ingredients}>
             <div className={styles['ingredients-title']}>
               <span>Ingredients:</span>
