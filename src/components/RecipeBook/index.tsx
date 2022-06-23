@@ -24,9 +24,9 @@ import {
   RecipeTags 
 } from '../../domain/constants';
 import FwModal from '../../shared/templates/Modal';
-import AddRecipe, { 
-  IAddRecipeForm 
-} from '../AddRecipe';
+import RecipeForm, { 
+  IRecipeForm 
+} from '../RecipeForm';
 import RecipeRow from './RecipeRow';
 import RecipePreview from './RecipePreview';
 import Services from '../../services';
@@ -63,8 +63,8 @@ const RecipeBook: FC = (props) =>{
       };
     },
   );
-  const addRecipeRef = useRef<FormikProps<IAddRecipeForm>>(null);
-  const updateRecipeRef = useRef<FormikProps<IAddRecipeForm>>(null);
+  const addRecipeRef = useRef<FormikProps<IRecipeForm>>(null);
+  const updateRecipeRef = useRef<FormikProps<IRecipeForm>>(null);
   const {
     createRecipe,
     createRecipeState,
@@ -212,7 +212,7 @@ const RecipeBook: FC = (props) =>{
                         modalBtnPrimaryText='Add' 
                         modalTitleText='Add Recipe'
                       >
-                        <AddRecipe 
+                        <RecipeForm 
                           // @ts-ignore
                           createRecipe={createRecipe}
                           createRecipeState={createRecipeState}
@@ -248,7 +248,7 @@ const RecipeBook: FC = (props) =>{
                         modalBtnPrimaryText='Update' 
                         modalTitleText='Update Recipe'
                       >
-                        <AddRecipe 
+                        <RecipeForm 
                           // @ts-ignore
                           ref={updateRecipeRef}
                         />
