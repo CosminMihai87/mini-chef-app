@@ -5,7 +5,7 @@ import {
   ForwardedRef,
   useEffect
 } from 'react';
-import styles from './AddRecipe.module.scss';
+import styles from './RecipeForm.module.scss';
 import { 
   Formik, 
   FormikProps,
@@ -39,7 +39,7 @@ import {
 import 'react-toastify/dist/ReactToastify.css';
 import { initialRecipeState } from '../../services/reducers/Recipe';
 
-export interface IAddRecipeForm {
+export interface IRecipeForm {
   name: string;
   scope: string[];
   tags: string[];
@@ -65,7 +65,7 @@ export interface IAddRecipeForm {
   popularity: number
 }
 
-const initialValues: IAddRecipeForm = {
+const initialValues: IRecipeForm = {
   name: '',
   scope: [],
   tags: [],
@@ -141,7 +141,7 @@ const validationSchema = Yup.object({
     .required('Field required!')
 });
 
-const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((props: any, ref: ForwardedRef<FormikProps<IAddRecipeForm>> | null) => {
+const RecipeForm: FC = forwardRef<FormikProps<IRecipeForm>>((props: any, ref: ForwardedRef<FormikProps<IRecipeForm>> | null) => {
   const {
     createRecipe = null,
     createRecipeState = initialRecipeState
@@ -210,7 +210,7 @@ const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((props: any, ref: 
     }
   ];
 
-  const onSubmit = (values: IAddRecipeForm, submitProps: FormikHelpers<IAddRecipeForm>) => {
+  const onSubmit = (values: IRecipeForm, submitProps: FormikHelpers<IRecipeForm>) => {
     createRecipe(values);
     // submitProps.setSubmitting(createRecipeState.loading);
     // if (!createRecipeState.loading && createRecipeState.error === '') {
@@ -481,4 +481,4 @@ const AddRecipe: FC = forwardRef<FormikProps<IAddRecipeForm>>((props: any, ref: 
   );
 });
 
-export default AddRecipe;
+export default RecipeForm;
