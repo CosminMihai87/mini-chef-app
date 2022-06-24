@@ -19,7 +19,7 @@ import {
 import IRecipe from '../../src/domain/IRecipe';
 import {
   CREATE_RECIPE,
-  // UPDATE_RECIPE,
+  UPDATE_RECIPE,
   DELETE_RECIPE,
   GET_RECIPES
 } from './actionTypes';
@@ -29,9 +29,10 @@ const Services = () => {
 
   const [createRecipeState, dispatchCreateRecipe] = useReducer(recipeReducer, initialRecipeState);
   const [deleteRecipeState, dispatchDeleteRecipe] = useReducer(recipeReducer, initialRecipeState);
+  const [updateRecipeState, dispatchUpdateRecipe] = useReducer(recipeReducer, initialRecipeState);
   const [getRecipesState, dispatchGetRecipes] = useReducer(recipesReducer, initialRecipesState);
 
-  const createRecipe = useCallback((recipe: IRecipe ) => {
+  const createRecipe = useCallback((recipe: IRecipe) => {
     dispatchCreateRecipe({ 
       type: CREATE_RECIPE.START 
     });
@@ -64,7 +65,7 @@ const Services = () => {
       });
   }, []);
 
-  const deleteRecipe = useCallback((key: string ) => {
+  const deleteRecipe = useCallback((key: string) => {
     dispatchDeleteRecipe({ 
       type:DELETE_RECIPE.START 
     });
@@ -88,6 +89,39 @@ const Services = () => {
       .catch((error: AxiosError) => {
         dispatchDeleteRecipe({
           type: DELETE_RECIPE.FAIL,
+          error: error
+        });
+      });
+  }, []);
+
+  const updateRecipe = useCallback((key:string, recipe: IRecipe) => {
+    dispatchUpdateRecipe({ 
+      type:UPDATE_RECIPE.START 
+    });
+    const requestHeader = {
+      headers: {
+        'Auth': firebaseConfig.apiKey,
+        'content-type': 'application/x-www-form-urlencoded'
+      }
+    };
+    axios(firebaseConfig.referenceURL)
+      .patch(
+        `/app-data/recipes-list/${key}.json`,
+        JSON.stringify({
+          ...recipe, 
+          updatedOn: currentDateISOString()
+        }),
+        requestHeader
+      )
+      .then((response: AxiosResponse) => {
+        dispatchUpdateRecipe({
+          type: UPDATE_RECIPE.SUCCESS, 
+          updatedOn: currentDateISOString()
+        });
+      })
+      .catch((error: AxiosError) => {
+        dispatchUpdateRecipe({
+          type: UPDATE_RECIPE.FAIL,
           error: error
         });
       });
@@ -127,6 +161,8 @@ const Services = () => {
     createRecipeState: createRecipeState,
     deleteRecipe: deleteRecipe,
     deleteRecipeState: deleteRecipeState,
+    updateRecipe: updateRecipe,
+    updateRecipeState: updateRecipeState,
     getRecipes: getRecipes,
     getRecipesState: getRecipesState
   };
