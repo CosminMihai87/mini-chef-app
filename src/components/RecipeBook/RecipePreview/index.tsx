@@ -12,7 +12,7 @@ const RecipePreview: FC<IRecipePreviewProps> = (props) => {
   const {
     key,
     createdOn,
-    editedOn,
+    updatedOn,
     deletedOn,
     name,
     ingredients,
@@ -28,10 +28,10 @@ const RecipePreview: FC<IRecipePreviewProps> = (props) => {
           {name}
         </div>
         <div className={styles.details}>
-          <div className={styles.creation}> 
-            <span>***Created On: {createdOn.replace('T', ' ')}</span>
-            {editedOn && <span>***Edited On: {editedOn.replace('T', ' ')}</span>}
-            {deletedOn && <span>***Deleted On: {deletedOn.replace('T', ' ')}</span>} 
+          <div className={styles['core-details']}> 
+            <span>***Created On: {createdOn}</span>
+            {updatedOn && <span>***Updated On: {updatedOn}</span>}
+            {deletedOn && <span>***Deleted On: {deletedOn}</span>} 
           </div>
           <div className={styles.ingredients}>
             <div className={styles['ingredients-title']}>

@@ -9,7 +9,10 @@ import {
   useRef
 } from 'react';
 import styles from './FwDropdown.module.scss';
-import { Field } from 'formik';
+import { 
+  Field,
+  FieldProps
+} from 'formik';
 import { 
   Dropdown, 
   FormGroup, 
@@ -37,6 +40,7 @@ interface IFwDropdownProps {
   name?: string,
   id?: string,
   options: IFwDropdownOption[] | undefined,
+  defaultValue?: string,
   isDisabled?: boolean,
   animation?: animationType
   variant?: templateVariant,
@@ -61,18 +65,19 @@ const FwDropdown: FC<IFwDropdownProps> = (props) => {
     name,
     id = undefined,
     options,
+    defaultValue = '',
     isDisabled = false,
     animation = AnimationType.PROGRESS,
     variant = TemplateVariant.PRIMARY,
     searchPlaceholder = 'Type to filter...'
   } = {...props};
   const [expandedDropdown, setExpandedDropdown] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState(defaultValue);
   const [searchedValue, setSearchedValue] = useState('');
   const [filteredOptions, setFilteredOptions] = useState(options);
 
   const handleDropdownOptionClick = (e: MouseEvent<HTMLInputElement>, form: any) => {
-    setSelectedOption(options?.find((opt: IFwDropdownOption) => opt.value === (e.target as HTMLElement).innerText)?.key as SetStateAction<string>);
+    setSelectedOption(options?.find((opt: IFwDropdownOption) => opt.value === (e.target as HTMLElement).innerText)?.value as SetStateAction<string>);
     form.setFieldValue(name, options?.find((opt: IFwDropdownOption) => opt.value === (e.target as HTMLElement).innerText)?.value as SetStateAction<string>);
   };
 
@@ -90,11 +95,20 @@ const FwDropdown: FC<IFwDropdownProps> = (props) => {
   useEffect(()=>{
     setFilteredOptions(options?.filter((t: IFwDropdownOption)=> t.value.toLowerCase().indexOf(searchedValue.toLowerCase())!==-1));
   },[searchedValue]);
+
+  useEffect(()=>{
+    setSelectedOption(defaultValue);
+  },[defaultValue]);
   
   return(
     <div className={styles['fw-form-control']}>
       <Field name={name}>
-        {({ field, form, meta }: any) => {
+        {(props: FieldProps) => {
+          const { 
+            field,
+            form,
+            meta 
+          } = props;
           return (
             <FormGroup className={styles['fw-dropdown-group']}>
               {label && 
@@ -126,7 +140,7 @@ const FwDropdown: FC<IFwDropdownProps> = (props) => {
                       'Searching...' :
                       'Please select'
                     : selectedOption!=='' ? 
-                      filteredOptions?.find((t: IFwDropdownOption)=> t.key===selectedOption)?.value : 
+                      filteredOptions?.find((t: IFwDropdownOption)=> t.value===selectedOption)?.value : 
                       'Please select'
                   }
                   <div className={styles['fw-dropdown-toggle-logos']}>
@@ -157,7 +171,7 @@ const FwDropdown: FC<IFwDropdownProps> = (props) => {
                         ${styles['fw-dropdown-item']}
                         ${styles[`${variant}`]}
                         ${styles[`animation-${animation}`]}
-                        ${selectedOption && selectedOption === item.key && styles['fw-dropdown-item-selected']}
+                        ${selectedOption!=='' && selectedOption === item.key && styles['fw-dropdown-item-selected']}
                       `}
                       key={filteredOptions.indexOf(item)}
                       name={name}
@@ -166,7 +180,7 @@ const FwDropdown: FC<IFwDropdownProps> = (props) => {
                       tabIndex={expandedDropdown ? 0 : -1}
                     >
                       {item.value}
-                      {selectedOption && selectedOption === item.key &&
+                      {selectedOption!=='' && selectedOption === item.value &&
                         <CheckLogo />
                       }
                     </Dropdown.Item>

@@ -26,6 +26,7 @@ export interface IFormikControlProps {
   placeholder?: string
   innerRef?: RefObject<HTMLElement> | null,
   dropdownOptions?: IFwDropdownOption[],
+  defaultValue?: string,
   checkBoxListOptions?: IFwCheckBox[],
   dropdownVariant?: templateVariant,
   animation?: animationType
@@ -44,6 +45,7 @@ const FormikControl: FC<IFormikControlProps> = (props) => {
     placeholder,
     innerRef,
     dropdownOptions,
+    defaultValue,
     checkBoxListOptions,
     dropdownVariant,
     animation,
@@ -72,6 +74,7 @@ const FormikControl: FC<IFormikControlProps> = (props) => {
   case ControlType.DROPDOWN:
     return <FwDropdown
       animation={animation}
+      defaultValue={defaultValue}
       dropdownType={dropdownType}
       id={id}
       label={label}

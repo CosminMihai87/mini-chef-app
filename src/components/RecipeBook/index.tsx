@@ -70,6 +70,8 @@ const RecipeBook: FC = (props) =>{
     createRecipeState,
     deleteRecipe,
     deleteRecipeState,
+    updateRecipe,
+    updateRecipeState,
     getRecipes,
     getRecipesState
   } = Services();
@@ -92,14 +94,20 @@ const RecipeBook: FC = (props) =>{
 
   useEffect(()=>{
     if ((!createRecipeState.loading && 
-        createRecipeState.createdOn.length > 0) || 
+        createRecipeState.createdOn.length > 0) ||
       (!deleteRecipeState.loading && 
-        deleteRecipeState.deletedOn.length > 0)) {
+        deleteRecipeState.deletedOn.length > 0) ||
+      (!updateRecipeState.loading && 
+        updateRecipeState.updatedOn.length > 0)
+    ) {
       getRecipes();
       setRecipeList(getRecipesState.data);
       setSelectedRecipe(null);
+      if (updateRecipeState.updatedOn.length > 0) {
+        setOpenUpdateRecipe(false);
+      }
     }
-  },[createRecipeState, deleteRecipeState]);
+  },[createRecipeState, deleteRecipeState, updateRecipeState]);
 
   useEffect(() => {
     if (deleteRecipeState.loading === false) {
@@ -121,6 +129,27 @@ const RecipeBook: FC = (props) =>{
       }
     }
   },[deleteRecipeState]);
+
+  useEffect(() => {
+    if (updateRecipeState.loading === false) {
+      if (updateRecipeState.updatedOn.length > 0 &&
+        Object.keys(updateRecipeState.error).length === 0) {
+        toast.success('Recipe Updated!',{
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+        });
+      }
+      if (updateRecipeState.updatedOn.length === 0 &&
+        Object.keys(updateRecipeState.error).length > 0) {
+        toast.error('Error updating Recipe!',{
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+        });
+      }
+    }
+  },[updateRecipeState]);
 
   return (
     <Formik
@@ -233,6 +262,7 @@ const RecipeBook: FC = (props) =>{
                     <div className={styles.update}>  
                       <FwButton
                         animation={AnimationType.PROGRESS}
+                        isDisabled={selectedRecipe === null}
                         onClick={() => setOpenUpdateRecipe(!openUpdateRecipe)} 
                         variant={TemplateVariant.PRIMARY}
                       >
@@ -240,9 +270,7 @@ const RecipeBook: FC = (props) =>{
                       </FwButton>
                       <FwModal 
                         closeOnPrimaryButtonClick={false} 
-                        handleBtnPrimary={() => {
-                          console.log('Recipe Update!');
-                        }}
+                        handleBtnPrimary={() => updateRecipeRef?.current?.handleSubmit()}
                         handleClose={() => setOpenUpdateRecipe(false)}
                         isOpen={openUpdateRecipe}
                         modalBtnPrimaryText='Update' 
@@ -251,6 +279,9 @@ const RecipeBook: FC = (props) =>{
                         <RecipeForm 
                           // @ts-ignore
                           ref={updateRecipeRef}
+                          selectedRecipe={selectedRecipe}
+                          updateRecipe={updateRecipe}
+                          updateRecipeState={updateRecipeState}
                         />
                       </FwModal>
                     </div>

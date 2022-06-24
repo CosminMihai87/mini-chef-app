@@ -15,7 +15,7 @@ export type recipePopularity = 1 | 2 | 3 | 4 | 5;
 export default interface IRecipe {
   key?: string,
   createdOn: string, 
-  editedOn?: string,
+  updatedOn?: string,
   deletedOn?: string,
   name: string,
   scope: recipeScope,

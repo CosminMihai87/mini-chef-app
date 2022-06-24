@@ -3,6 +3,7 @@ import {
   FC,
   forwardRef,
   ForwardedRef,
+  useState,
   useEffect
 } from 'react';
 import styles from './RecipeForm.module.scss';
@@ -65,7 +66,7 @@ export interface IRecipeForm {
   popularity: number
 }
 
-const initialValues: IRecipeForm = {
+const defaultValues: IRecipeForm = {
   name: '',
   scope: [],
   tags: [],
@@ -143,9 +144,13 @@ const validationSchema = Yup.object({
 
 const RecipeForm: FC = forwardRef<FormikProps<IRecipeForm>>((props: any, ref: ForwardedRef<FormikProps<IRecipeForm>> | null) => {
   const {
+    selectedRecipe = null,
     createRecipe = null,
-    createRecipeState = initialRecipeState
+    createRecipeState = initialRecipeState,
+    updateRecipe = null,
+    // updateRecipeState = initialRecipeState,
   } = {...props};
+  const [ initialValues, setInitialValues ] = useState(defaultValues);
 
   const recipeScopeOptions: IFwCheckBox[]  = (Object.keys(RecipeScope) as (keyof typeof RecipeScope)[]).map(
     (key, index) => {
@@ -211,11 +216,13 @@ const RecipeForm: FC = forwardRef<FormikProps<IRecipeForm>>((props: any, ref: Fo
   ];
 
   const onSubmit = (values: IRecipeForm, submitProps: FormikHelpers<IRecipeForm>) => {
-    createRecipe(values);
-    // submitProps.setSubmitting(createRecipeState.loading);
-    // if (!createRecipeState.loading && createRecipeState.error === '') {
+    if (selectedRecipe!==null) { 
+      updateRecipe(selectedRecipe.key,values);
+    } else { 
+      createRecipe(values);
+      setInitialValues(defaultValues);
+    }
     submitProps.resetForm();
-    // }
   };
 
   useEffect(() => {
@@ -239,6 +246,14 @@ const RecipeForm: FC = forwardRef<FormikProps<IRecipeForm>>((props: any, ref: Fo
     }
   },[createRecipeState]);
 
+  useEffect(() => {
+    if (selectedRecipe!==null) {
+      setInitialValues(selectedRecipe);
+    } else {
+      setInitialValues(defaultValues);
+    }
+  },[selectedRecipe]);
+
   return (
     <div className={styles['add-recipe']}> 
       <ToastContainer 
@@ -248,12 +263,16 @@ const RecipeForm: FC = forwardRef<FormikProps<IRecipeForm>>((props: any, ref: Fo
         rtl={false}
       />
       <Formik
+        enableReinitialize
         initialValues={initialValues}
         innerRef={ref}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        {_formik => {
+        {formik => {
+          const {
+            values
+          } = formik;
           return (
             <Form>
               <FormikControl
@@ -295,7 +314,8 @@ const RecipeForm: FC = forwardRef<FormikProps<IRecipeForm>>((props: any, ref: Fo
                   <div className={styles['time-unit']}>
                     <FormikControl
                       control={ControlType.DROPDOWN}
-                      dropdownOptions= {recipeTimeUnitsOptions}
+                      defaultValue={values.duration.timeUnit}
+                      dropdownOptions={recipeTimeUnitsOptions}
                       label=''
                       name='duration.timeUnit'
                     />
@@ -327,6 +347,7 @@ const RecipeForm: FC = forwardRef<FormikProps<IRecipeForm>>((props: any, ref: Fo
                             <div className={styles.ingredient}>
                               <FormikControl
                                 control={ControlType.DROPDOWN}
+                                defaultValue={values.ingredients[index].name}
                                 dropdownOptions= {ingredientsOptions}
                                 label='Name:'
                                 name={`ingredients[${index}].name`}
@@ -344,6 +365,7 @@ const RecipeForm: FC = forwardRef<FormikProps<IRecipeForm>>((props: any, ref: Fo
                               <div className={styles['measuring-unit']}>
                                 <FormikControl
                                   control={ControlType.DROPDOWN}
+                                  defaultValue={values.ingredients[index].quantity.measuringUnit}
                                   dropdownOptions= {recipeMeasuringUnitOptions}
                                   label='&nbsp;'
                                   name={`ingredients[${index}].quantity.measuringUnit`}
@@ -353,6 +375,7 @@ const RecipeForm: FC = forwardRef<FormikProps<IRecipeForm>>((props: any, ref: Fo
                             <div className={styles.replacement}>
                               <FormikControl
                                 control={ControlType.DROPDOWN}
+                                defaultValue={values.ingredients[index].replacement}
                                 dropdownOptions= {ingredientsOptions}
                                 label='Can be replaced by:'
                                 name={`ingredients[${index}].replacement`}
@@ -430,6 +453,7 @@ const RecipeForm: FC = forwardRef<FormikProps<IRecipeForm>>((props: any, ref: Fo
                               <div className={styles['time-units']}>
                                 <FormikControl
                                   control={ControlType.DROPDOWN}
+                                  defaultValue={values.steps[index].duration.timeUnit}
                                   dropdownOptions= {recipeTimeUnitsOptions}
                                   label='&nbsp;'
                                   name={`steps[${index}].duration.timeUnit`}

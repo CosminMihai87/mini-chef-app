@@ -8,5 +8,6 @@ export const filterJSONbyKey = (jsonObject, filterValue) => {
 };
 
 export const currentDateISOString = () => {
-  return new Date(Date.now()).toISOString().split('.')[0];
+  const date = new Date();
+  return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split('.')[0].replace('T', ' ');
 };
