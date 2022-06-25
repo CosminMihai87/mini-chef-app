@@ -2,7 +2,9 @@
 
 .log-in {
   width: 50%;
+  max-width: 400px;
   height: 50%;
+  max-height: 250px;
   font-family: InsightWebRegular, Arial, sans-serif;
   font-size: 16px;
   color: $fw-primary;
@@ -10,10 +12,55 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  vertical-align: middle;
+  gap: 0.5em;
   border: 1px solid $fw-primary;
   border-radius: 0.5em;
-  padding: 0.375em 0.5em;
+  padding: 3.5em;
   backdrop-filter: brightness(20%) blur(16px);
   overflow: hidden;
+
+  .username {
+    width: 100%;
+  }
+
+  .password {
+    width: 100%;
+  }
+
+  .buttons {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+
+    .login-buttons {
+      width: inherit;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 0.5em;
+
+      .login {
+        width: 50%;
+
+        >button {
+          width: 100%;
+        }
+      }
+    }
+
+    .media-buttons {
+      width: inherit;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 0.5em;
+
+      // .google {
+
+      // }
+    }
+  }
 }

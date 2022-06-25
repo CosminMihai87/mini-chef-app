@@ -138,7 +138,7 @@ const PageFooter: React.FC<PageFooterInterface> = (props) => {
             </FwButton>
             <FwButton
               animation={AnimationType.JELLO}
-              id='btInstagramID'
+              id='btnInstagramID'
               innerRef={btnInstagram}
               onClick={()=>{
                 window.open(INSTAGRAM_URL,'_blank');
@@ -153,7 +153,7 @@ const PageFooter: React.FC<PageFooterInterface> = (props) => {
             </FwButton>
             <FwButton
               animation={AnimationType.JELLO}
-              id='btFacebookID'
+              id='btnFacebookID'
               innerRef={btnFacebook}
               onClick={()=>{
                 window.open(FACEBOOK_URL,'_blank');
