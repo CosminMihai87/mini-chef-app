@@ -15,12 +15,16 @@ import Recipe from './components/Recipe';
 import WeeklyPlan from './components/WeeklyPlan';
 import ShoppingCart from './components/ShoppingCart';
 import Calendar from './components/Calendar';
+import LogIn from './components/LogIn';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <BrowserRouter basename='mini-chef-app'>
     <Routes>
+      <Route element={<LogIn />} path='/'>
+        <Route element={<LogIn />} index />
+      </Route>
       <Route element={<App />} path='/'>
         <Route element={<RecipeBook />} index />
         <Route element={<Home />} path='/home' />
